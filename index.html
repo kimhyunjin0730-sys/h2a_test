@@ -115,7 +115,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .hero-section { padding: 100px 0 80px; border-bottom: 1px solid var(--line); background: var(--surface-light); }
-        .section-wrap { padding: 100px 0; }
+        .section-wrap { padding-top: 100px; padding-bottom: 100px; }
         
         .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
@@ -135,7 +135,7 @@
         .list-meta span:nth-child(odd) { color: var(--ink); font-weight: 700; }
         
         .breadcrumb { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 2rem; }
-        .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 6rem; padding: 80px 0; align-items: start; }
+        .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 6rem; padding-top: 80px; padding-bottom: 80px; align-items: start; }
         .info-panel { position: sticky; top: 120px; border: 1px solid var(--line); padding: 3rem; background: var(--surface-light); }
         .info-row { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
         .info-row:last-of-type { border-bottom: none; }
@@ -353,7 +353,7 @@
             .mega-menu { display: none !important; }
         }
         @media (max-width: 768px) {
-            .section-wrap { padding: 60px 0; }
+            .section-wrap { padding-top: 60px; padding-bottom: 60px; }
             .grid-2, .grid-3, .grid-4, .list-item, .footer-grid, .curriculum-list > li { grid-template-columns: 1fr; gap: 2rem; }
             .data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
             .data-table th { display: none; }
