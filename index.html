@@ -435,7 +435,7 @@
         </div>
         <div class="mega-menu" id="mega-contact">
             <div class="mega-grid-compact">
-                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#contact" class="mega-link">문의하기</a></li><li><a href="#application" class="mega-link">프로그램 신청</a></li><li><a href="#payment-lookup" class="mega-link">결제 확인</a></li><li><a href="#faq" class="mega-link">FAQ</a></li></ul></div>
+                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#contact" class="mega-link">문의하기</a></li><li><a href="#payment" class="mega-link">프로그램 신청</a></li><li><a href="#payment-lookup" class="mega-link">결제 확인</a></li><li><a href="#faq" class="mega-link">FAQ</a></li></ul></div>
             </div>
         </div>
 
@@ -446,7 +446,7 @@
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">기업교육 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#business" class="m-link">기업교육 소개</a><a href="#business/solution" class="m-link">H2A Corporate Solutions</a><a href="#business/quantum" class="m-link">Quantum 품격</a><a href="#business/proposal" class="m-link">제안 요청</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">후기·소식 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#reviews" class="m-link">프로그램 후기</a><a href="#gallery" class="m-link">교육 현장</a><a href="#notices" class="m-link">공지사항</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">인사이트 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#insights" class="m-link">인사이트 전체 보기</a></div></div>
-            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">문의·신청 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#contact" class="m-link">문의하기</a><a href="#application" class="m-link">프로그램 신청</a><a href="#payment-lookup" class="m-link">결제 확인</a><a href="#faq" class="m-link">FAQ</a></div></div>
+            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">문의·신청 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#contact" class="m-link">문의하기</a><a href="#payment" class="m-link">프로그램 신청</a><a href="#payment-lookup" class="m-link">결제 확인</a><a href="#faq" class="m-link">FAQ</a></div></div>
         </nav>
     </header>
 
@@ -860,14 +860,17 @@
             el.classList.add('active');
         };
         window.processPayment = () => {
+            const prog = sessionStorage.getItem('h2a_pay_prog');
+            if(!prog) return showToast('프로그램을 선택해주세요.');
             if(!document.querySelector('.pay-tile.active')) return showToast('결제 수단을 선택해주세요.');
             if(!document.getElementById('pay-agree').checked) return showToast('결제 진행 동의에 체크해주세요.');
-            showToast('데모 화면입니다. 실제 결제는 이루어지지 않습니다.');
-            setTimeout(() => { location.hash = '#payment-complete'; }, 600);
+            sessionStorage.setItem('h2a_apply_prog', prog);
+            showToast('데모 결제가 완료되었습니다. 신청 정보를 입력해주세요.');
+            setTimeout(() => { location.hash = '#application'; }, 600);
         };
 
         // Form Route Actions
-        window.goApplication = (progTitle) => { sessionStorage.setItem('h2a_apply_prog', progTitle); location.hash = '#application'; };
+        window.goApplication = (progTitle) => { sessionStorage.setItem('h2a_apply_prog', progTitle); sessionStorage.setItem('h2a_pay_prog', progTitle); location.hash = '#payment'; };
         window.goContact = (progTitle, isCorp) => { 
             if(isCorp) { location.hash = '#business-contact'; } 
             else { sessionStorage.setItem('h2a_inq_prog', progTitle); location.hash = '#contact'; }
@@ -1426,8 +1429,8 @@
             'application': () => `
                 <div class="page-view active">${rTitle('Application','프로그램 신청')}
                 <div class="container section-wrap" style="max-width:800px;">
-                    <div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">신청 접수 후 담당자 확인을 거쳐 안내를 드립니다.</div>
-                    <form class="form-grid" onsubmit="event.preventDefault(); sessionStorage.setItem('h2a_pay_prog', document.getElementById('apply-program').value); location.hash='#payment';">
+                    <div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">결제(데모) 확인 후 신청 정보를 작성하는 단계입니다. 접수하시면 담당자 확인을 거쳐 안내를 드립니다.</div>
+                    <form class="form-grid" novalidate onsubmit="event.preventDefault(); location.hash='#application-complete';">
                         <div class="form-group"><label>프로그램 및 기수 선택</label><select id="apply-program" required><option value="">선택</option>${programsData.map(p=>`<option value="${p.title}">${p.title} (${p.schedule})</option>`).join('')}</select></div>
                         <div class="form-group"><label>성명</label><input type="text" required></div>
                         <div class="form-group"><label>연락처</label><input type="tel" required pattern="[0-9-]+" placeholder="010-0000-0000"></div>
@@ -1454,7 +1457,7 @@
                     <div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">화면 검수용 데모입니다. 실제 결제는 PG사 선정·연동 후 제공됩니다.</div>
                     <div style="border:1px solid var(--line); background:var(--surface); padding:2rem; margin-bottom:2.5rem;">
                         <h4 style="font-size:1.05rem; margin-bottom:1.2rem;">주문 정보</h4>
-                        <div class="list-meta" style="margin:0;"><span>프로그램</span><span>${p ? escapeHTML(p.title) : '신청 화면에서 프로그램을 먼저 선택해주세요'}</span><span>일정</span><span>${p ? escapeHTML(p.schedule) : '-'}</span><span>결제 예정 금액</span><span style="font-weight:700; color:var(--brand-red-dark);">${p ? escapeHTML(p.price) : '-'}</span></div>
+                        <div class="list-meta" style="margin:0;"><span>프로그램</span><span><select id="pay-program" onchange="sessionStorage.setItem('h2a_pay_prog', this.value); router();" style="width:100%; padding:6px 8px; border:1px solid var(--line); font-family:inherit;"><option value="">프로그램을 선택하세요</option>${programsData.map(x => `<option value="${x.title}" ${p && p.title === x.title ? 'selected' : ''}>${x.title}</option>`).join('')}</select></span><span>일정</span><span>${p ? escapeHTML(p.schedule) : '-'}</span><span>결제 예정 금액</span><span style="font-weight:700; color:var(--brand-red-dark);">${p ? escapeHTML(p.price) : '-'}</span></div>
                     </div>
                     <h4 style="font-size:1.05rem; margin-bottom:1.2rem;">결제 수단 선택</h4>
                     <div class="pay-method-grid">
