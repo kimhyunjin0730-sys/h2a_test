@@ -1291,7 +1291,7 @@
                     closingHtml = `<div style="margin-top: 6rem; padding: 4rem 0; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background:var(--surface-light);"><h3 class="eng-title" style="font-size:1.6rem; color:var(--brand-red-dark); font-weight:400; font-style:italic;">"${escapeHTML(p.closing)}"</h3></div>`;
                 }
                 
-                const btnHtml = `<button class="btn btn-primary btn-full" style="margin-top: 2rem;" onclick="goContact('${p.title}', false)">${p.cta}</button>`;
+                const btnHtml = `<button class="btn btn-primary btn-full" style="margin-top: 2rem;" onclick="goApplication('${p.title}')">${p.cta}</button>`;
 
                 const expert = expertsData[p.expert] || expertsData['hwang'];
                 const expertHtml = p.expert !== 'all' ? `
