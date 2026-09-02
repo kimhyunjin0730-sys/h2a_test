@@ -390,6 +390,12 @@
         /* 실사진 수령 전 자리표시자. 다른 사람 얼굴을 실명 프로필로 노출하지 않기 위한 것.
            이미지와 같은 자리·크기를 차지해 카드 대칭이 깨지지 않는다. */
         .img-placeholder { display:block; width:100%; height:100%; min-height:200px; background:var(--surface-light); border:1px solid var(--line); }
+
+        /* Soul Speech 마무리 인용 박스.
+           남복희 원장 요청 문서 지정값(#F5F3EE). 전역 --surface-light(#F7F7F7)와
+           다른 따뜻한 톤이라 이 자리에만 쓴다. */
+        .quote-box { background: #F5F3EE; padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        .quote-box .quote-text { font-family: var(--font-eng); font-size: 1.6rem; font-style: italic; font-weight: 400; color: var(--brand-red-dark); line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -1301,8 +1307,8 @@
                         </div>
                     </div>
 
-                    <div style="padding: 4rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background:var(--surface-light); text-align:center;">
-                        <h3 class="eng-title" style="font-size:1.6rem; color:var(--brand-red-dark); font-weight:400; font-style:italic;">"YOUR VOICE. YOUR MESSAGE. YOUR INFLUENCE."</h3>
+                    <div class="quote-box">
+                        <h3 class="quote-text">"YOUR VOICE. YOUR MESSAGE. YOUR INFLUENCE."</h3>
                     </div>
                 </div>`;
                 if(cat === 'experience') introHtml = `<div class="container section-wrap text-center" style="padding-bottom:0;"><h2 class="section-title">PRIVATE PROGRAMS</h2><p class="body-large">유행이 아니라 역할, 상황, 상대, 장소에 대한 존중을 표현하는 프라이빗 프로그램입니다.</p></div>`;
