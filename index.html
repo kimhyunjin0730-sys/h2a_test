@@ -748,7 +748,7 @@
         @media(prefers-reduced-motion:reduce) {
          *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; }
          .reveal-pending { opacity:1; transform:none; }
-         .hero-theatre { height:calc(100svh - var(--header-height)); }
+         .hero-theatre { height:max(640px,calc(100svh - var(--header-height))); }
          .hero-sticky { position:relative; top:0; }
          .live-hero.hero-slider-wrap { clip-path:none; }
          .theatre-wordmark { transform:none; }
@@ -770,6 +770,97 @@
         .cal-header, .cal-grid { grid-template-columns:repeat(7,minmax(0,1fr)) !important; }
         .cal-day { min-width:0; overflow-wrap:anywhere; }
         @media(max-width:480px) { .cal-header { font-size:10px; } .cal-day { padding:4px !important; } .cal-event { font-size:10px !important; } }
+
+        /* Shared spacing and reading rhythm, including the original content templates. */
+        .mt-sm { margin-top:8px; } .mt-md { margin-top:16px; } .mt-lg { margin-top:24px; } .mt-xl { margin-top:36px; }
+        .mb-sm { margin-bottom:8px; } .mb-md { margin-bottom:16px; } .mb-lg { margin-bottom:24px; } .mb-xl { margin-bottom:36px; }
+        .mt-auto { margin-top:auto; } .p-lg { padding:28px; } .pt-lg { padding-top:24px; } .pb-xl { padding-bottom:36px; }
+        .pb-0 { padding-bottom:0; } .font-bold { font-weight:700; } .text-left { text-align:left; }
+        .border-bottom,.border-b { border-bottom:1px solid var(--line); } .border-all { border:1px solid var(--line); }
+        .message-title { font-size:clamp(26px,6vw,48px) !important; overflow-wrap:anywhere; }
+        .prose-disclosure { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:20px 0; margin:32px 0; }
+        .prose-disclosure > summary { cursor:pointer; font-size:20px; font-weight:600; padding:10px 0; }
+        .prose-disclosure > .disclosure-body { padding-top:24px; }
+        summary:focus-visible { outline:2px solid var(--brand-red); outline-offset:4px; }
+        .curriculum-list > li:has(details) { display:block; padding:0; }
+        .curriculum-step > summary { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 0; cursor:pointer; list-style:none; }
+        .curriculum-step > summary::-webkit-details-marker { display:none; }
+        .curriculum-step > summary::after { content:'+'; font-size:24px; flex:none; color:var(--brand-red-dark); }
+        .curriculum-step[open] > summary::after { content:'−'; }
+        .curriculum-step > summary > div { margin:0 !important; }
+        .curriculum-step .step-body { padding:0 0 28px; }
+        .curriculum-step .step-body > ul { line-height:1.9; }
+        .step-photo { width:100%; max-height:280px; object-fit:cover; border-radius:4px; margin-bottom:22px; }
+        .curriculum-step[data-stage="1"] { background:#f5f3ee; padding:0 22px; }
+        .curriculum-step[data-stage="2"] { background:#f0f3f4; padding:0 22px; }
+        .curriculum-step[data-stage="3"] { background:#f4eeee; padding:0 22px; }
+        .program-end-cta { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:28px; margin:40px 0 0; background:#f5f3ee; }
+        .program-end-cta strong { display:block; font-size:20px; margin-bottom:6px; }
+        .program-end-cta p { color:var(--text-sub); font-size:14px; }
+        .detail-section-nav button[aria-current="location"] { color:var(--brand-red-dark); box-shadow:inset 0 -2px var(--brand-red-dark); }
+        .video-feature { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:48px; align-items:center; }
+        .video-feature > div { min-width:0; }
+        .video-stage { width:100%; min-width:0; aspect-ratio:16/9; min-height:200px; background:#202225; border-radius:6px; overflow:hidden; }
+        .video-poster { display:block; position:relative; width:100%; height:100%; min-height:200px; color:#fff; }
+        .video-poster img { width:100%; height:100%; object-fit:cover; }
+        .video-poster::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,#0007,transparent 70%); }
+        .video-play-icon { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:1; display:grid; place-items:center; width:70px; height:70px; border-radius:50%; background:#fff; color:#913238; font-size:23px; box-shadow:0 5px 30px #0003; }
+        .video-poster:hover .video-play-icon { background:#913238; color:#fff; }
+        .video-player { width:100%; height:100%; min-height:200px; border:0; display:block; }
+        .video-copy h2 { font-size:clamp(26px,2.8vw,38px); line-height:1.45; letter-spacing:-.045em; }
+        .video-copy > p { margin:20px 0; color:var(--text-sub); font-size:14px; line-height:1.9; }
+        .video-actions { display:flex; flex-wrap:wrap; gap:12px 22px; margin-top:22px; }
+        .video-original { margin-top:12px; font-size:12px; display:inline-flex; min-height:40px; align-items:center; text-decoration:underline; text-underline-offset:4px; }
+        .soul-hero { position:relative; min-height:480px; color:white; background:#222; display:flex; align-items:center; }
+        .soul-hero > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+        .soul-hero::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#0c1524d9,#0c152444); }
+        .soul-hero > .container { width:100%; position:relative; z-index:1; padding-top:65px; padding-bottom:65px; }
+        .soul-hero .kicker { color:#eee2d4; }
+        .soul-hero h1 { font-size:clamp(32px,4.5vw,60px); line-height:1.45; letter-spacing:-.06em; }
+        .soul-hero p { margin-top:20px; color:#eee; }
+        .soul-hero .btn { margin-top:26px; }
+        .soul-compare { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+        .soul-compare a { display:block; border:1px solid var(--line); border-radius:5px; padding:28px; }
+        .soul-compare a:hover { border-color:var(--brand-red-dark); background:#f8f5f3; }
+        .soul-compare strong { font-size:24px; display:block; margin:8px 0; }
+        .soul-compare p { color:var(--text-sub); line-height:1.8; font-size:14px; }
+        .program-list-controls { display:flex; flex-wrap:wrap; gap:10px; margin:0 0 30px; }
+        .program-list-controls button,.program-list-controls a { border:1px solid var(--line); border-radius:24px; padding:11px 20px; min-height:44px; font-size:13px; }
+        .program-list-controls [aria-pressed="true"],.program-list-controls [aria-current="page"] { background:var(--ink); color:#fff; }
+        .list-item[hidden],.acc-item[hidden] { display:none; }
+        .program-list .list-item { grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:42px; padding:36px 0; }
+        .program-list .list-item:first-child { padding-top:0; }
+        .program-list .list-meta { font-size:13px; grid-template-columns:55px 1fr; }
+        .program-list .list-item h3 { font-size:25px !important; }
+        .program-list .list-item .btn { margin-top:6px; }
+        .director-card { min-width:0; justify-content:flex-start; }
+        .director-card:hover { transform:none; }
+        .director-card .director-actions { display:flex; flex-wrap:wrap; gap:12px; margin:24px 0; }
+        .director-card .img-wrap { height:350px; display:flex; justify-content:center; background:#f5f5f5; }
+        .director-card .img-wrap img { height:350px !important; max-height:none; }
+        .notice-list { border-top:1px solid var(--ink); }
+        .gallery-button { text-align:left; color:inherit; }
+        .notice-item { display:grid; grid-template-columns:110px 1fr 24px; gap:20px; align-items:center; padding:26px 0; border-bottom:1px solid var(--line); }
+        .notice-item h2 { font-size:20px; font-weight:500; }
+        .notice-item time { font-size:12px; color:var(--text-sub); }
+        .faq-search { margin-bottom:28px; }
+        .faq-search label { display:block; margin-bottom:10px; font-weight:600; }
+        .filter-empty { padding:24px 0; color:var(--text-sub); }
+        .form-note { padding:16px 20px; background:#f5f3ee; font-size:13px; line-height:1.8; margin-bottom:24px; }
+        @media(max-width:760px) {
+         .p-lg { padding:20px; } .mb-xl { margin-bottom:28px; } .mt-xl { margin-top:28px; }
+         .video-feature { grid-template-columns:minmax(0,1fr); gap:25px; }
+         .video-copy h2 { font-size:28px; } .video-play-icon { width:56px; height:56px; font-size:19px; }
+         .soul-hero { min-height:460px; } .soul-hero h1 { font-size:32px; }
+         .soul-compare { grid-template-columns:1fr; gap:14px; }
+         .soul-compare a { padding:22px; }
+         .program-list .list-item { grid-template-columns:1fr; gap:20px; }
+         .program-end-cta { flex-direction:column; align-items:stretch; padding:22px; }
+         .notice-item { grid-template-columns:1fr 24px; gap:10px; padding:22px 0; }
+         .notice-item time { grid-column:1/-1; } .notice-item h2 { font-size:17px; }
+         .prose-disclosure > summary { font-size:18px; }
+         .curriculum-step > summary { padding:20px 0; }
+        }
     </style>
 </head>
 <body>
@@ -918,6 +1009,7 @@
             let userPaused = reduced.matches;
             let hover = false;
             let focus = false;
+            let explicitPlay = false;
             let remaining = 7000;
             let started = 0;
             const toggle = wrap.querySelector('.slider-toggle');
@@ -930,7 +1022,7 @@
             }
             function schedule() {
                 pauseTimer();
-                const paused = userPaused || hover || focus || document.hidden;
+                const paused = userPaused || (!explicitPlay && (hover || focus)) || document.hidden;
                 wrap.classList.toggle('is-paused', paused);
                 if (toggle) {
                     toggle.textContent = userPaused ? '▶' : 'Ⅱ';
@@ -971,10 +1063,10 @@
             on(wrap.querySelector('.slider-arrow.prev'),'click',window.prevHeroSlide);
             on(wrap.querySelector('.slider-arrow.next'),'click',window.nextHeroSlide);
             dots.forEach((dot,i) => on(dot,'click',() => show(i)));
-            on(toggle,'click',() => { userPaused = !userPaused; schedule(); });
-            on(wrap,'mouseenter',() => { hover = true; schedule(); });
+            on(toggle,'click',() => { userPaused = !userPaused; explicitPlay = !userPaused; schedule(); });
+            on(wrap,'mouseenter',() => { hover = true; explicitPlay = false; schedule(); });
             on(wrap,'mouseleave',() => { hover = false; schedule(); });
-            on(wrap,'focusin',() => { focus = true; schedule(); });
+            on(wrap,'focusin',() => { focus = true; explicitPlay = false; schedule(); });
             on(wrap,'focusout',event => { if (!wrap.contains(event.relatedTarget)) { focus = false; schedule(); } });
             on(document,'visibilitychange',schedule);
             on(reduced,'change',() => { userPaused = reduced.matches; schedule(); });
@@ -1023,6 +1115,14 @@
             ssLecture2: 'assets/soul-speech/lecture-2.jpg',
             // 디렉터 실사진 (본인 제공)
             dirHwang: 'assets/directors/hwang.jpg'
+        };
+
+        const featuredVideoData = {
+            url: 'https://www.youtube.com/watch?v=nXaweTyKkxk',
+            channel: 'https://www.youtube.com/channel/UCaKQcTss_FOJRk7QvxaBcdQ',
+            title: '황정선의 소셜매력',
+            description: '오늘의 행동 하나가 당신의 인상을 만듭니다. 이미지와 태도, 관계를 바라보는 황정선 디렉터의 이야기를 영상으로 만나보세요.',
+            poster: 'https://i.ytimg.com/vi/nXaweTyKkxk/hqdefault.jpg'
         };
 
         const heroSlides = [
@@ -1140,14 +1240,14 @@
                 intro: "단순한 스피치 스킬이 아닌 내면의 소리를 찾고 나다운 언어를 설계하는 12주 여정입니다.",
                 recommend: ["말하는 기술보다 말하는 이유를 먼저 찾고 싶은 분", "목소리에 자신이 없거나, 더 젊고 따뜻한 목소리로 가꾸고 싶은 분", "자신의 이야기를 진정성 있게 전달하고 싶은 분", "발표·인터뷰·강의에서 흔들리지 않는 나만의 언어를 원하는 분", "말을 통해 나 자신을 성장시키고 싶은 분"],
                 composition: ["내면 발굴", "언어 설계", "존재 표현", "SST™ 진단"],
-                isSample: false, sampleLabel: '', status: '상담 안내', audience: '상담 시 안내', duration: '상담 시 안내', capacity: '상담 시 안내', schedule: '상담 시 안내', place: '상담 시 안내', price: '상담 시 안내', totalHours: '상담 시 안내', vatIncluded: false, deadline: '상담 시 안내', image: imgUrls.ssLectureHero, cta: '프로그램 상담', expert: 'nam',
+                isSample: false, sampleLabel: '', status: '상담 안내', audience: '상담 시 안내', duration: '12주', capacity: '상담 시 안내', schedule: '상담 시 안내', place: '상담 시 안내', price: '상담 시 안내', totalHours: '상담 시 안내', vatIncluded: false, deadline: '상담 시 안내', image: imgUrls.ssLectureHero, cta: '프로그램 상담', expert: 'nam',
                 curr: [
-                    {t: "1단계 · 내면 발굴", items: ["Wk 01 AWAKENING 내면이 깨어나는 순간", "Wk 02 ATTUNEMENT 나의 주파수를 찾다", "Wk 03 READING 마음의 언어를 해독하다", "Wk 04 RESONANCE 소울 보이스가 울리다"]},
-                    {t: "2단계 · 언어 설계", items: ["Wk 05 VIBRATION 말이 진동으로 설계되다", "Wk 06 STORY 나만의 이야기가 콘텐츠가 되다", "Wk 07 CONNECTION 마음을 여는 대화법", "Wk 08 DESIGN 스피치를 설계하다"]},
-                    {t: "3단계 · 존재 표현", items: ["Wk 09 PURPOSE 목적 있는 말이 움직인다", "Wk 10 AWARENESS 알아차림이 말을 바꾼다", "Wk 11 RECOVERY 본래의 나로 돌아오다", "Wk 12 MASTERY 소울스피치 마스터"]},
+                    {t: "1단계 · 내면 발굴", image: imgUrls.ssLecture1, stage: 1, items: ["Wk 01 AWAKENING 내면이 깨어나는 순간", "Wk 02 ATTUNEMENT 나의 주파수를 찾다", "Wk 03 READING 마음의 언어를 해독하다", "Wk 04 RESONANCE 소울 보이스가 울리다"]},
+                    {t: "2단계 · 언어 설계", image: imgUrls.ssLectureHero, stage: 2, items: ["Wk 05 VIBRATION 말이 진동으로 설계되다", "Wk 06 STORY 나만의 이야기가 콘텐츠가 되다", "Wk 07 CONNECTION 마음을 여는 대화법", "Wk 08 DESIGN 스피치를 설계하다"]},
+                    {t: "3단계 · 존재 표현", image: imgUrls.ssLecture2, stage: 3, items: ["Wk 09 PURPOSE 목적 있는 말이 움직인다", "Wk 10 AWARENESS 알아차림이 말을 바꾼다", "Wk 11 RECOVERY 본래의 나로 돌아오다", "Wk 12 MASTERY 소울스피치 마스터"]},
                     {t: "SST™ Diagnosis & Final", items: ["12주 여정의 마지막, 나만의 Soul Speech Type을 진단하고 확인합니다.", "수료식", "Final Speech", "변화 리포트"]}
                 ],
-                programFaq: [{q: "스피치 경험이 전혀 없어도 참여할 수 있나요?", a: "상담 시 안내드립니다."}, {q: "SST™ 진단은 어떻게 진행되나요?", a: "상담 시 안내드립니다."}, {q: "12주 과정과 단기 4세션의 차이는 무엇인가요?", a: "상담 시 안내드립니다."}, {q: "일정과 수강료는 어떻게 되나요?", a: "상담 시 안내드립니다."}, {q: "상세 커리큘럼은 언제 확인할 수 있나요?", a: "상담 시 안내드립니다."}],
+                programFaq: [{q: "스피치 경험이 전혀 없어도 참여할 수 있나요?", a: "상담 시 안내드립니다."}, {q: "SST™ 진단은 어떻게 진행되나요?", a: "12주 여정의 마지막에 나만의 Soul Speech Type을 진단하고 확인합니다. 세부 진행 방식은 상담에서 안내합니다."}, {q: "12주 과정과 단기 4세션의 차이는 무엇인가요?", a: "12주 과정은 내면 발굴·언어 설계·존재 표현의 3단계로 진행됩니다. 단기 과정은 DISCOVER·VOICE·DESIGN·PRESENCE의 4세션으로 핵심을 다룹니다."}, {q: "일정과 수강료는 어떻게 되나요?", a: "상담 시 안내드립니다."}, {q: "상세 커리큘럼은 언제 확인할 수 있나요?", a: "이 페이지의 커리큘럼에서 단계별 학습 내용을 확인할 수 있습니다. 운영 일정과 세부 진행은 상담을 통해 안내합니다."}],
                 closing: "YOUR VOICE. YOUR MESSAGE. YOUR INFLUENCE.",
                 included: "수강 교재, SST™ 진단 리포트, Speech Feedback Report, 수료증", excluded: "개인 촬영 장비, 교통·숙박", refundGuide: "개강 7일 전 100% / 개강 후 환불 불가"
             },
@@ -1158,14 +1258,14 @@
                 intro: "단기간에 핵심적인 소울 보이스와 스피치 구조를 다듬어 세상과 연결하는 과정입니다.",
                 recommend: ["말하는 기술보다 말하는 이유를 먼저 찾고 싶은 분", "목소리에 자신이 없거나, 더 젊고 따뜻한 목소리로 가꾸고 싶은 분", "자신의 이야기를 진정성 있게 전달하고 싶은 분", "발표·인터뷰·강의에서 흔들리지 않는 나만의 언어를 원하는 분", "말을 통해 나 자신을 성장시키고 싶은 분"],
                 composition: ["핵심 발굴", "보이스 트레이닝", "스피치 설계", "존재 표현"],
-                isSample: false, sampleLabel: '', status: '상담 안내', audience: '상담 시 안내', duration: '상담 시 안내', capacity: '상담 시 안내', schedule: '상담 시 안내', place: '상담 시 안내', price: '상담 시 안내', totalHours: '상담 시 안내', vatIncluded: false, deadline: '상담 시 안내', image: imgUrls.ssWorkshop, cta: '프로그램 상담', expert: 'nam',
+                isSample: false, sampleLabel: '', status: '상담 안내', audience: '상담 시 안내', duration: '4세션', capacity: '상담 시 안내', schedule: '상담 시 안내', place: '상담 시 안내', price: '상담 시 안내', totalHours: '상담 시 안내', vatIncluded: false, deadline: '상담 시 안내', image: imgUrls.ssWorkshop, cta: '프로그램 상담', expert: 'nam',
                 curr: [
                     {t: "Session 1", icon: "ear", items: ["DISCOVER 내 안의 목소리를 찾다"]},
                     {t: "Session 2", icon: "wave", items: ["VOICE 소울 보이스로 다듬다"]},
                     {t: "Session 3", icon: "diamond", items: ["DESIGN 말을 설계하다"]},
                     {t: "Session 4", icon: "star", items: ["PRESENCE 나답게 세상과 연결하다"]}
                 ],
-                programFaq: [{q: "스피치 경험이 전혀 없어도 참여할 수 있나요?", a: "상담 시 안내드립니다."}, {q: "SST™ 진단은 어떻게 진행되나요?", a: "상담 시 안내드립니다."}, {q: "12주 과정과 단기 4세션의 차이는 무엇인가요?", a: "상담 시 안내드립니다."}, {q: "일정과 수강료는 어떻게 되나요?", a: "상담 시 안내드립니다."}, {q: "상세 커리큘럼은 언제 확인할 수 있나요?", a: "상담 시 안내드립니다."}],
+                programFaq: [{q: "스피치 경험이 전혀 없어도 참여할 수 있나요?", a: "상담 시 안내드립니다."}, {q: "SST™ 진단은 어떻게 진행되나요?", a: "12주 여정의 마지막에 나만의 Soul Speech Type을 진단하고 확인합니다. 세부 진행 방식은 상담에서 안내합니다."}, {q: "12주 과정과 단기 4세션의 차이는 무엇인가요?", a: "12주 과정은 내면 발굴·언어 설계·존재 표현의 3단계로 진행됩니다. 단기 과정은 DISCOVER·VOICE·DESIGN·PRESENCE의 4세션으로 핵심을 다룹니다."}, {q: "일정과 수강료는 어떻게 되나요?", a: "상담 시 안내드립니다."}, {q: "상세 커리큘럼은 언제 확인할 수 있나요?", a: "이 페이지의 커리큘럼에서 단계별 학습 내용을 확인할 수 있습니다. 운영 일정과 세부 진행은 상담을 통해 안내합니다."}],
                 closing: "YOUR VOICE. YOUR MESSAGE. YOUR INFLUENCE.",
                 included: "수강 교재, SST™ 진단 리포트, Speech Feedback Report, 수료증", excluded: "개인 촬영 장비, 교통·숙박", refundGuide: "개강 7일 전 100% / 개강 후 환불 불가"
             }
@@ -1177,7 +1277,7 @@
         ];
 
         const expertsData = {
-            'hwang': { id: 'hwang-jeong-seon', name: '황정선', role: '외면소통 ACADEMY 프로그램 디렉터', externalRole: '이미지공작소 대표 · 이미지 전략가', edu: '고려대학교 대학원 의류학 박사', exp: ['이미지공작소 대표', '고려대학교 사범대학 가정교육학과 겸임교수', '연세대학교 글로벌인재대학 겸임교수', '국방부 국민소통전문가단', '미스코리아 심사위원 및 퍼스널 코칭', '한국능률협회컨설팅 월간CEO아이템 연재', '상명대학교 이미지메이킹 출강', '단국대학교 비즈니스커뮤니케이션 출강 외 다수 경력'], topics: ['프로페셔널 이미지', '비즈니스맨 스타일', '비즈니스우먼 스타일', '스타일리시 세일즈', '비즈니스 커뮤니케이션', '뉴 오피스 매너', '비즈니스 에티켓'], books: ['소셜한 매력(비즈토크북, 2020)', '얼굴 말고 매력(이미지토크북, 2018)', '언제나 당신은 여자(이미지토크북, 2016)', '나만의 이미지 컬러링(이미지토크북, 2016) 외 다수'], videoUrl: 'https://www.youtube.com/results?search_query=%ED%99%A9%EC%A0%95%EC%84%A0%EC%9D%98+%EC%86%8C%EC%85%9C%EB%A7%A4%EB%A0%A5', videoLabel: '강의 영상 검색', photoConfirmed: true, img: imgUrls.dirHwang },
+            'hwang': { id: 'hwang-jeong-seon', name: '황정선', role: '외면소통 ACADEMY 프로그램 디렉터', externalRole: '이미지공작소 대표 · 이미지 전략가', edu: '고려대학교 대학원 의류학 박사', exp: ['이미지공작소 대표', '고려대학교 사범대학 가정교육학과 겸임교수', '연세대학교 글로벌인재대학 겸임교수', '국방부 국민소통전문가단', '미스코리아 심사위원 및 퍼스널 코칭', '한국능률협회컨설팅 월간CEO아이템 연재', '상명대학교 이미지메이킹 출강', '단국대학교 비즈니스커뮤니케이션 출강 외 다수 경력'], topics: ['프로페셔널 이미지', '비즈니스맨 스타일', '비즈니스우먼 스타일', '스타일리시 세일즈', '비즈니스 커뮤니케이션', '뉴 오피스 매너', '비즈니스 에티켓'], books: ['소셜한 매력(비즈토크북, 2020)', '얼굴 말고 매력(이미지토크북, 2018)', '언제나 당신은 여자(이미지토크북, 2016)', '나만의 이미지 컬러링(이미지토크북, 2016) 외 다수'], videoUrl: featuredVideoData.url, videoChannel: featuredVideoData.channel, videoLabel: '대표 영상 보기', photoConfirmed: true, img: imgUrls.dirHwang },
             'nam': { id: 'nam-bok-hee', name: '남복희', role: '문화예술학 박사 · 소울스피치랩 대표', externalRole: '37년 방송·스피치 경력 / 12주 마스터 커리큘럼 설계자 / SST™(Soul Speech Type) 진단 개발자', edu: '문화예술학 박사', exp: ['소울스피치랩·소울스피치 연구소 대표', 'SST™ Soul Speech Type 개발자', '방송 기획·제작·진행·공연연출 37년 경력', '(전) KFN 방송 아나운서·프로듀서'], books: ['행복뉴스(수필집)', '궁리(픽셔널 스토리)', '소울 스피치(자기계발서)', '2030 미래 핵심 기술 50(공저)'], quoteTitle: "말은 기술보다 먼저 존재입니다.", quote: "방송 현장에서 37년 동안 수천 명의 이야기를 듣고 전하면서 한 가지 사실을 발견했습니다. 언변이 좋은 사람이 반드시 행복하거나 좋은 관계를 맺는 것이 아니라는 것. 진정한 소통은 기술이 아니라 내면에서 옵니다. 이 깨달음에서 Soul Speech가 시작되었습니다.", videoUrl: 'https://www.youtube.com/watch?si=-8RTY9P9j93KAJQW&v=0qjsbkaiIZQ&feature=youtu.be', videoLabel: '강의 영상 보기', photoConfirmed: true, img: imgUrls.ssDirector }
         };
 
@@ -1241,7 +1341,7 @@
         // ------------------------------------------------------------------
         // 2. UI UTILS & EVENT HANDLERS
         // ------------------------------------------------------------------
-        const escapeHTML = (str) => { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; };
+        const escapeHTML = (str) => { const div = document.createElement('div'); div.textContent = str; return div.innerHTML.replace(/"/g, '&quot;').replace(/'/g, '&#39;'); };
 
         // Show/Hide Toast explicitly
         const showToast = (msg) => { 
@@ -1347,7 +1447,11 @@
         };
 
         // Form Route Actions
-        window.goApplication = (progTitle) => { sessionStorage.setItem('h2a_apply_prog', progTitle); sessionStorage.setItem('h2a_pay_prog', progTitle); location.hash = '#payment'; };
+        window.goApplication = (progTitle) => {
+            const program = programsData.find(p => p.title === progTitle);
+            if (!program || !program.paymentEnabled) return window.goContact(progTitle, false);
+            sessionStorage.setItem('h2a_pay_prog', progTitle); location.hash = '#payment';
+        };
         window.goContact = (progTitle, isCorp) => { 
             if(isCorp) { location.hash = '#business-contact'; } 
             else { sessionStorage.setItem('h2a_inq_prog', progTitle); location.hash = '#contact'; }
@@ -1419,6 +1523,37 @@
             if (event.target.closest('.skip-link')) { event.preventDefault(); document.getElementById('app-container').focus(); }
         });
 
+        /* Load a single, user-selected YouTube player only after a click. */
+        (() => {
+            window.h2aYouTubeId = value => {
+                try {
+                    const url = new URL(value);
+                    if (url.protocol !== 'https:') return null;
+                    let id;
+                    if (url.hostname === 'youtu.be') id = url.pathname.slice(1);
+                    else if (['youtube.com','www.youtube.com','m.youtube.com'].includes(url.hostname)) {
+                        id = url.pathname === '/watch' ? url.searchParams.get('v') : /^\/(?:embed|shorts)\/([^/]+)$/.exec(url.pathname)?.[1];
+                    }
+                    return /^[A-Za-z0-9_-]{11}$/.test(id || '') ? id : null;
+                } catch { return null; }
+            };
+            document.addEventListener('click', event => {
+                const button = event.target.closest('[data-video-play]');
+                if (!button) return;
+                const id = window.h2aYouTubeId(button.dataset.videoPlay);
+                if (!id) return;
+                const frame = document.createElement('iframe');
+                frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;
+                frame.title = button.dataset.videoTitle || '황정선의 소셜매력 대표 영상';
+                frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+                frame.allowFullscreen = true;
+                frame.referrerPolicy = 'strict-origin-when-cross-origin';
+                frame.className = 'video-player';
+                button.replaceWith(frame);
+                frame.focus();
+            });
+        })();
+
         /* H2A - 화면 템플릿 */
         // ------------------------------------------------------------------
         // 4. HTML TEMPLATES FOR VIEWS
@@ -1434,6 +1569,12 @@
         const renderCurrIcon = (k) => currIcons[k]
             ? `<span class="curr-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-red-dark)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${currIcons[k]}</svg></span>`
             : '';
+
+        const renderFeaturedVideo = () => {
+            const v = featuredVideoData;
+            return `<section class="container section-wrap video-feature" aria-label="황정선 대표 영상"><div><div class="video-stage"><button type="button" class="video-poster" data-video-play="${escapeHTML(v.url)}" data-video-title="${escapeHTML(v.title)}" aria-label="${escapeHTML(v.title)} 영상 재생"><img src="${escapeHTML(v.poster)}" alt="황정선의 소셜매력 대표 영상" loading="lazy" width="480" height="360"><span class="video-play-icon" aria-hidden="true">▶</span></button></div><a class="video-original" href="${escapeHTML(v.url)}" target="_blank" rel="noopener noreferrer">유튜브에서 영상 보기 ↗</a></div><div class="video-copy"><span class="kicker">영상으로 만나는 외면소통</span><h2>${escapeHTML(v.title)}</h2><p>${escapeHTML(v.description)}</p><div class="video-actions"><a class="btn btn-outline" href="${escapeHTML(v.channel)}" target="_blank" rel="noopener noreferrer">유튜브 채널 보기 ↗</a><a class="text-link" href="#appearance">프로그램 살펴보기 →</a></div></div></section>`;
+        };
+        const renderSoulCompare = () => `<div class="soul-compare"><a href="#soul-speech/program"><span class="kicker">충분한 시간을 두고 변화하고 싶다면</span><strong>12주 마스터 과정 ↗</strong><p>내면 발굴 → 언어 설계 → 존재 표현<br>SST™ 진단 · Final Speech · 변화 리포트</p></a><a href="#soul-speech/short"><span class="kicker">핵심부터 시작하고 싶다면</span><strong>4세션 단기 과정 ↗</strong><p>DISCOVER · VOICE · DESIGN · PRESENCE<br>12주의 정수를 압축한 집중 과정</p></a></div>`;
 
         const views = {
             home: () => `<div class="page-view active home-live">
@@ -1465,19 +1606,19 @@
           </div>
          </div>
         </section>
-        <section class="home-brand-story container section-wrap"><div class="story-heading" data-reveal><span class="kicker">에이치스퀘어 어쏘시에이츠</span><h2>어떻게 보이고,<br>어떻게 말하고,<br><span>어떻게 기억될까요.</span></h2></div><div class="story-content" data-reveal><p>전문성이 있어도 그 가치가 저절로 전달되는 것은 아닙니다. H2A는 한 사람의 전문성이 신뢰받고, 기억되고, 선택받는 방식에 주목합니다.</p><p>황정선 디렉터의 외면소통 ACADEMY와 남복희 디렉터의 Soul Speech ACADEMY. 두 전문성을 연결해 개인과 조직의 변화를 함께 만들어갑니다.</p><a href="#about" class="btn btn-outline">H2A 소개 <span aria-hidden="true">→</span></a></div></section><section class="business-banner"><div class="container" data-reveal><div><span>기업교육 담당자라면</span><h2>우리 조직에 맞는 교육,<br>함께 설계할 수 있습니다.</h2><p>교육 대상과 목표를 알려주세요. 필요한 과정부터 함께 찾겠습니다.</p></div><a class="btn btn-paper" href="#business/proposal">맞춤 교육 문의하기 <span aria-hidden="true">→</span></a></div></section><section class="home-gallery section-wrap"><div class="container"><div class="section-heading"><div><span class="kicker">H2A 교육 현장</span><h2>함께 배우고,<br>직접 경험하는 변화.</h2></div><a href="#gallery" class="text-link">교육 현장 더 보기 <span aria-hidden="true">↗</span></a></div><div class="field-grid">${galleryData.map((g,index)=>({g,index})).filter(({g})=>!g.isSample).slice(0,3).map(({g,index},i)=>`<button class="field-card" onclick="openModal(${index})" aria-label="${escapeHTML(g.title)} 사진 크게 보기"><div class="field-image"><img src="${g.image}" alt="${escapeHTML(g.title)}" loading="lazy"><span class="round-arrow" aria-hidden="true">↗</span></div><div class="field-caption"><span>0${i+1} / SOUL SPEECH</span><h3>${escapeHTML(g.title)}</h3></div></button>`).join('')}</div></div></section><section class="home-news container section-wrap"><div><span class="kicker">새로운 소식</span><h2>H2A 소식</h2><a href="#notices" class="text-link">공지사항 전체보기 <span aria-hidden="true">↗</span></a></div><div class="editorial-news-list">${noticesData.slice(0,3).map(n=>`<a href="#notices/detail/${n.id}" class="editorial-news-row"><div><span class="news-category">${escapeHTML(n.category)}</span>${renderSampleLabel(n.isSample,n.sampleLabel)}</div><h3>${escapeHTML(n.title)}</h3><div><time>${n.date}</time><span aria-hidden="true">↗</span></div></a>`).join('')}</div></section>
+        ${renderFeaturedVideo()}<section class="business-banner"><div class="container" data-reveal><div><span>기업교육 담당자라면</span><h2>우리 조직에 맞는 교육,<br>함께 설계할 수 있습니다.</h2><p>교육 대상과 목표를 알려주세요. 필요한 과정부터 함께 찾겠습니다.</p></div><a class="btn btn-paper" href="#business/proposal">맞춤 교육 문의하기 <span aria-hidden="true">→</span></a></div></section><section class="home-gallery section-wrap"><div class="container"><div class="section-heading"><div><span class="kicker">H2A 교육 현장</span><h2>함께 배우고,<br>직접 경험하는 변화.</h2></div><a href="#gallery" class="text-link">교육 현장 더 보기 <span aria-hidden="true">↗</span></a></div><div class="field-grid">${galleryData.map((g,index)=>({g,index})).filter(({g})=>!g.isSample).slice(0,3).map(({g,index},i)=>`<button class="field-card" onclick="openModal(${index})" aria-label="${escapeHTML(g.title)} 사진 크게 보기"><div class="field-image"><img src="${g.image}" alt="${escapeHTML(g.title)}" loading="lazy"><span class="round-arrow" aria-hidden="true">↗</span></div><div class="field-caption"><span>0${i+1} / SOUL SPEECH</span><h3>${escapeHTML(g.title)}</h3></div></button>`).join('')}</div></div></section><section class="home-news container section-wrap"><div><span class="kicker">새로운 소식</span><h2>H2A 소식</h2><a href="#notices" class="text-link">공지사항 전체보기 <span aria-hidden="true">↗</span></a></div><div class="editorial-news-list">${noticesData.slice(0,3).map(n=>`<a href="#notices/detail/${n.id}" class="editorial-news-row"><div><span class="news-category">${escapeHTML(n.category)}</span>${renderSampleLabel(n.isSample,n.sampleLabel)}</div><h3>${escapeHTML(n.title)}</h3><div><time>${n.date}</time><span aria-hidden="true">↗</span></div></a>`).join('')}</div></section>
         <section class="live-closing"><div class="live-contact-image" aria-hidden="true"><img src="assets/soul-speech/lecture-2.jpg" alt="" loading="lazy"></div><div class="container" data-reveal><span class="kicker">변화의 시작, H2A</span><h2>어디서 시작할지 고민이라면,<br>먼저 이야기 나눠보세요.</h2><p>프로그램 선택부터 기업 맞춤 교육까지 안내해드립니다.</p><a href="#contact" class="btn btn-primary">상담 문의하기 <span aria-hidden="true">→</span></a></div></section></div>`,
 
             'about': () => `<div class="page-view active">${rTitle('About', '회사 소개')}
                 <div class="container section-wrap grid-2 items-center"><div class="img-wrap relative">${renderSampleLabel(true, '화면 검수용 샘플')}<img src="${imgUrls.office2}" alt="Office" loading="lazy"></div><div><h3 class="section-title">전문성을 영향력으로.</h3><p class="body-large" style="margin-bottom: 2rem;">H2A는 리더와 전문가의 전문성과 경험을 발견하고, 그들이 어떻게 보이고, 말하고, 관계 맺고, 기억될지를 통합적으로 설계하는 Executive Presence & Communication Company입니다.<br><br>전문성을 콘텐츠로, 콘텐츠를 프로그램으로, 프로그램을 브랜드와 비즈니스로 발전시킵니다.<br><br>Expertise → Presence → Influence</p><h4 class="eng-title" style="font-size:1.2rem; margin:2rem 0 1rem; color:var(--brand-red-dark);">WHAT WE BELIEVE</h4><p class="body-large">GREAT EXPERTISE DESERVES TO BE SEEN, HEARD AND REMEMBERED.<br><br>전문성이 있어도 그 가치가 저절로 전달되는 것은 아닙니다. H2A가 설계하는 것은 단순한 이미지나 화법이 아니라 사람이 신뢰받고, 기억되고, 선택받는 방식입니다.</p></div></div>
-                <div class="container section-wrap" style="padding-top:0;"><span class="label-sm">Message</span><h3 class="section-title eng-title">대표이사 인사말</h3><!-- 실제 대표 사진 수령 전까지 사진 영역을 두지 않는다. 스톡 인물 사진을 실명 옆에 두지 않기 위한 것. 사진을 받으면 grid-2 + img-wrap 으로 되돌린다. --><div class="mt-xl" style="max-width:900px;"><div><h3 class="section-title mb-md" style="font-size:clamp(1.45rem, 2.3vw, 2rem); line-height:1.5; font-weight:500; color:var(--ink);">전문성은 그 자체로도 가치가 있지만,<br>사람들에게 제대로 전달되고 기억될 때 비로소 영향력이 됩니다.</h3>
+                <div class="container section-wrap" style="padding-top:0;"><details class="prose-disclosure"><summary>대표이사 인사말 · 한석용</summary><!-- 실제 대표 사진 수령 전까지 사진 영역을 두지 않는다. 스톡 인물 사진을 실명 옆에 두지 않기 위한 것. 사진을 받으면 grid-2 + img-wrap 으로 되돌린다. --><div class="mt-xl" style="max-width:900px;"><div><h3 class="section-title mb-md" style="font-size:clamp(1.45rem, 2.3vw, 2rem); line-height:1.5; font-weight:500; color:var(--ink);">전문성은 그 자체로도 가치가 있지만,<br>사람들에게 제대로 전달되고 기억될 때 비로소 영향력이 됩니다.</h3>
                     <p class="body-large" style="margin-bottom:1.1rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">H2A는 한 사람 안에 축적된 지식과 경험, 고유한 철학을 발견하고 이를 콘텐츠와 프로그램, 브랜드와 비즈니스로 연결하기 위해 설립되었습니다. 우리는 단순히 잘 보이고 잘 말하는 기술을 가르치는 데 그치지 않습니다. 한 사람의 전문성이 그에 걸맞은 존재감으로 드러나고, 신뢰와 관계, 지속 가능한 영향력으로 확장되도록 돕고자 합니다.</p>
                     <p class="body-large" style="margin-bottom:1.1rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">이러한 철학을 바탕으로 H2A는 황정선 박사의 ‘외면소통 ACADEMY’와 남복희 박사의 ‘Soul Speech ACADEMY’를 선보입니다.</p>
                     <p class="body-large" style="margin-bottom:1.1rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">외면소통 ACADEMY는 Appearance·Attitude·Appeal을 통해 사람의 전문성과 품격이 어떻게 보이고, 행동으로 드러나며, 어떤 감정으로 기억되는지를 설계합니다. Soul Speech ACADEMY는 목소리와 언어, 생각과 감정을 연결하여 자신의 메시지를 진정성 있게 전달하고 사람의 마음을 움직이는 힘을 길러줍니다.</p>
                     <p class="body-large" style="margin-bottom:1.1rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">보이는 태도와 들리는 언어가 하나의 방향으로 정렬될 때, 전문성은 설명하지 않아도 느껴지는 존재감이 되고 존재감은 사람과 조직을 움직이는 영향력이 됩니다.</p>
                     <p class="body-large" style="margin-bottom:1.1rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">H2A는 앞으로도 현장 경험과 독자적인 철학을 지닌 전문가들과 함께 차별화된 교육 콘텐츠를 개발하고, 개인과 조직의 성장을 이끄는 프로그램으로 발전시켜 나가겠습니다.</p>
                     <p class="body-large" style="margin-bottom:2rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">당신이 가진 전문성이 더 넓은 세상에서 발견되고, 신뢰받고, 기억될 수 있도록 H2A가 든든한 파트너가 되겠습니다.</p>
-                <div style="margin-top:3rem; border-top:1px solid var(--line); padding-top:2rem;"><p style="color:var(--text-sub); margin-bottom:0.4rem;">에이치스퀘어 어쏘시에이츠 주식회사</p><h4 style="font-size:1.35rem; font-weight:700;">대표이사 한석용</h4></div></div></div></div>
+                <div style="margin-top:3rem; border-top:1px solid var(--line); padding-top:2rem;"><p style="color:var(--text-sub); margin-bottom:0.4rem;">에이치스퀘어 어쏘시에이츠 주식회사</p><h4 style="font-size:1.35rem; font-weight:700;">대표이사 한석용</h4></div></div></div></details></div>
                 <div class="container section-wrap" style="padding-top:0;"><h3 class="section-title eng-title">4대 전문영역</h3><div class="grid-2" style="margin-top:2rem;">
                     <div class="card-basic"><h4 class="eng-title" style="font-size:1.5rem; margin-bottom:1rem; color:var(--brand-red-dark);">Executive Presence</h4><ul style="color:var(--text-sub); line-height:1.8; list-style:disc; padding-left:20px;"><li>Appearance</li><li>Attitude</li><li>Body Language</li><li>Manner</li><li>Social Appeal</li><li>Leadership Presence</li></ul></div>
                     <div class="card-basic"><h4 class="eng-title" style="font-size:1.5rem; margin-bottom:1rem; color:var(--brand-red-dark);">Executive Communication</h4><ul style="color:var(--text-sub); line-height:1.8; list-style:disc; padding-left:20px;"><li>Speech</li><li>Voice</li><li>Presentation</li><li>Public Speaking</li><li>Interview</li><li>Media Communication</li><li>Leadership Communication</li></ul></div>
@@ -1490,14 +1631,14 @@
     
             'leaders': () => `<div class="page-view active">${rTitle('Directors', '프로그램 디렉터')}
                 <div class="container section-wrap">
-                    <span class="label-sm">Program Directors</span><h3 class="section-title eng-title">PROGRAM DIRECTORS</h3>
+                    <p class="body-large">이미지와 태도, 목소리와 언어.<br>각 분야의 디렉터와 나에게 필요한 변화를 만나보세요.</p>
                     <div class="grid-2 mt-xl">
                         ${Object.values(expertsData).map(e => `
-                            <div class="card-basic" style="padding:0; border:none; background:transparent;">
+                            <div class="card-basic director-card" style="padding:0; border:none; background:transparent;">
                                 <div class="img-wrap relative mb-md">${renderSampleLabel(!e.photoConfirmed, '공개 전 당사자 최종 확인 필요')}${e.img ? `<img src="${e.img}" alt="${escapeHTML(e.name)}" class="director-portrait" loading="lazy">` : `<span class="img-placeholder director-portrait" aria-hidden="true"></span>`}</div>
                                 <h4 class="eng-title" style="font-size:1.8rem; margin-bottom:0.5rem;">${e.name}</h4>
                                 <p style="font-weight:700; color:var(--brand-red-dark); margin-bottom:0.5rem;">${e.role}</p>
-                                <p style="color:var(--text-sub); margin-bottom:2rem;">${e.externalRole}</p>
+                                <p style="color:var(--text-sub); margin-bottom:2rem;">${e.externalRole}</p><div class="director-actions"><a class="btn btn-outline" href="#${e.id==='hwang-jeong-seon'?'appearance':'soul-speech'}">담당 프로그램 보기 →</a>${e.videoUrl ? `<a class="text-link" href="${escapeHTML(e.videoUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(e.videoLabel)} ↗</a>` : ''}</div>
                                 <div style="border-top:1px solid var(--line); padding-top:1.5rem;">
                                     <h5 class="label-sm" style="color:var(--ink); margin-bottom:0.5rem; text-transform:none;">학력</h5><p style="color:var(--text-sub); margin-bottom:1rem; font-size:0.95rem;">${e.edu}</p>
                                     <h5 class="label-sm" style="color:var(--ink); margin-bottom:0.5rem; text-transform:none;">주요 경력</h5><ul style="color:var(--text-sub); list-style:disc; padding-left:20px; line-height:1.8; margin-bottom:1rem; font-size:0.95rem;">${e.exp.map(x=>`<li>${x}</li>`).join('')}</ul>
@@ -1506,7 +1647,7 @@
                             </div>
                         `).join('')}
                     </div>
-                </div></div>`,
+                </div>${renderFeaturedVideo()}</div>`,
     
             'location': () => `
                 <div class="page-view active">
@@ -1588,7 +1729,7 @@
                 if(cat === 'soulspeech') items = programsData.filter(p => p.category === 'soulspeech');
         
                 const listHtml = items.map(p => `
-                    <div class="list-item">
+                    <div class="list-item" data-list-category="${p.category}">
                         <div class="img-wrap relative">${renderSampleLabel(p.isSample, p.sampleLabel)}<img src="${p.image}" alt="${escapeHTML(p.title)}" style="height:250px;" loading="lazy"></div>
                         <div>
                             ${renderBadge(p.status)}
@@ -1602,8 +1743,8 @@
 
                 let introHtml = '';
                 if(cat === 'appearance') introHtml = `<div class="container section-wrap text-center" style="padding-bottom:0;"><h2 class="section-title">ONE PHILOSOPHY. DIFFERENT EXPERIENCES.</h2><p class="body-large">외면소통은 Appearance, Attitude, Affect 3단계를 통해 완성됩니다.<br>CEO, Professional, Private 목적에 맞는 과정을 선택하세요.</p></div>`;
-                if(cat === 'soulspeech') introHtml = `<div class="container section-wrap" style="padding-bottom:0;">
-                    <h2 class="section-title" style="font-size:2rem; margin-bottom:2rem;">말은 사람의 생각과 마음을 세상과 연결합니다.</h2>
+                if(cat === 'soulspeech') introHtml = `<div class="container section-wrap soul-intro" style="padding-bottom:0;">${renderSoulCompare()}
+                    <h2 class="section-title mt-xl" style="font-size:2rem; margin-bottom:2rem;">소울스피치가 시작되는 질문</h2>
                     <div class="grid-2 mb-xl" style="align-items:stretch;">
                         <blockquote style="background:var(--surface-light); padding:2.5rem; border-left:3px solid var(--brand-red);">
                             <p style="color:var(--ink); line-height:1.9; font-size:1.05rem;">당신의 목소리는 몇 살입니까.<br>외모는 가릴 수 있어도, 목소리는 숨길 수 없습니다.<br>목소리가 늙으면 진짜로 늙어 보입니다.<br>목소리 나이, 당신이 선택할 수 있습니다.</p>
@@ -1627,7 +1768,7 @@
                         </div>
                     </div>
 
-                    <div style="background:var(--surface-light); padding:4rem 2rem; margin-bottom:4rem;">
+                    <details class="prose-disclosure soul-philosophy"><summary>소울스피치 철학 · WHY, WHAT, HOW</summary><div class="disclosure-body" style="background:var(--surface-light); padding:2rem;">
                         <h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:0.5rem;">SOUL SPEECH PHILOSOPHY</h3>
                         <p class="body-large" style="margin-bottom:3rem;">말하기에는 순서가 있습니다</p>
                         <div class="grid-3 text-left">
@@ -1655,6 +1796,7 @@
                         </div>
                     </div>
 
+                    </details>
                     <div class="text-left mb-xl">
                         <h4 class="font-bold mb-sm" style="font-size:1.1rem;">이런 분께 권해 드립니다</h4>
                         <ul style="list-style:disc; padding-left:20px; color:var(--text-sub); line-height:1.8;">
@@ -1708,7 +1850,9 @@
                     </div>`;
                 }
 
-                return `<div class="page-view active">${rTitle(cat.toUpperCase(), title)} ${introHtml} <div class="container section-wrap">${listHtml}</div> ${outroHtml} ${calHtml} </div>`;
+                const hero = cat === 'soulspeech' ? `<section class="soul-hero"><img src="${imgUrls.ssLectureHero}" alt="Soul Speech 실제 강의 현장" fetchpriority="high"><div class="container"><span class="kicker">Soul Speech ACADEMY</span><h1>말은 사람의 생각과<br>마음을 세상과 연결합니다.</h1><p>말하는 기술보다 먼저, 나를 전하는 힘.</p><a class="btn btn-paper" href="#contact" onclick="sessionStorage.setItem('h2a_inq_prog','12 WEEKS 변화의 12단계')">상담 예약 →</a></div></section>` : rTitle(cat.toUpperCase(), title);
+                const controls = cat === 'all' ? `<div class="program-list-controls" role="group" aria-label="프로그램 분야"><button data-list-filter="all" aria-pressed="true">전체</button><button data-list-filter="appearance" aria-pressed="false">외면소통</button><button data-list-filter="experience" aria-pressed="false">Private Programs</button><button data-list-filter="soulspeech" aria-pressed="false">소울스피치</button></div>` : '';
+                return `<div class="page-view active">${hero} ${introHtml} <div class="container section-wrap program-list">${controls}${listHtml}</div> ${outroHtml} ${calHtml} ${cat==='appearance' ? renderFeaturedVideo() : ''}</div>`;
             },
 
             'programDetail': (p) => {
@@ -1749,7 +1893,7 @@
                     if(!hasOwnOrder) {
                         titleHtml = `0${i+1}. ${c.t}`;
                     }
-                    return `<li><div style="margin-bottom:1rem;"><h4 class="eng-title" style="font-size:1.2rem; color:var(--brand-red-dark); font-weight:700; display:flex; align-items:center; gap:0.5rem;">${renderCurrIcon(c.icon)}${escapeHTML(titleHtml)}</h4>${c.sub ? `<p style="font-weight:700; margin-top:0.5rem; color:var(--ink); font-size:1.05rem;">${escapeHTML(c.sub)}</p>` : ''}</div><div>${content}</div></li>`;
+                    return `<li${c.stage ? ` data-stage="${c.stage}"` : ''}><div style="margin-bottom:1rem;"><h4 class="eng-title" style="font-size:1.2rem; color:var(--brand-red-dark); font-weight:700; display:flex; align-items:center; gap:0.5rem;">${renderCurrIcon(c.icon)}${escapeHTML(titleHtml)}</h4>${c.sub ? `<p style="font-weight:700; margin-top:0.5rem; color:var(--ink); font-size:1.05rem;">${escapeHTML(c.sub)}</p>` : ''}</div><div>${c.image ? `<img class="step-photo" src="${c.image}" alt="Soul Speech 실제 강의 현장" loading="lazy">` : ''}${content}</div></li>`;
                 }).join('') : '';
 
                 let outHtml = '';
@@ -1759,15 +1903,15 @@
                     let transHtml = p.transformation ? `<div style="margin-top:2rem; padding-top:2rem; border-top:1px solid var(--line);">${renderSampleLabel(p.isSample, '보조 설명 · 화면 검수용 초안')}<h4 class="font-bold mb-sm" style="font-size:1.1rem;">과정을 통해 달라지는 것</h4><ul style="list-style:disc; padding-left:20px; color:var(--text-sub); line-height:1.8;">${p.transformation.map(tr=>`<li>${escapeHTML(tr)}</li>`).join('')}</ul></div>` : '';
             
                     if(p.outcomes) {
-                        outHtml = `<div style="margin-top: 4rem;"><h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">OUTCOMES</h3><div style="border:1px solid var(--line); padding:3rem; background:var(--surface);"><h4 class="eng-title" style="font-size:1.3rem; border-bottom:1px solid var(--line); padding-bottom:1rem; margin-bottom:1.5rem;">${escapeHTML(p.outTitle || '기대 효과 및 결과물')}</h4>${outIntro}${outList}${transHtml}</div></div>`;
+                        outHtml = `<div data-fold-title="기대 효과와 결과물" style="margin-top: 4rem;"><h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">OUTCOMES</h3><div style="border:1px solid var(--line); padding:3rem; background:var(--surface);"><h4 class="eng-title" style="font-size:1.3rem; border-bottom:1px solid var(--line); padding-bottom:1rem; margin-bottom:1.5rem;">${escapeHTML(p.outTitle || '기대 효과 및 결과물')}</h4>${outIntro}${outList}${transHtml}</div></div>`;
                     }
                 }
 
                 let beyondHtml = '';
                 if(p.beyondDetail) {
-                    beyondHtml = `<div style="margin-top: 4rem;"><h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">BEYOND THE CLASS</h3><ul style="list-style: none; padding-left:0; color:var(--text-sub); line-height:1.8;">${p.beyondDetail.map(b => `<li style="margin-bottom:1.5rem;"><strong style="color:var(--ink); font-size:1.05rem;">${escapeHTML(b.n)}</strong><br>${escapeHTML(b.d)}</li>`).join('')}</ul></div>`;
+                    beyondHtml = `<div data-fold-title="수업 이후의 변화" style="margin-top: 4rem;"><h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">BEYOND THE CLASS</h3><ul style="list-style: none; padding-left:0; color:var(--text-sub); line-height:1.8;">${p.beyondDetail.map(b => `<li style="margin-bottom:1.5rem;"><strong style="color:var(--ink); font-size:1.05rem;">${escapeHTML(b.n)}</strong><br>${escapeHTML(b.d)}</li>`).join('')}</ul></div>`;
                 } else if(p.beyond) {
-                    beyondHtml = `<div style="margin-top: 4rem;"><h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">BEYOND THE CLASS</h3><ul style="list-style: square; padding-left:20px; color:var(--text-sub); line-height:1.8;">${p.beyond.map(b => `<li>${escapeHTML(b)}</li>`).join('')}</ul></div>`;
+                    beyondHtml = `<div data-fold-title="수업 이후의 변화" style="margin-top: 4rem;"><h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">BEYOND THE CLASS</h3><ul style="list-style: square; padding-left:20px; color:var(--text-sub); line-height:1.8;">${p.beyond.map(b => `<li>${escapeHTML(b)}</li>`).join('')}</ul></div>`;
                 }
         
                 let programFaqHtml = '';
@@ -1780,11 +1924,11 @@
                     closingHtml = `<div style="margin-top: 6rem; padding: 4rem 0; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background:var(--surface-light);"><h3 class="eng-title" style="font-size:1.6rem; color:var(--brand-red-dark); font-weight:400; font-style:italic;">"${escapeHTML(p.closing)}"</h3></div>`;
                 }
         
-                const btnHtml = `<button class="btn btn-primary btn-full" style="margin-top: 2rem;" onclick="goApplication('${p.title}')">${p.cta}</button>`;
+                const btnHtml = `<button class="btn btn-primary btn-full" style="margin-top: 2rem;" onclick="goApplication(this.dataset.program)" data-program="${escapeHTML(p.title)}">${p.cta}</button>`;
 
                 const expert = expertsData[p.expert] || expertsData['hwang'];
                 const expertHtml = p.expert !== 'all' ? `
-                    <div style="margin-top: 6rem; border-top: 1px solid var(--line); padding-top: 4rem;">
+                    <div data-fold-title="프로그램 디렉터" style="margin-top: 6rem; border-top: 1px solid var(--line); padding-top: 4rem;">
                         <span class="label-sm">Program Director</span><h3 class="section-title eng-title">EXPERT</h3>
                         <div class="grid-2" style="align-items:center; margin-top:2rem;">
                             <div class="img-wrap relative">${renderSampleLabel(!expert.photoConfirmed, '공개 전 당사자 확인 필요')}${expert.img ? `<img src="${expert.img}" alt="${escapeHTML(expert.name)}" class="director-portrait" loading="lazy">` : `<span class="img-placeholder" style="height:300px;" aria-hidden="true"></span>`}</div>
@@ -1813,7 +1957,7 @@
                                 <div class="info-row"><span class="label-sm" style="margin:0;">일정</span><span class="val" style="color:var(--brand-red-dark); font-weight:700;">${escapeHTML(p.schedule)}</span></div>
                                 <div class="info-row"><span class="label-sm" style="margin:0;">장소</span><span class="val">${escapeHTML(p.place)}</span></div>
                                 <div class="info-row"><span class="label-sm" style="margin:0;">신청마감</span><span class="val">${escapeHTML(p.deadline)}</span></div>
-                                <div class="info-row" style="border-top: 1px solid var(--ink); margin-top: 1rem; padding-top: 1.5rem;"><span class="label-sm" style="margin:0;">수강료</span><span class="val" style="font-size:1.1rem; font-weight:700; color:var(--ink);">${escapeHTML(p.price)} <span style="font-size:0.8rem; font-weight:400;">(VAT ${escapeHTML(p.vatIncluded?'포함':'별도')})</span></span></div>
+                                <div class="info-row" style="border-top: 1px solid var(--ink); margin-top: 1rem; padding-top: 1.5rem;"><span class="label-sm" style="margin:0;">수강료</span><span class="val" style="font-size:1.1rem; font-weight:700; color:var(--ink);">${escapeHTML(p.price)} ${/\d/.test(p.price) ? `<span style="font-size:0.8rem; font-weight:400;">(VAT ${p.vatIncluded?'포함':'별도'})</span>` : ''}</span></div>
                                 ${btnHtml}
                             </div>
                         </aside>`;
@@ -1851,7 +1995,7 @@
                             </div>
                             ${programFaqHtml}
                             ${closingHtml}
-                            ${expertHtml}
+                            ${expertHtml}<div class="program-end-cta"><div><strong>이 과정이 나에게 맞을까요?</strong><p>${escapeHTML(p.title)} 상담으로 확인하세요.</p></div><button class="btn btn-primary" data-program="${escapeHTML(p.title)}" onclick="goContact(this.dataset.program,false)">이 프로그램 상담하기 →</button></div>
                             <div style="margin-top: 4rem; display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:2rem;">
                                 <button onclick="history.back()" class="btn btn-thin">← 이전 화면으로 돌아가기</button>
                             </div>
@@ -1862,8 +2006,9 @@
             },
 
             'cardsHub': (title, dataArr, isGallery = false) => {
+                if(title === 'NOTICE') return `<div class="page-view active">${rTitle('News','공지사항')}<div class="container section-wrap"><div class="notice-list">${dataArr.map(item=>`<a class="notice-item" href="#notices/detail/${item.id}"><time>${escapeHTML(item.date)}</time><div>${renderSampleLabel(item.isSample,item.sampleLabel)}<h2>${escapeHTML(item.title)}</h2></div><span aria-hidden="true">↗</span></a>`).join('')}</div></div></div>`;
                 const cards = dataArr.map((item, idx) => {
-                    if(isGallery) return `<div class="card-img-top" style="cursor:pointer;" onclick="openModal(${idx})"><div class="img-wrap relative">${renderSampleLabel(item.isSample, item.sampleLabel)}<img src="${item.image}" alt="${escapeHTML(item.title)}" style="height:250px;" loading="lazy"></div><div class="card-body" style="padding:1.5rem;"><h4 style="font-size:1.1rem; font-weight:700;">${escapeHTML(item.title)}</h4><p style="font-size:0.9rem; color:var(--text-sub); margin-top:0.5rem;">${escapeHTML(item.category)}</p></div></div>`;
+                    if(isGallery) return `<button type="button" class="card-img-top gallery-button" onclick="openModal(${idx})" aria-label="${escapeHTML(item.title)} 사진 크게 보기"><div class="img-wrap relative">${renderSampleLabel(item.isSample, item.sampleLabel)}<img src="${item.image}" alt="${escapeHTML(item.title)}" style="height:250px;" loading="lazy"></div><div class="card-body" style="padding:1.5rem;"><h4 style="font-size:1.1rem; font-weight:700;">${escapeHTML(item.title)}</h4><p style="font-size:0.9rem; color:var(--text-sub); margin-top:0.5rem;">${escapeHTML(item.category)}</p></div></button>`;
                     return `<a href="#${item.id.startsWith('r')?'reviews/detail':(item.id.startsWith('n')?'notices/detail':'insights/detail')}/${item.id}" class="card-img-top"><div class="img-wrap relative">${item.image ? `${renderSampleLabel(item.isSample, item.sampleLabel)}<img src="${item.image}" alt="${escapeHTML(item.title)}" style="height:220px;" loading="lazy">` : renderSampleLabel(item.isSample, item.sampleLabel)}</div><div class="card-body" style="padding:2rem;"><h4 style="font-size:1.15rem; font-weight:700; margin-bottom:1rem; line-height:1.4;">${escapeHTML(item.title)}</h4><p style="font-size:0.95rem; color:var(--text-sub); line-height:1.6;">${escapeHTML(item.excerpt)}</p><span style="display:block; margin-top:1.5rem; font-size:0.85rem; color:#A09C98;">${escapeHTML(item.date)}</span></div></a>`;
                 }).join('');
                 return `<div class="page-view active">${rTitle(title.split(' ')[0], title)}<div class="container section-wrap"><div class="${isGallery?'grid-4':'grid-3'}">${cards}</div></div></div>`;
@@ -1874,7 +2019,7 @@
                 return `<div class="page-view active"><div class="hero-section pb-0 border-b"><div class="container pb-xl"><div class="breadcrumb"><a href="#${listHash}">목록</a> > 상세</div>${renderSampleLabel(item.isSample, item.sampleLabel)}<h1 class="page-title eng-title" style="margin-top:1rem; font-size:clamp(2rem,4vw,3rem);">${escapeHTML(item.title)}</h1><p class="body-large">${escapeHTML(item.date)} ${item.author ? `| ${escapeHTML(item.author)} (${escapeHTML(item.role)})` : ''}</p></div></div><div class="container section-wrap" style="max-width:800px;">${item.image ? `<div class="img-wrap relative mb-xl"><img src="${item.image}" alt="${escapeHTML(item.title)}" style="height:450px;" loading="lazy"></div>` : ''}<div class="body-large" style="color:var(--ink);">${item.body || item.excerpt}</div><div class="divider"></div><a href="#${listHash}" class="btn btn-outline">목록으로 돌아가기</a></div></div>`;
             },
 
-            'faq': () => `<div class="page-view active">${rTitle('Support','FAQ')}<div class="container section-wrap" style="max-width:800px;">${faqData.map(f => `<div class="acc-item"><button class="acc-btn" aria-expanded="false" onclick="toggleAccordion(this)">Q. ${escapeHTML(f.q)} <span class="icon">▼</span></button><div class="acc-content">${renderSampleLabel(true, '화면 검수용 샘플')}<br>${escapeHTML(f.a)}</div></div>`).join('')}</div></div>`,
+            'faq': () => `<div class="page-view active">${rTitle('Support','자주 묻는 질문')}<div class="container section-wrap" style="max-width:800px;"><div class="faq-search"><label for="faq-query">궁금한 내용을 검색하세요</label><input type="search" id="faq-query" data-faq-search placeholder="프로그램, 일정, 상담 등"></div>${faqData.map(f => `<div class="acc-item"><button class="acc-btn" aria-expanded="false" onclick="toggleAccordion(this)">Q. ${escapeHTML(f.q)} <span class="icon">▼</span></button><div class="acc-content">${renderSampleLabel(true, '화면 검수용 샘플')}<br>${escapeHTML(f.a)}</div></div>`).join('')}</div></div>`,
 
             'contactForms': (isBusiness) => {
                 const titleHTML = isBusiness ? '조직의 언어를<br>바꾸다.' : '전문성을<br>영향력으로.';
@@ -1910,8 +2055,8 @@
                             <p class="body-large" id="contact-dynamic-desc">${descHTML}</p>
                         </div>
                         <form class="form-grid" style="margin:0; max-width:100%;" onsubmit="event.preventDefault(); location.hash='#contact-complete';">
-                            <div id="contact-dynamic-fields">${formFields}</div>
-                            <div class="form-group"><label class="checkbox-label"><input type="checkbox" required style="width:auto;"> [필수] 개인정보 수집 및 이용 동의</label></div>
+                            <p class="form-note">상담 내용을 남겨주시면 프로그램과 운영 일정을 안내해드립니다. 이 미리보기에서는 실제로 전송되지 않습니다.</p><div id="contact-dynamic-fields">${formFields}</div>
+                            <div class="form-group"><label class="checkbox-label"><input type="checkbox" required style="width:auto;"> [필수] 개인정보 수집 및 이용 동의 <a href="#privacy" target="_blank" rel="noopener">내용 보기</a></label></div>
                             <button type="submit" class="btn btn-primary" id="contact-dynamic-btn" style="margin-top:1rem;">${btnHTML}</button>
                         </form>
                     </div>
@@ -1935,8 +2080,8 @@
             'application': () => `
                 <div class="page-view active">${rTitle('Application','프로그램 신청')}
                 <div class="container section-wrap" style="max-width:800px;">
-                    <div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">결제(데모) 확인 후 신청 정보를 작성하는 단계입니다. 접수하시면 담당자 확인을 거쳐 안내를 드립니다.</div>
-                    <form class="form-grid" novalidate onsubmit="event.preventDefault(); location.hash='#application-complete';">
+                    <div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">신청 양식 검수용 데모입니다. 입력 정보는 저장·전송되지 않으며 실제 신청이 접수되지 않습니다.</div>
+                    <form class="form-grid" onsubmit="event.preventDefault(); location.hash='#application-complete';">
                         <div class="form-group"><label>프로그램 및 기수 선택</label><select id="apply-program" required><option value="">선택</option>${programsData.map(p=>`<option value="${p.title}">${p.title} (${p.schedule})</option>`).join('')}</select></div>
                         <div class="form-group"><label>성명</label><input type="text" required></div>
                         <div class="form-group"><label>연락처</label><input type="tel" required pattern="[0-9-]+" placeholder="010-0000-0000"></div>
@@ -2023,7 +2168,7 @@
                     </div>
                 </div></div>`,
 
-            'message': (title, desc, btnTxt, btnLink, isErr = false) => `<div class="page-view active"><div class="container section-wrap text-center" style="padding-top:150px;"><h1 class="eng-title" style="font-size:3rem; margin-bottom:1rem; ${isErr?'color:var(--brand-red);':''}">${title}</h1><p class="body-large" style="margin-bottom:3rem;">${desc}</p><a href="${btnLink}" class="btn ${isErr?'btn-primary':'btn-outline'}">${btnTxt}</a></div></div>`,
+            'message': (title, desc, btnTxt, btnLink, isErr = false) => `<div class="page-view active"><div class="container section-wrap text-center" style="padding-top:150px;"><h1 class="eng-title message-title" style="font-size:3rem; margin-bottom:1rem; ${isErr?'color:var(--brand-red);':''}">${title}</h1><p class="body-large" style="margin-bottom:3rem;">${desc}</p><a href="${btnLink}" class="btn ${isErr?'btn-primary':'btn-outline'}">${btnTxt}</a></div></div>`,
 
             'legal': (title, dataArr) => `<div class="page-view active">${rTitle('Policy', title)}<div class="container section-wrap" style="max-width:900px; padding-top:0;">${renderSampleLabel(true, '화면 검수용 초안 · 법률 및 운영정책 검토 전 사용 금지')}<div class="legal-content" style="margin-top:2rem;">${dataArr.map(item => `<h3 class="eng-title">${item}</h3><p>(화면 검수용 샘플 텍스트)</p>`).join('')}</div></div></div>`
         };
@@ -2043,10 +2188,20 @@
                 const header = document.querySelector('header');
                 const contactImage = document.querySelector('.live-contact-image');
                 const back = document.querySelector('[data-back-top]');
+                const sectionLinks = [...document.querySelectorAll('.detail-section-nav [data-scroll-to]')];
                 function updateScroll() {
                     frame = 0;
                     header?.classList.toggle('is-scrolled',scrollY>30);
                     back?.classList.toggle('visible',scrollY>500);
+                    let currentSection = sectionLinks[0];
+                    sectionLinks.forEach(button => {
+                        const target = document.getElementById(button.dataset.scrollTo);
+                        if (target && target.getBoundingClientRect().top <= (header?.offsetHeight || 0) + 100) currentSection = button;
+                    });
+                    sectionLinks.forEach(button => {
+                        if (button === currentSection) button.setAttribute('aria-current','location');
+                        else button.removeAttribute('aria-current');
+                    });
                     if (contactImage) {
                         const rect = contactImage.getBoundingClientRect();
                         const progress = Math.max(0,Math.min(1,(innerHeight-rect.top)/(innerHeight+rect.height)));
@@ -2114,6 +2269,51 @@
                         if (!card.hidden) { card.classList.remove('reveal-pending'); card.classList.add('reveal-visible'); observer?.unobserve(card); }
                     });
                 },{signal}));
+                // Native disclosures preserve all copy and remain keyboard accessible.
+                document.querySelectorAll('.program-detail .curriculum-list > li').forEach((item,index) => {
+                    if (item.querySelector(':scope > details')) return;
+                    const heading = item.firstElementChild;
+                    if (!heading) return;
+                    const details = document.createElement('details');
+                    details.className = 'curriculum-step';
+                    details.open = index === 0;
+                    if (item.dataset.stage) details.dataset.stage = item.dataset.stage;
+                    const summary = document.createElement('summary');
+                    summary.append(heading);
+                    const body = document.createElement('div'); body.className = 'step-body';
+                    while(item.firstChild) body.append(item.firstChild);
+                    details.append(summary,body); item.append(details);
+                });
+                document.querySelectorAll('[data-fold-title]').forEach(section => {
+                    if (section.querySelector(':scope > details')) return;
+                    const details = document.createElement('details'); details.className = 'prose-disclosure';
+                    const summary = document.createElement('summary'); summary.textContent = section.dataset.foldTitle;
+                    const body = document.createElement('div'); body.className = 'disclosure-body';
+                    while(section.firstChild) body.append(section.firstChild);
+                    details.append(summary,body); section.append(details);
+                    section.style.marginTop = '24px'; section.style.paddingTop = '0'; section.style.borderTop = '0';
+                });
+                document.querySelectorAll('[data-list-filter]').forEach(button => button.addEventListener('click',() => {
+                    const list = button.closest('.program-list');
+                    if (!list) return;
+                    list.querySelectorAll('[data-list-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+                    list.querySelectorAll('[data-list-category]').forEach(card=>{card.hidden=button.dataset.listFilter!=='all'&&button.dataset.listFilter!==card.dataset.listCategory;});
+                },{signal}));
+                document.querySelectorAll('[data-faq-search]').forEach(input => {
+                    const container=input.closest('.container');
+                    const empty=document.createElement('p');empty.className='filter-empty';empty.hidden=true;empty.setAttribute('role','status');empty.textContent='일치하는 질문이 없습니다. 다른 검색어로 찾아보세요.';
+                    container.append(empty);
+                    input.addEventListener('input',()=>{
+                        const query=input.value.trim().toLocaleLowerCase();let count=0;
+                        container.querySelectorAll('.acc-item').forEach(item=>{item.hidden=!item.textContent.toLocaleLowerCase().includes(query);if(!item.hidden)count++;});
+                        empty.hidden=count>0;
+                    },{signal});
+                    signal.addEventListener('abort',()=>empty.remove(),{once:true});
+                });
+                document.querySelectorAll('.form-group').forEach((group,index)=>{
+                    const label=group.querySelector('label'),input=group.querySelector('input:not([type="checkbox"]),select,textarea');
+                    if(label&&input&&!label.htmlFor){if(!input.id)input.id='h2a-field-'+index;label.htmlFor=input.id;}
+                });
                 updateScroll();
                 cleanup = () => { controller.abort(); observer?.disconnect(); cancelAnimationFrame(frame); revealItems.forEach(el => el.classList.remove('reveal-pending')); };
             };
@@ -2135,8 +2335,8 @@
             '#application': views['application'], '#payment-lookup': views['payment-lookup'],
             '#payment': views['payment'],
             '#payment-complete': () => views['message']('PAYMENT COMPLETE', '데모 결제가 완료 처리되었습니다. (주문번호 H2A-DEMO-0001 · 화면 검수용 샘플이며 실제 결제가 이루어지지 않았습니다)', '결제 확인으로 이동', '#payment-lookup'),
-            '#application-complete': () => views['message']('APPLICATION RECEIVED', '신청 접수가 완료되었습니다. 담당자가 확인 후 수강 안내를 드립니다.', '홈으로 돌아가기', '#home'),
-            '#contact-complete': () => views['message']('THANK YOU', '접수가 완료되었습니다. 담당자가 빠르게 회신 드리겠습니다.', '홈으로 돌아가기', '#home'),
+            '#application-complete': () => views['message']('신청 화면 확인 완료', '화면 검수용 데모입니다. 입력한 신청 정보는 저장되거나 담당자에게 전달되지 않았습니다.', '홈으로 돌아가기', '#home'),
+            '#contact-complete': () => views['message']('문의 화면 확인 완료', '화면 검수용 데모입니다. 입력한 문의는 저장되거나 담당자에게 전달되지 않았습니다.', '홈으로 돌아가기', '#home'),
             '#terms': () => views['legal']('이용약관', termsData), '#privacy': () => views['legal']('개인정보처리방침', privacyData), '#refund': () => views['legal']('취소·환불정책', refundData)
         };
 
