@@ -13,24 +13,24 @@
         /* H2A - 스타일시트 (시안에서 분리) */
         /* 1. DESIGN TOKENS */
         :root {
-            --background: #FFFFFF;
+            --background: #FAF8F5;
             --surface: #FFFFFF;
-            --surface-light: #F7F7F7;
-            --ink: #202124;
-            --text-sub: #656569;
-            --line: #E3E3E3;
+            --surface-light: #F0EBE4;
+            --ink: #292723;
+            --text-sub: #71685F;
+            --line: #DED5C9;
     
-            --brand-red: #C84F4A;
-            --brand-red-dark: #9E3D39;
-            --brand-red-soft: #F7E9E7;
-            --brand-red-deep: #702E2C;
+            --brand-red: #A64034;
+            --brand-red-dark: #8C3028;
+            --brand-red-soft: #F0E2DC;
+            --brand-red-deep: #54251F;
     
             --font-eng: 'Playfair Display', 'Noto Sans KR', sans-serif;
             --font-kor: 'Noto Sans KR', sans-serif;
             --font-logo: Arial, Helvetica, 'Noto Sans', sans-serif;
     
-            --max-width: 1200px;
-            --header-height: 80px;
+            --max-width: 1376px;
+            --header-height: 88px;
         }
 
         /* 2. RESET & BASE */
@@ -127,6 +127,8 @@
         .card-img-top { display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--surface); height: 100%; transition: border-color 0.3s; }
         .card-img-top:hover { border-color: var(--brand-red-dark); }
         .card-img-top .img-wrap { aspect-ratio: 4/3; border-bottom: 1px solid var(--line); }
+        /* 인물 사진은 4:3 상자 가운데에 세운다 — 왼쪽에 붙어 오른쪽이 비지 않게 */
+        .card-img-top .img-wrap:has(.director-portrait) { display: flex; justify-content: center; align-items: center; }
         .card-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
 
         .list-item { border-bottom: 1px solid var(--line); padding: 4rem 0; display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: start; }
@@ -396,9 +398,408 @@
            다른 따뜻한 톤이라 이 자리에만 쓴다. */
         .quote-box { background: #F5F3EE; padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
         .quote-box .quote-text { font-family: var(--font-eng); font-size: 1.6rem; font-style: italic; font-weight: 400; color: var(--brand-red-dark); line-height: 1.5; }
+
+        /* 커리큘럼 모듈 심볼 아이콘 (단기 과정 세션용) */
+        .curr-icon { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; flex: none; }
+
+        /* 헤더 강조 버튼 — 프로그램 신청.
+           메뉴 안에 묻히지 않게 대메뉴 옆에 따로 세운다. */
+        .header-cta { padding: 10px 22px; font-size: 0.85rem; white-space: nowrap; margin-left: 1.25rem; }
+        .m-nav-cta { padding: 1rem 1.25rem; border-bottom: 0; }
+        .m-nav-cta .btn { width: 100%; padding: 14px 20px; }
+        @media (max-width: 1024px) { .header-cta { display: none; } }
+
+        /* 비활성 버튼 — CF7 이 동의 체크 전까지 보내기 버튼을 disabled 로 둔다.
+           구분이 없으면 방문자가 "버튼이 안 눌린다" 고 느낀다. */
+        .btn:disabled, .btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+        .btn-primary:disabled:hover { background-color: var(--brand-red-dark); }
+
+        /* 디렉터 인물 사진 — 원본 크기가 달라도 같은 틀(4:5)에 맞춘다.
+           워드프레스가 붙이는 width/height 속성도 이 규칙이 덮는다.
+           높이만 인라인으로 주면 너비 속성이 남아 가로로 늘어나고 얼굴이 확대된다. */
+        .director-portrait { display: block; width: 280px; height: 350px; object-fit: cover; object-position: center top; }
+
+        /* H2A editorial design — 2026-09-07. Shared by the prototype and WordPress. */
+        ::selection { background: #8c3028; color: #fff; }
+        html { scroll-padding-top: 110px; }
+        body { font-size: 15px; }
+        .container { padding-left: 48px; padding-right: 48px; }
+        header { background: rgba(250,248,245,.96); backdrop-filter: blur(16px); border-bottom-color: var(--line); }
+        .logo-link { min-height: 48px; display: inline-flex; align-items: center; font-size: 21px; }
+        .h2a-logo { letter-spacing: -.045em; }
+        .h2a-logo sup { margin-right: .13em; }
+        .pc-nav > button { padding: 0 20px; font-size: 13px; font-weight: 500; }
+        .header-cta { min-height: 44px; font-size: 12px; padding: 12px 20px; }
+        .header-cta::after { content: '↗'; margin-left: 20px; font-size: 17px; }
+        .hamburger { width: 48px; height: 48px; align-items: center; justify-content: center; }
+        .menu-lines, .menu-lines::before { display: block; width: 23px; height: 1.5px; background: currentColor; transition: transform .25s; }
+        .menu-lines::before { content: ''; transform: translateY(7px); }
+        .hamburger[aria-expanded="true"] .menu-lines { transform: rotate(-45deg); }
+        .hamburger[aria-expanded="true"] .menu-lines::before { transform: rotate(90deg); }
+        .mega-menu { padding: 30px 0; background: var(--background); }
+        .mega-grid-compact { max-width: 1000px; }
+        .mega-links ul { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+        .mega-links ul li { margin: 0; }
+        .mega-links ul li a { display: inline-flex; align-items: center; min-height: 44px; }
+        .btn { min-height: 50px; padding: 15px 25px; font-size: 13px; gap: 28px; letter-spacing: 0; }
+        .btn span[aria-hidden] { font-size: 20px; font-weight: 400; }
+        .btn-primary { background: var(--brand-red-dark); }
+        .btn-outline, .btn-thin { border-color: #c9bfb5; }
+        .btn-paper { background: var(--background); color: var(--brand-red-deep); }
+        .btn-paper:hover { background: #eee6dc; color: var(--brand-red-deep); }
+        .text-link { display: inline-flex; align-items: center; gap: 24px; min-height: 44px; font-size: 13px; font-weight: 500; }
+        .text-link span { font-size: 21px; transition: transform .25s; }
+        .text-link:hover span { transform: translate(3px,-3px); }
+        .eyebrow { display: block; font-family: Arial, var(--font-kor); font-size: 10px; letter-spacing: .16em; font-weight: 600; color: var(--brand-red-dark); line-height: 1.6; }
+        .label-sm { font-size: 11px; letter-spacing: .12em; }
+        .section-wrap { padding-top: 100px; padding-bottom: 100px; }
+        .section-title { font-weight: 500; font-size: clamp(28px,3vw,42px); letter-spacing: -.045em; }
+        .section-heading { display: flex; justify-content: space-between; gap: 30px; align-items: flex-end; margin-bottom: 42px; }
+        .section-heading .eyebrow { margin-bottom: 18px; }
+        .home-redesign h2 { font-size: clamp(28px,3vw,42px); font-weight: 500; letter-spacing: -.055em; line-height: 1.45; }
+        .section-heading > p { color: var(--text-sub); font-size: 14px; line-height: 1.9; }
+        .editorial-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 54px; padding-top: 50px; padding-bottom: 50px; }
+        .hero-copy { padding: 28px 0 10px; }
+        .hero-copy > .eyebrow { display: flex; align-items: center; gap: 9px; font-size: 9px; letter-spacing: .12em; }
+        .brand-dot { width: 6px; height: 6px; background: var(--brand-red-dark); border-radius: 50%; flex: none; }
+        .hero-prelude { font-size: 14px; color: var(--text-sub); margin: 36px 0 15px; letter-spacing: -.03em; }
+        .hero-copy h1 { font-size: clamp(44px,5.1vw,74px); font-weight: 500; line-height: 1.2; letter-spacing: -.075em; }
+        .hero-copy h1 > span { color: var(--brand-red-dark); }
+        .hero-english { font-family: var(--font-eng); font-size: clamp(21px,2.3vw,32px); letter-spacing: -.04em; margin-top: 17px; }
+        .hero-english em { font-weight: 400; color: var(--brand-red-dark); }
+        .hero-description { color: var(--text-sub); font-size: 14px; line-height: 1.9; margin-top: 25px; letter-spacing: -.025em; }
+        .hero-actions { display: flex; align-items: center; gap: 25px; margin-top: 28px; flex-wrap: wrap; }
+        .hero-signature { display: flex; align-items: center; gap: 15px; margin-top: 42px; font-family: Arial,sans-serif; font-size: 9px; letter-spacing: .12em; color: #71675e; }
+        .hero-signature i { width: 24px; height: 1px; background: #bcb1a5; }
+        .hero-signature span:last-child { color: var(--brand-red-dark); }
+        .hero-feature { min-width: 0; display: flex; flex-direction: column; }
+        .feature-topline { display: flex; justify-content: space-between; font: 9px/1.6 Arial,sans-serif; letter-spacing: .14em; color: #74685e; padding: 0 0 14px; }
+        .hero-feature .hero-slider-wrap { height: auto; flex: 1; min-height: 520px; background: #e2ddd4; overflow: hidden; }
+        .hero-feature .hero-slide { height: calc(100% - 62px); }
+        .hero-feature .hero-slide-bg { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; object-position: center; transform: none; filter: saturate(.7); }
+        .hero-feature .hero-slide-overlay { background: linear-gradient(180deg, rgba(24,24,20,.04) 25%, rgba(24,24,20,.84) 100%); }
+        .hero-feature .hero-slide-content { justify-content: flex-end; align-items: flex-start; text-align: left; padding: 32px; }
+        .feature-kicker { font: 9px/1.5 Arial,sans-serif; letter-spacing: .18em; margin-bottom: 16px; color: #e5d7cb; }
+        .hero-feature .hero-slide-title { font: 400 clamp(23px,2.5vw,35px)/1.25 var(--font-eng); letter-spacing: -.02em; max-width: 390px; margin-bottom: 14px; }
+        .hero-feature .hero-slide-desc { font-size: 12px; font-weight: 400; color: #f1eae4; margin-bottom: 14px; }
+        .feature-link { display: flex; align-items: center; justify-content: space-between; width: 100%; font-size: 12px; min-height: 44px; color: #fff; border-top: 1px solid #ffffff60; padding-top: 12px; }
+        .feature-link:hover { color: #fff; opacity: .75; }
+        .feature-link span { font-size: 25px; }
+        .hero-control-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 62px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px 0 26px; background: #ede7de; }
+        .hero-counter { font: 11px/1 Arial,sans-serif; letter-spacing: .12em; color: #645b53; }
+        .hero-control-bar .slider-dots { position: static; transform: none; gap: 0; }
+        .hero-control-bar .slider-dot { width: 44px; height: 44px; border-radius: 0; background: none; display: grid; place-items: center; }
+        .hero-control-bar .slider-dot span { height: 2px; width: 26px; background: #c6bbae; }
+        .hero-control-bar .slider-dot.active span { background: var(--brand-red-dark); }
+        .hero-arrows { display: flex; }
+        .hero-control-bar .slider-arrow { position: static; transform: none; width: 44px; height: 44px; color: var(--ink); background: transparent; font-size: 19px; }
+        .hero-control-bar .slider-arrow:hover { background: #e0d7ca; }
+        .academy-shortcuts { display: grid; grid-template-columns: repeat(3,1fr); }
+        .academy-shortcuts > a { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 18px; padding: 27px 24px; transition: background .25s; }
+        .academy-shortcuts > a:first-child { padding-left: 0; }
+        .academy-shortcuts > a + a { border-left: 1px solid var(--line); }
+        .academy-shortcuts > a:hover { background: #f0eae3; }
+        .shortcut-index { font: italic 18px var(--font-eng); color: var(--brand-red-dark); align-self: flex-start; }
+        .academy-shortcuts small { display: block; font: 9px/1.5 Arial,sans-serif; letter-spacing: .1em; color: #797067; margin-bottom: 6px; }
+        .academy-shortcuts strong { font-size: 15px; font-weight: 500; letter-spacing: -.03em; }
+        .shortcut-arrow { margin-left: auto; font-size: 23px; color: var(--brand-red-dark); }
+        .brand-intro { display: grid; grid-template-columns: 1fr 2.6fr .55fr; align-items: start; gap: 30px; }
+        .brand-intro > .eyebrow { padding-top: 14px; }
+        .brand-intro h2 { font-size: clamp(27px,2.6vw,36px); }
+        .brand-intro h2 span { color: #7c7066; }
+        .brand-intro p { margin-top: 24px; line-height: 1.95; color: var(--text-sub); font-size: 14px; }
+        .philosophy-mark { font: 500 105px/1 var(--font-eng); color: #d9cec0; letter-spacing: -.13em; }
+        .philosophy-mark sup { font-size: .45em; vertical-align: top; line-height: 1.1; }
+        .academy-section { background: #eee8df; }
+        .academy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .academy-card { position: relative; overflow: hidden; display: block; background: #e2d7c8; min-height: 490px; color: #332d27; padding: 26px 30px 0; }
+        .speech-card { background: #e8e5df; }
+        .academy-card:hover { color: var(--ink); }
+        .academy-card-top { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2; }
+        .round-arrow { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid #84766b80; border-radius: 50%; font-size: 23px; transition: background .3s, transform .3s; flex: none; }
+        .academy-card:hover .round-arrow { background: #faf8f5; transform: rotate(6deg); }
+        .academy-card-copy { position: relative; z-index: 2; padding-top: 24px; pointer-events: none; }
+        .academy-english { display: block; font: 400 clamp(36px,3.6vw,49px)/1.05 var(--font-eng); letter-spacing: -.04em; }
+        .academy-english em { color: var(--brand-red-dark); }
+        .academy-card h3 { font-size: 19px; font-weight: 500; letter-spacing: -.06em; margin-top: 24px; }
+        .academy-card p { margin-top: 11px; font-size: 12px; line-height: 1.9; max-width: 280px; }
+        .academy-cta { display: flex; gap: 24px; margin-top: 25px; font-size: 12px; font-weight: 500; }
+        .academy-portrait { position: absolute; width: 42%; height: 330px; right: -2%; bottom: 49px; object-fit: contain; object-position: bottom right; mix-blend-mode: multiply; background: transparent; transition: transform .5s; }
+        .academy-card:hover .academy-portrait { transform: scale(1.035); }
+        .academy-card-bottom { position: absolute; bottom: 0; left: 30px; right: 30px; border-top: 1px solid #87726140; display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 49px; font-size: 10px; z-index: 3; }
+        .academy-card-bottom span:first-child { font: 8px Arial,sans-serif; letter-spacing: .05em; }
+        .program-editorial-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 26px; }
+        .program-editorial-card { display: flex; flex-direction: column; min-width: 0; }
+        .program-card-image { position: relative; overflow: hidden; aspect-ratio: 1.35; background: var(--surface-light); }
+        .program-card-image img { height: 100%; width: 100%; transition: transform .6s; filter: saturate(.75); }
+        .program-editorial-card:hover img { transform: scale(1.035); }
+        .program-card-image .sample-label { position: absolute; top: 12px; left: 12px; right: 12px; width: fit-content; font-size: 9px; padding: 4px 6px; }
+        .program-number { position: absolute; right: 15px; bottom: 10px; color: #fff; font: italic 38px var(--font-eng); text-shadow: 0 1px 8px #0008; }
+        .program-card-meta { display: flex; align-items: center; justify-content: space-between; margin: 20px 0 11px; color: var(--brand-red-dark); font: 9px Arial,sans-serif; letter-spacing: .12em; }
+        .program-card-meta > span:last-child { font-size: 24px; }
+        .program-editorial-card h3 { font: 400 27px/1.25 var(--font-eng); letter-spacing: -.025em; }
+        .program-editorial-card > p { color: var(--text-sub); font-size: 13px; margin-top: 12px; margin-bottom: 22px; }
+        .program-card-footer { margin-top: auto; border-top: 1px solid var(--line); padding-top: 16px; display: flex; justify-content: space-between; font-size: 11px; }
+        .home-programs .card-img-top { border: 0; background: none; }
+        .home-programs .card-img-top .img-wrap { aspect-ratio: 1.35; border: 0; }
+        .home-programs .card-img-top .img-wrap img { width: 100%; height: 100% !important; }
+        .home-programs .card-body { padding: 24px 0 0; }
+        .home-programs .card-body h3 { font-size: 27px !important; }
+        .corporate-section { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; border-top: 1px solid var(--line); }
+        .corporate-copy h2 { margin: 20px 0; }
+        .corporate-copy h2 span { color: var(--brand-red-dark); }
+        .corporate-copy > p { color: var(--text-sub); font-size: 14px; line-height: 1.95; margin-bottom: 28px; }
+        .corporate-model { background: #eee8df; padding: 35px; align-self: center; }
+        .corporate-model > .eyebrow { margin-bottom: 25px; }
+        .model-row { display: grid; grid-template-columns: 20px 1fr auto; align-items: baseline; gap: 14px; border-top: 1px solid #cfc4b7; padding: 19px 0; }
+        .model-row > span { font-size: 10px; color: #6b6158; }
+        .model-row strong { font: 400 clamp(20px,2.1vw,29px) var(--font-eng); letter-spacing: -.035em; }
+        .model-result strong { color: var(--brand-red-dark); font-style: italic; font-size: 37px; }
+        .corporate-model .text-link { border-top: 1px solid #cfc4b7; width: 100%; justify-content: space-between; padding-top: 15px; }
+        .home-gallery { background: #f0ece6; }
+        .field-grid { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 22px; }
+        .field-card { display: block; text-align: left; color: var(--ink); min-width: 0; }
+        .field-image { position: relative; overflow: hidden; height: 260px; }
+        .field-image img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.6); transition: transform .5s,filter .5s; }
+        .field-image .round-arrow { position: absolute; bottom: 15px; right: 15px; background: var(--background); border: 0; }
+        .field-card:hover img { transform: scale(1.04); filter: saturate(1); }
+        .field-caption { padding-top: 20px; }
+        .field-caption > span { font: 9px Arial,sans-serif; letter-spacing: .1em; color: #776b60; }
+        .field-caption h3 { margin-top: 8px; font-size: 15px; font-weight: 500; }
+        .home-news { display: grid; grid-template-columns: 1fr 2.4fr; gap: 70px; }
+        .home-news h2 { margin: 16px 0 18px; }
+        .editorial-news-list { border-top: 1px solid var(--ink); }
+        .editorial-news-row { display: block; border-bottom: 1px solid var(--line); padding: 24px 0; }
+        .editorial-news-row > div { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .news-category { color: var(--brand-red-dark); font-size: 10px; }
+        .editorial-news-row .sample-label { margin: 0; font-size: 9px; }
+        .editorial-news-row h3 { font-size: 17px; font-weight: 500; letter-spacing: -.04em; margin: 10px 0; }
+        .editorial-news-row time { font: 11px Arial,sans-serif; color: #756b62; }
+        .editorial-news-row > div:last-child > span { font-size: 21px; }
+        .wp-home-news .news-row { grid-template-columns: 1fr; padding: 24px 0; }
+        .wp-home-news .news-row > .img-wrap { display: none; }
+        .wp-home-news .news-row h3 { font-size: 18px; }
+        .closing-section { background: var(--brand-red-deep); color: #faf4ec; overflow: hidden; }
+        .closing-section > .container { display: flex; justify-content: space-between; align-items: center; gap: 35px; padding-top: 75px; padding-bottom: 75px; position: relative; }
+        .closing-section .eyebrow { color: #d2a69c; margin-bottom: 22px; }
+        .closing-section h2 { font-size: clamp(32px,3.5vw,49px); }
+        .closing-section p { margin-top: 18px; color: #dec6be; font-size: 13px; }
+        .closing-section > .container > div { position: relative; z-index: 1; }
+        .closing-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding-right: 60px; }
+        .closing-actions .text-link { color: #faf4ec; }
+        .closing-watermark { position: absolute; right: -10px; bottom: -60px; font: 400 340px/1 var(--font-eng); color: #ffffff06; pointer-events: none; }
+        footer { background: var(--background); padding-top: 60px; padding-bottom: 24px; }
+        .footer-grid { display: block; font-size: 11px; line-height: 1.8; }
+        .footer-grid .h2a-logo { font-size: 28px; color: var(--brand-red-dark); }
+        .footer-heading { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin-bottom: 35px; border-bottom: 1px solid var(--line); padding-bottom: 30px; }
+        .footer-heading > p { font: italic 24px var(--font-eng); color: #87796b; }
+        .footer-heading .text-link { color: var(--brand-red-dark); }
+        .footer-bottom { margin-top: 35px; padding-top: 22px; font-size: 10px; }
+        .footer-links { flex-wrap: wrap; }
+        .footer-links a { min-height: 44px; display: inline-flex; align-items: center; }
+        .floating-contact { position: fixed; right: 24px; bottom: 24px; z-index: 900; display: flex; align-items: center; gap: 18px; padding: 13px 20px; border-radius: 999px; background: var(--brand-red-dark); color: #fff; box-shadow: 0 5px 24px #48281e24; font-size: 12px; min-height: 48px; }
+        .floating-contact:hover { background: var(--brand-red-deep); color: #fff; }
+        .floating-contact span { font-size: 20px; }
+        body:has(.mobile-nav.active) .floating-contact, body:has(.modal.active) .floating-contact { visibility: hidden; }
+        .skip-link { position: fixed; top: -100px; left: 20px; z-index: 3000; padding: 15px 22px; background: var(--brand-red-dark); color: #fff; }
+        .skip-link:focus { top: 12px; width: auto; height: auto; clip: auto; clip-path: none; }
+        /* Subpages retain their content and share the new hierarchy and materials. */
+        .hero-section { padding: 70px 0 60px; background: #f0eae2; }
+        .page-title { letter-spacing: -.055em; line-height: 1.2; font-weight: 400; }
+        .hero-section .label-sm { margin-bottom: 20px; }
+        .card-basic { background: #fcfaf7; padding: 32px; border-color: var(--line); }
+        .card-img-top { border-color: var(--line); }
+        .img-wrap > img { width: 100%; }
+        .img-wrap > img.director-portrait { width: 280px; height: 350px; object-fit: contain; }
+        .breadcrumb { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 11px; margin-bottom: 25px; }
+        .breadcrumb a { display: inline-flex; min-height: 44px; align-items: center; }
+        .program-detail .hero-section { background: #f0eae2 !important; }
+        .program-detail .hero-section .page-title { font-size: clamp(32px,3.6vw,52px); }
+        .program-detail .hero-section .img-wrap { aspect-ratio: 1.5; }
+        .program-detail .hero-section .img-wrap img { height: 100% !important; max-height: none; }
+        .detail-grid { grid-template-columns: minmax(0,1fr) 330px; gap: 65px; }
+        .detail-grid > aside { align-self: stretch; }
+        .info-panel { padding: 28px; background: #f0eae2; border-top: 3px solid var(--brand-red-dark); position: sticky; top: 110px; }
+        .info-row { padding: 12px 0; font-size: 12px; }
+        .info-row .label-sm { font-size: 10px; }
+        .detail-grid > div { min-width: 0; }
+        .curriculum-list > li { grid-template-columns: minmax(140px,1fr) 2fr; gap: 28px; padding: 30px 0; }
+        .curriculum-list > li h4 { font-size: 17px !important; }
+        .detail-grid .body-large { font-size: 15px; line-height: 1.95; }
+        .detail-grid .grid-2 { gap: 25px; }
+        .detail-grid .img-wrap:has(.director-portrait) { display: flex; align-items: flex-start; justify-content: center; }
+        .form-grid { gap: 24px; }
+        input, textarea, select { background: #fcfaf7; border-color: #d9cfc4; }
+        .acc-btn { font-weight: 500; min-height: 54px; gap: 20px; }
+        @media (max-width: 1150px) {
+         .editorial-hero { gap: 30px; }
+         .hero-actions { gap: 12px; }
+         .hero-actions .btn { gap: 14px; padding: 15px 19px; }
+         .academy-card { padding-left: 22px; padding-right: 22px; }
+         .academy-card p { max-width: 220px; }
+         .academy-card-bottom { left: 22px; right: 22px; }
+         .academy-portrait { width: 37%; }
+         .corporate-section { gap: 45px; }
+         .model-row { grid-template-columns: 15px 1fr; gap: 8px; }
+         .model-row > span:last-child { grid-column: 2; }
+        }
+        @media (max-width: 1024px) {
+         .container { padding-left: 28px; padding-right: 28px; }
+         .hamburger { display: flex; }
+         .hero-copy { padding-top: 10px; }
+         .hero-copy h1 { font-size: 54px; }
+         .hero-prelude { margin-top: 28px; }
+         .hero-feature .hero-slider-wrap { min-height: 500px; }
+         .hero-signature { gap: 9px; font-size: 8px; }
+         .hero-signature i { width: 14px; }
+         .academy-shortcuts > a { padding: 22px 16px; gap: 10px; }
+         .academy-shortcuts strong { font-size: 13px; }
+         .shortcut-index { font-size: 15px; }
+         .academy-card p { max-width: 185px; }
+         .academy-portrait { width: 39%; height: 260px; }
+         .academy-english { font-size: 40px; }
+         .academy-card h3 { font-size: 16px; }
+         .academy-card-bottom span:first-child { font-size: 7px; letter-spacing: 0; }
+         .detail-grid { grid-template-columns: 1fr; gap: 45px; }
+         .detail-grid > aside { order: -1; }
+         .info-panel { position: static; }
+         .info-row .val { max-width: 75%; }
+         .field-image { height: 220px; }
+        }
+        @media (max-width: 760px) {
+         :root { --header-height: 72px; }
+         .container { padding-left: 22px; padding-right: 22px; }
+         .logo-link { font-size: 19px; }
+         .section-wrap { padding-top: 64px; padding-bottom: 64px; }
+         .editorial-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 28px; padding-bottom: 28px; }
+         .hero-copy { padding-top: 7px; }
+         .hero-copy > .eyebrow { font-size: 8px; letter-spacing: .08em; }
+         .hero-prelude { font-size: 12px; margin-top: 26px; }
+         .hero-copy h1 { font-size: clamp(46px,10.5vw,70px); }
+         .hero-english { font-size: 26px; margin-top: 15px; }
+         .hero-description { font-size: 12px; margin-top: 20px; }
+         .hero-actions { margin-top: 22px; gap: 14px; }
+         .hero-actions .btn { font-size: 11px; padding: 13px 15px; gap: 16px; }
+         .hero-actions .text-link { font-size: 11px; gap: 10px; }
+         .hero-signature { margin-top: 28px; }
+         .feature-topline { font-size: 8px; padding-bottom: 9px; }
+         .hero-feature .hero-slider-wrap { min-height: 355px; }
+         .hero-feature .hero-slide-content { padding: 24px; }
+         .hero-feature .hero-slide-title { font-size: 29px; max-width: 330px; }
+         .hero-feature .hero-slide-desc { font-size: 11px; }
+         .hero-control-bar { padding-left: 22px; padding-right: 10px; }
+         .academy-shortcuts { grid-template-columns: 1fr; }
+         .academy-shortcuts > a, .academy-shortcuts > a:first-child { padding: 19px 0; gap: 18px; border-top: 0; }
+         .academy-shortcuts > a:first-child { border-top: 1px solid var(--line); }
+         .academy-shortcuts > a + a { border-left: 0; }
+         .academy-shortcuts strong { font-size: 15px; }
+         .brand-intro { grid-template-columns: 1fr; gap: 20px; position: relative; }
+         .brand-intro > .eyebrow { padding-top: 0; }
+         .brand-intro h2 { font-size: 28px; position: relative; z-index: 1; }
+         .brand-intro p { font-size: 12px; }
+         .philosophy-mark { position: absolute; right: 28px; top: 50px; font-size: 70px; color: #e5dcd0; opacity: .5; }
+         .section-heading { flex-wrap: wrap; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+         .section-heading > p { font-size: 12px; }
+         .home-redesign h2 { font-size: 29px; }
+         .academy-grid { grid-template-columns: 1fr; gap: 18px; }
+         .academy-card { min-height: 475px; padding: 22px 24px 0; }
+         .academy-english { font-size: 46px; }
+         .academy-card h3 { font-size: 19px; }
+         .academy-card p { font-size: 11px; max-width: 210px; }
+         .academy-portrait { height: 290px; width: 40%; }
+         .academy-card-bottom { left: 24px; right: 24px; }
+         .academy-card-bottom span:first-child { font-size: 7px; }
+         .program-editorial-grid { grid-template-columns: 1fr; gap: 36px; }
+         .program-card-image { aspect-ratio: 1.6; }
+         .program-editorial-card h3 { font-size: 29px; }
+         .corporate-section { grid-template-columns: 1fr; gap: 30px; }
+         .corporate-copy > p { font-size: 12px; }
+         .corporate-model { padding: 25px; }
+         .model-row { grid-template-columns: 18px 1fr auto; gap: 8px; }
+         .model-row > span:last-child { grid-column: auto; font-size: 9px; }
+         .model-row strong { font-size: 24px; }
+         .model-result strong { font-size: 31px; }
+         .field-grid { grid-template-columns: 1fr; gap: 28px; }
+         .field-image { height: auto; aspect-ratio: 1.5; }
+         .field-image img { height: 100%; }
+         .field-caption { padding-top: 14px; }
+         .home-news { grid-template-columns: 1fr; gap: 25px; }
+         .home-news h2 { margin-bottom: 8px; }
+         .editorial-news-row h3 { font-size: 16px; }
+         .closing-section > .container { flex-direction: column; align-items: flex-start; padding-top: 55px; padding-bottom: 55px; }
+         .closing-section h2 { font-size: 35px; }
+         .closing-actions { padding-right: 0; }
+         .closing-section p { font-size: 12px; }
+         .closing-watermark { font-size: 240px; bottom: -20px; }
+         .footer-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
+         .footer-heading > p { font-size: 22px; }
+         .footer-grid { font-size: 10px; }
+         .footer-bottom { align-items: flex-start; text-align: left; gap: 16px; }
+         .footer-links { gap: 12px; justify-content: flex-start; }
+         .floating-contact { bottom: 16px; right: 16px; padding: 11px 17px; font-size: 11px; gap: 13px; }
+         footer { padding-bottom: 80px; }
+         .hero-section { padding: 36px 0; }
+         .program-detail .hero-section .grid-2 { gap: 28px; }
+         .program-detail .hero-section .page-title { font-size: 35px; }
+         .detail-grid { padding-top: 40px; padding-bottom: 55px; }
+         .detail-grid .grid-2 { grid-template-columns: 1fr; }
+         .curriculum-list > li { grid-template-columns: 1fr; gap: 8px; }
+         .info-panel { padding: 24px; }
+         .img-wrap > img.director-portrait { max-height: none; width: 240px; height: 300px !important; }
+         .card-basic, .card-body { padding: 24px; }
+         .page-title { overflow-wrap: anywhere; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+         *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
+
+        /* Program overview: image and operating information visible together. */
+        .program-title-block { text-align: center; margin-bottom: 38px; }
+        .program-summary-grid { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(320px,1fr); gap: 48px; align-items: start; }
+        .program-detail .program-summary-grid > .img-wrap { aspect-ratio: 1.18; position: sticky; top: 110px; }
+        .program-summary-grid .info-panel { background: transparent; border: 0; border-top: 1px solid var(--ink); padding: 22px 0 0; position: static; }
+        .program-summary-grid .info-panel h4 { margin-bottom: 10px !important; font-size: 14px !important; letter-spacing: .1em; }
+        .program-summary-grid .info-row { padding: 10px 0; }
+        .program-summary-grid .info-row .val { max-width: 78%; }
+        .program-summary-grid .info-row .label-sm { margin: 0; }
+        .program-detail .detail-grid { display: block; max-width: 996px; }
+        .detail-section-nav { display: flex; justify-content: center; gap: 50px; border-bottom: 1px solid var(--line); position: sticky; top: var(--header-height); z-index: 20; background: var(--background); }
+        .detail-section-nav button { min-height: 64px; font-size: 13px; color: var(--text-sub); border-bottom: 2px solid transparent; }
+        .detail-section-nav button:hover, .detail-section-nav button:focus-visible { border-color: var(--brand-red-dark); color: var(--brand-red-dark); }
+        .program-detail [id] { scroll-margin-top: 170px; }
+        @media(max-width:760px) {
+         .program-title-block { text-align: left; margin-bottom: 28px; }
+         .program-summary-grid { grid-template-columns: 1fr; gap: 24px; }
+         .program-detail .program-summary-grid > .img-wrap { position: static; aspect-ratio: 1.5; }
+         .program-summary-grid .info-panel { padding: 18px 0 0; }
+         .detail-section-nav { gap: 28px; }
+         .detail-section-nav button { min-height: 55px; font-size: 11px; }
+        }
+
+        .field-image, .field-caption { display: block; }
+        .field-caption > strong { display: block; margin-top: 8px; font-size: 15px; font-weight: 500; }
+        .program-title-block .badge { margin-top: 8px; }
+        .program-title-block .sample-label + br { display: none; }
+        @media (min-width: 761px) and (max-width: 900px) {
+         .academy-grid { gap: 18px; }
+         .academy-portrait { width: 38%; opacity: .95; }
+         .academy-card p { max-width: 165px; }
+         .academy-card h3 { font-size: 15px; }
+        }
+        @media (max-width: 360px) {
+         .academy-card { padding-left: 18px; padding-right: 18px; }
+         .academy-card p { max-width: 175px; }
+         .academy-card h3 { font-size: 16px; }
+         .academy-card-bottom { left: 18px; right: 18px; }
+         .academy-card-bottom span:first-child { font-size: 6px; }
+         .model-row { grid-template-columns: 18px 1fr; }
+         .model-row > span:last-child { grid-column: 2; }
+         .hero-copy > .eyebrow { font-size: 7px; }
+        }
     </style>
 </head>
 <body>
+<a class="skip-link" href="#app-container">본문으로 건너뛰기</a>
 
     <!-- HEADER -->
     <header>
@@ -411,16 +812,17 @@
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-about">H2A 소개</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-programs">프로그램</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-business">기업교육</button>
-                <button class="pc-nav-btn" aria-expanded="false" data-target="mega-news">후기</button>
+                <button class="pc-nav-btn" aria-expanded="false" data-target="mega-news">소식</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-contact">문의</button>
             </nav>
-            <button class="hamburger" id="hamburgerBtn" aria-label="모바일 메뉴 열기" aria-expanded="false">☰</button>
+            <a href="#payment" class="btn btn-primary header-cta">프로그램 상담</a>
+            <button class="hamburger" id="hamburgerBtn" aria-label="모바일 메뉴 열기" aria-expanded="false" aria-controls="mobileNav"><span class="menu-lines" aria-hidden="true"></span></button>
         </div>
 
         <!-- PC Mega Menus -->
         <div class="mega-menu" id="mega-about">
             <div class="mega-grid-compact">
-                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#about" class="mega-link">회사 소개</a></li><li><a href="#leaders" class="mega-link">프로그램 디렉터</a></li><li><a href="#location" class="mega-link">오시는 길</a></li></ul></div>
+                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#about" class="mega-link">회사 소개</a></li><li><a href="#leaders" class="mega-link">프로그램 디렉터</a></li></ul></div>
             </div>
         </div>
         <div class="mega-menu" id="mega-programs">
@@ -435,22 +837,23 @@
         </div>
         <div class="mega-menu" id="mega-news">
             <div class="mega-grid-compact">
-                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#reviews" class="mega-link">프로그램 후기</a></li><li><a href="#gallery" class="mega-link">교육 현장</a></li><li><a href="#notices" class="mega-link">공지사항</a></li><li><a href="#insights" class="mega-link">인사이트</a></li></ul></div>
+                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#gallery" class="mega-link">교육 현장</a></li><li><a href="#notices" class="mega-link">공지사항</a></li></ul></div>
             </div>
         </div>
         <div class="mega-menu" id="mega-contact">
             <div class="mega-grid-compact">
-                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#contact" class="mega-link">문의하기</a></li><li><a href="#payment" class="mega-link">프로그램 신청</a></li><li><a href="#payment-lookup" class="mega-link">결제 확인</a></li><li><a href="#faq" class="mega-link">FAQ</a></li></ul></div>
+                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#contact" class="mega-link">문의하기</a></li><li><a href="#faq" class="mega-link">FAQ</a></li></ul></div>
             </div>
         </div>
 
         <!-- Mobile Accordion Nav -->
         <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="모바일 메뉴">
-            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">H2A 소개 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#about" class="m-link">회사 소개</a><a href="#leaders" class="m-link">프로그램 디렉터</a><a href="#location" class="m-link">오시는 길</a></div></div>
+            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">H2A 소개 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#about" class="m-link">회사 소개</a><a href="#leaders" class="m-link">프로그램 디렉터</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">프로그램 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#appearance" class="m-link">외면소통 ACADEMY</a><a href="#soul-speech" class="m-link">Soul Speech ACADEMY</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">기업교육 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#business" class="m-link">기업교육 소개</a><a href="#business/solution" class="m-link">H<sup>2</sup>A</a><a href="#business/quantum" class="m-link">Quantum 품격</a><a href="#business/proposal" class="m-link">기업교육 제안 요청</a></div></div>
-            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">후기 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#reviews" class="m-link">프로그램 후기</a><a href="#gallery" class="m-link">교육 현장</a><a href="#notices" class="m-link">공지사항</a><a href="#insights" class="m-link">인사이트</a></div></div>
-            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">문의 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#contact" class="m-link">문의하기</a><a href="#payment" class="m-link">프로그램 신청</a><a href="#payment-lookup" class="m-link">결제 확인</a><a href="#faq" class="m-link">FAQ</a></div></div>
+            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">소식 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#gallery" class="m-link">교육 현장</a><a href="#notices" class="m-link">공지사항</a></div></div>
+            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">문의 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#contact" class="m-link">문의하기</a><a href="#faq" class="m-link">FAQ</a></div></div>
+            <div class="m-nav-item m-nav-cta"><a href="#payment" class="btn btn-primary">프로그램 상담</a></div>
         </nav>
     </header>
 
@@ -464,15 +867,17 @@
             <button class="modal-btn" id="nextModalBtn" aria-label="다음 이미지">❯</button>
         </div>
         <img id="modalImg" src="" alt="Gallery Image">
-        <div class="modal-caption"><span class="sample-label">화면 검수용 샘플</span><br><span id="modalCaption"></span></div>
+        <div class="modal-caption"><span class="sample-label hidden" id="modalSample"></span><br><span id="modalCaption"></span></div>
     </div>
 
     <!-- Toast Notification -->
     <div id="toast" class="toast hidden" aria-live="polite"></div>
 
     <!-- FOOTER -->
+    <a href="#contact" class="floating-contact">상담 문의 <span aria-hidden="true">↗</span></a>
     <footer>
         <div class="container">
+            <div class="footer-heading"><p>Great expertise deserves to be seen.</p><a href="#leaders" class="text-link">프로그램 디렉터 <span aria-hidden="true">↗</span></a></div>
             <div class="footer-grid">
                 <div>
                     <div class="logo eng-title" style="color:var(--ink); margin-bottom:1.5rem;"><span class="h2a-logo">H<sup>2</sup> Associates Ltd.</span></div>
@@ -513,64 +918,44 @@
                 button.classList.remove('active');
                 button.setAttribute('aria-expanded', 'false');
             });
-            document.body.style.overflow = '';
         }
 
         window.heroSliderInterval = null;
         window.heroSlideCurrent = 0;
-
+        window.stopHeroSlider = () => { clearInterval(window.heroSliderInterval); window.heroSliderInterval = null; };
         window.initHeroSlider = () => {
-            const slides = document.querySelectorAll('.hero-slide');
-            const dots = document.querySelectorAll('.slider-dot');
-            if(slides.length === 0) return;
-    
-            const showSlide = (idx) => {
-                slides.forEach(s => s.classList.remove('active'));
-                dots.forEach(d => d.classList.remove('active'));
-                slides[idx].classList.add('active');
-                dots[idx].classList.add('active');
-                window.heroSlideCurrent = idx;
+            window.stopHeroSlider();
+            const wrap = document.querySelector('.hero-slider-wrap');
+            if (!wrap) return;
+            const slides = [...wrap.querySelectorAll('.hero-slide')];
+            const dots = [...wrap.querySelectorAll('.slider-dot')];
+            if (!slides.length) return;
+            const show = (index) => {
+                const current = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => {
+                    const active = i === current;
+                    slide.classList.toggle('active', active);
+                    slide.setAttribute('aria-hidden', String(!active));
+                    slide.inert = !active;
+                });
+                dots.forEach((dot, i) => { dot.classList.toggle('active', i === current); dot.setAttribute('aria-pressed', String(i === current)); });
+                const counter = wrap.querySelector('.hero-counter');
+                if (counter) counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+                window.heroSlideCurrent = current;
             };
-
-            window.nextHeroSlide = () => {
-                let idx = (window.heroSlideCurrent + 1) % slides.length;
-                showSlide(idx);
-                window.resetHeroSlider();
+            window.nextHeroSlide = () => show(window.heroSlideCurrent + 1);
+            window.prevHeroSlide = () => show(window.heroSlideCurrent - 1);
+            window.goHeroSlide = show;
+            const prev = wrap.querySelector('.slider-arrow.prev');
+            const next = wrap.querySelector('.slider-arrow.next');
+            if (prev) prev.onclick = window.prevHeroSlide;
+            if (next) next.onclick = window.nextHeroSlide;
+            dots.forEach((dot, i) => { dot.onclick = () => show(i); });
+            wrap.onkeydown = (event) => {
+                if (event.key === 'ArrowRight') { event.preventDefault(); window.nextHeroSlide(); }
+                if (event.key === 'ArrowLeft') { event.preventDefault(); window.prevHeroSlide(); }
             };
-
-            window.prevHeroSlide = () => {
-                let idx = (window.heroSlideCurrent - 1 + slides.length) % slides.length;
-                showSlide(idx);
-                window.resetHeroSlider();
-            };
-
-            window.goHeroSlide = (idx) => {
-                showSlide(idx);
-                window.resetHeroSlider();
-            };
-
-            const startHeroSlider = () => {
-                window.heroSliderInterval = setInterval(() => {
-                    let idx = (window.heroSlideCurrent + 1) % slides.length;
-                    showSlide(idx);
-                }, 6000);
-            };
-
-            window.resetHeroSlider = () => {
-                clearInterval(window.heroSliderInterval);
-                startHeroSlider();
-            };
-
-            // 초기화
-            showSlide(0);
-            startHeroSlider();
-        };
-
-        window.stopHeroSlider = () => {
-            if(window.heroSliderInterval) {
-                clearInterval(window.heroSliderInterval);
-                window.heroSliderInterval = null;
-            }
+            show(0);
         };
 
         /* H2A - 데이터 소스 (프로그램/디렉터/후기/공지/인사이트/약관) */
@@ -578,24 +963,29 @@
         // 1. DATA SOURCES
         // ------------------------------------------------------------------
         const imgUrls = {
-            office1: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1400&q=80',
-            office2: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80',
-            office3: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1400&q=80',
-            workshop1: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1400&q=80',
-            workshop2: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80',
-            edu: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1400&q=80',
-            leader1: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1400&q=80',
-            leader2: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1400&q=80',
-            leader3: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=80',
-            dining1: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80',
-            speech1: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1400&q=80',
-            insight: 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?auto=format&fit=crop&w=1400&q=80',
+            office1: 'assets/stock/photo-1497366811353-6870744d04b2.jpg',
+            office2: 'assets/stock/photo-1497366754035-f200968a6e72.jpg',
+            office3: 'assets/stock/photo-1497366216548-37526070297c.jpg',
+            workshop1: 'assets/stock/photo-1517245386807-bb43f82c33c4.jpg',
+            workshop2: 'assets/stock/photo-1521737711867-e3b97375f902.jpg',
+            edu: 'assets/stock/photo-1524178232363-1fb2b075b655.jpg',
+            leader1: 'assets/stock/photo-1560250097-0b93528c311a.jpg',
+            leader2: 'assets/stock/photo-1573496359142-b8d87734a5a2.jpg',
+            leader3: 'assets/stock/photo-1551836022-d5d88e9218df.jpg',
+            dining1: 'assets/stock/photo-1414235077428-338989a2e8c0.jpg',
+            speech1: 'assets/stock/photo-1540575467063-178a50c2df87.jpg',
+            insight: 'assets/stock/photo-1456324504439-367cee3b3c32.jpg',
             // Soul Speech 실사진 (남복희 원장 제공, 2026-08-28 수령)
             ssDirector: 'assets/soul-speech/director.jpg',
             ssHero: 'assets/soul-speech/hero.jpg',
             ssClassroom: 'assets/soul-speech/classroom.jpg',
             ssRadio: 'assets/soul-speech/radio.jpg',
             ssWorkshop: 'assets/soul-speech/workshop.jpg',
+            // 남복희 원장 제공 Soul Speech 강의 현장 (2026-08-27 수령).
+            // 수강생이 뒷모습 위주인 컷만 골랐다. 정면 얼굴이 나오는 컷은 초상권 확인 전까지 쓰지 않는다.
+            ssLectureHero: 'assets/soul-speech/lecture-hero.jpg',
+            ssLecture1: 'assets/soul-speech/lecture-1.jpg',
+            ssLecture2: 'assets/soul-speech/lecture-2.jpg',
             // 디렉터 실사진 (본인 제공)
             dirHwang: 'assets/directors/hwang.jpg'
         };
@@ -603,7 +993,7 @@
         const heroSlides = [
             { title: 'WE TURN EXPERTISE INTO INFLUENCE.', desc: '전문성을 존재감으로, 존재감을 영향력으로.', btnTxt: 'H2A 알아보기', btnLink: '#about', bg: imgUrls.office1 },
             { title: '외면소통 ACADEMY', desc: '이미지 리더십과 프레즌스를 완성하는 교육', btnTxt: '프로그램 보기', btnLink: '#appearance', bg: imgUrls.workshop1 },
-            { title: 'Soul Speech ACADEMY', desc: '마음을 움직이는 스피치', btnTxt: '프로그램 보기', btnLink: '#soul-speech', bg: imgUrls.edu }
+            { title: 'Soul Speech ACADEMY', desc: '마음을 움직이는 스피치', btnTxt: '프로그램 보기', btnLink: '#soul-speech', bg: imgUrls.ssLectureHero }
         ];
 
         const programsData = [
@@ -715,7 +1105,7 @@
                 intro: "단순한 스피치 스킬이 아닌 내면의 소리를 찾고 나다운 언어를 설계하는 12주 여정입니다.",
                 recommend: ["말하는 기술보다 말하는 이유를 먼저 찾고 싶은 분", "목소리에 자신이 없거나, 더 젊고 따뜻한 목소리로 가꾸고 싶은 분", "자신의 이야기를 진정성 있게 전달하고 싶은 분", "발표·인터뷰·강의에서 흔들리지 않는 나만의 언어를 원하는 분", "말을 통해 나 자신을 성장시키고 싶은 분"],
                 composition: ["내면 발굴", "언어 설계", "존재 표현", "SST™ 진단"],
-                isSample: false, sampleLabel: '', status: '상담 안내', audience: '상담 시 안내', duration: '상담 시 안내', capacity: '상담 시 안내', schedule: '상담 시 안내', place: '상담 시 안내', price: '상담 시 안내', totalHours: '상담 시 안내', vatIncluded: false, deadline: '상담 시 안내', image: imgUrls.ssHero, cta: '프로그램 상담', expert: 'nam',
+                isSample: false, sampleLabel: '', status: '상담 안내', audience: '상담 시 안내', duration: '상담 시 안내', capacity: '상담 시 안내', schedule: '상담 시 안내', place: '상담 시 안내', price: '상담 시 안내', totalHours: '상담 시 안내', vatIncluded: false, deadline: '상담 시 안내', image: imgUrls.ssLectureHero, cta: '프로그램 상담', expert: 'nam',
                 curr: [
                     {t: "1단계 · 내면 발굴", items: ["Wk 01 AWAKENING 내면이 깨어나는 순간", "Wk 02 ATTUNEMENT 나의 주파수를 찾다", "Wk 03 READING 마음의 언어를 해독하다", "Wk 04 RESONANCE 소울 보이스가 울리다"]},
                     {t: "2단계 · 언어 설계", items: ["Wk 05 VIBRATION 말이 진동으로 설계되다", "Wk 06 STORY 나만의 이야기가 콘텐츠가 되다", "Wk 07 CONNECTION 마음을 여는 대화법", "Wk 08 DESIGN 스피치를 설계하다"]},
@@ -735,10 +1125,10 @@
                 composition: ["핵심 발굴", "보이스 트레이닝", "스피치 설계", "존재 표현"],
                 isSample: false, sampleLabel: '', status: '상담 안내', audience: '상담 시 안내', duration: '상담 시 안내', capacity: '상담 시 안내', schedule: '상담 시 안내', place: '상담 시 안내', price: '상담 시 안내', totalHours: '상담 시 안내', vatIncluded: false, deadline: '상담 시 안내', image: imgUrls.ssWorkshop, cta: '프로그램 상담', expert: 'nam',
                 curr: [
-                    {t: "Session 1", items: ["DISCOVER 내 안의 목소리를 찾다"]},
-                    {t: "Session 2", items: ["VOICE 소울 보이스로 다듬다"]},
-                    {t: "Session 3", items: ["DESIGN 말을 설계하다"]},
-                    {t: "Session 4", items: ["PRESENCE 나답게 세상과 연결하다"]}
+                    {t: "Session 1", icon: "ear", items: ["DISCOVER 내 안의 목소리를 찾다"]},
+                    {t: "Session 2", icon: "wave", items: ["VOICE 소울 보이스로 다듬다"]},
+                    {t: "Session 3", icon: "diamond", items: ["DESIGN 말을 설계하다"]},
+                    {t: "Session 4", icon: "star", items: ["PRESENCE 나답게 세상과 연결하다"]}
                 ],
                 programFaq: [{q: "스피치 경험이 전혀 없어도 참여할 수 있나요?", a: "상담 시 안내드립니다."}, {q: "SST™ 진단은 어떻게 진행되나요?", a: "상담 시 안내드립니다."}, {q: "12주 과정과 단기 4세션의 차이는 무엇인가요?", a: "상담 시 안내드립니다."}, {q: "일정과 수강료는 어떻게 되나요?", a: "상담 시 안내드립니다."}, {q: "상세 커리큘럼은 언제 확인할 수 있나요?", a: "상담 시 안내드립니다."}],
                 closing: "YOUR VOICE. YOUR MESSAGE. YOUR INFLUENCE.",
@@ -771,7 +1161,9 @@
             { id: 'g3', isSample: true, sampleLabel: '화면 검수용 샘플 이미지', title: 'The Table 다이닝 실습', category: 'Experience', image: imgUrls.dining1 },
             { id: 'g4', isSample: true, sampleLabel: '화면 검수용 샘플 이미지', title: 'Social Presence 네트워킹', category: 'Workshop', image: imgUrls.workshop2 },
             { id: 'g5', isSample: true, sampleLabel: '화면 검수용 샘플 이미지', title: 'Dress & Presence 컨설팅', category: 'Experience', image: imgUrls.office1 },
-            { id: 'g6', isSample: true, sampleLabel: '화면 검수용 샘플 이미지', title: 'Soul Speech 특강', category: 'Speech', image: imgUrls.speech1 },
+            { id: 'g6', isSample: false, sampleLabel: '', title: 'Soul Speech 특강', category: 'Speech', image: imgUrls.ssLectureHero },
+            { id: 'g9', isSample: false, sampleLabel: '', title: 'Soul Speech 12주 과정', category: 'Speech', image: imgUrls.ssLecture1 },
+            { id: 'g10', isSample: false, sampleLabel: '', title: 'Soul Speech 강의 현장', category: 'Speech', image: imgUrls.ssLecture2 },
             { id: 'g7', isSample: true, sampleLabel: '화면 검수용 샘플 이미지', title: '기업 임원진 워크숍', category: 'Corporate', image: imgUrls.edu },
             { id: 'g8', isSample: true, sampleLabel: '화면 검수용 샘플 이미지', title: 'Private 네트워킹 모임', category: 'Private', image: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=80' }
         ];
@@ -820,8 +1212,9 @@
         const showToast = (msg) => { 
             const t = document.getElementById('toast'); 
             t.innerText = msg; 
-            t.style.display = 'block'; 
-            setTimeout(() => { t.style.display = 'none'; }, 3000); 
+            t.classList.remove('hidden');
+            clearTimeout(t._hideTimer);
+            t._hideTimer = setTimeout(() => t.classList.add('hidden'), 3000); 
         };
 
         const renderBadge = (txt) => `<span class="badge ${txt.includes('마감')||txt.includes('임박')?'highlight':''}">${txt}</span>`;
@@ -830,14 +1223,23 @@
 
         // Modal & Gallery Logic
         let currentGalIndex = 0;
+        let galleryFocusReturn = null;
         const openModal = (index) => {
+            if (!galleryData[index]) return;
+            if (!document.getElementById('galleryModal').classList.contains('active')) galleryFocusReturn = document.activeElement;
             currentGalIndex = index;
             const m = document.getElementById('galleryModal');
             document.getElementById('modalImg').src = galleryData[index].image;
             document.getElementById('modalCaption').innerText = galleryData[index].title;
+            const sample = document.getElementById('modalSample');
+            sample.textContent = galleryData[index].sampleLabel || '';
+            sample.classList.toggle('hidden', !galleryData[index].isSample);
+            document.getElementById('modalImg').alt = galleryData[index].title;
             m.classList.remove('hidden'); m.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('closeModalBtn').focus();
         };
-        const closeModal = () => { const m = document.getElementById('galleryModal'); m.classList.remove('active'); m.classList.add('hidden'); };
+        const closeModal = () => { const m = document.getElementById('galleryModal'); if (!m.classList.contains('active')) return; m.classList.remove('active'); m.classList.add('hidden'); document.body.style.overflow = ''; if (galleryFocusReturn?.isConnected) galleryFocusReturn.focus(); };
         const navGallery = (dir) => { currentGalIndex = (currentGalIndex + dir + galleryData.length) % galleryData.length; openModal(currentGalIndex); };
 
         // Attach Modal Event Listeners
@@ -867,12 +1269,13 @@
         });
 
         document.querySelector('header').addEventListener('mouseleave', closeAllMegas);
-        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') { closeAllMegas(); document.getElementById('mobileNav').classList.remove('active'); closeModal(); }});
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') { closeAllMegas(); closeMobileMenu(); closeModal(); }});
         document.addEventListener('click', (e) => { if(!e.target.closest('header') && !e.target.closest('#mobileNav') && !e.target.closest('.modal-controls') && !e.target.closest('.modal-close')) closeAllMegas(); });
 
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const mobileNav = document.getElementById('mobileNav');
-        hamburgerBtn.addEventListener('click', (e) => { e.stopPropagation(); mobileNav.classList.toggle('active'); document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : ''; });
+        const closeMobileMenu = () => { const wasOpen = mobileNav.classList.contains('active'); mobileNav.classList.remove('active'); hamburgerBtn.setAttribute('aria-expanded', 'false'); hamburgerBtn.setAttribute('aria-label', '모바일 메뉴 열기'); document.body.style.overflow = ''; if (wasOpen) hamburgerBtn.focus(); };
+        hamburgerBtn.addEventListener('click', (e) => { e.stopPropagation(); const open = mobileNav.classList.toggle('active'); document.body.style.overflow = open ? 'hidden' : ''; hamburgerBtn.setAttribute('aria-expanded', String(open)); hamburgerBtn.setAttribute('aria-label', open ? '모바일 메뉴 닫기' : '모바일 메뉴 열기'); });
 
         document.querySelectorAll('.m-nav-header').forEach(header => {
             header.addEventListener('click', () => {
@@ -883,7 +1286,7 @@
                 header.querySelector('span').innerText = isExp ? '-' : '+';
             });
         });
-        document.querySelectorAll('.mega-links a, .m-nav-body a').forEach(link => { link.addEventListener('click', () => { closeAllMegas(); mobileNav.classList.remove('active'); document.body.style.overflow = ''; }); });
+        document.querySelectorAll('.mega-links a, .mobile-nav a').forEach(link => { link.addEventListener('click', () => { closeAllMegas(); closeMobileMenu(); }); });
 
         // Payment Lookup Form Handler
         window.handlePaymentLookup = (e) => {
@@ -960,147 +1363,107 @@
             renderFormToggle(isBusiness);
         };
 
+        // Keep keyboard focus within the open overlay.
+        document.addEventListener('keydown', (event) => {
+            const modal = document.querySelector('.modal.active');
+            const menu = document.querySelector('.mobile-nav.active');
+            if (modal && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) { event.preventDefault(); navGallery(event.key === 'ArrowLeft' ? -1 : 1); }
+            if (event.key !== 'Tab' || (!modal && !menu)) return;
+            const scope = modal || document.querySelector('header');
+            const focusable = [...scope.querySelectorAll('a,button,input,select,textarea')].filter(el => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden');
+            const first = focusable[0], last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+            if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        });
+        document.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-scroll-to]');
+            if (button) {
+                const target = document.getElementById(button.dataset.scrollTo);
+                if (target) { target.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); target.focus({preventScroll:true}); }
+            }
+            if (event.target.closest('.skip-link')) { event.preventDefault(); document.getElementById('app-container').focus(); }
+        });
+
         /* H2A - 화면 템플릿 */
         // ------------------------------------------------------------------
         // 4. HTML TEMPLATES FOR VIEWS
         // ------------------------------------------------------------------
+        // 커리큘럼 모듈용 심볼 아이콘. 남복희 원장 요청(귀·음파·다이아·별).
+        // 3단계 카드의 라인 아이콘과 같은 계열로 맞췄다.
+        const currIcons = {
+            ear: '<path d="M6 8.5a6 6 0 0 1 12 0c0 3-2 4-3 5.5s-1 2.5-1 3.5a2.5 2.5 0 0 1-5 0"/><path d="M9.5 8.5a2.5 2.5 0 0 1 5 0c0 1.5-1.5 2-2 3"/>',
+            wave: '<path d="M3 12h2M8 6v12M12 3v18M16 8v8M21 12h-2"/>',
+            diamond: '<path d="M12 2 22 12 12 22 2 12z"/><path d="M7 12h10"/>',
+            star: '<path d="m12 2 3 6.5 7 .9-5 4.9 1.2 7L12 18l-6.2 3.3L7 14.3 2 9.4l7-.9z"/>'
+        };
+        const renderCurrIcon = (k) => currIcons[k]
+            ? `<span class="curr-icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-red-dark)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${currIcons[k]}</svg></span>`
+            : '';
+
         const views = {
             home: () => `
-                <div class="page-view active">
-                    <section class="hero-slider-wrap">
-                        ${heroSlides.map((s, i) => `
-                            <div class="hero-slide ${i === 0 ? 'active' : ''}">
-                                <div class="hero-slide-bg" style="background-image: url('${s.bg}');"></div>
-                                <div class="hero-slide-overlay"></div>
-                                <div class="hero-slide-content">
-                                    <h2 class="hero-slide-title">${escapeHTML(s.title)}</h2>
-                                    <p class="hero-slide-desc">${escapeHTML(s.desc)}</p>
-                                    <a href="${s.btnLink}" class="btn btn-white-outline" data-action="route">${s.btnTxt}</a>
-                                </div>
-                            </div>
-                        `).join('')}
-                        <button class="slider-arrow prev" onclick="prevHeroSlide()" aria-label="이전 슬라이드">‹</button>
-                        <button class="slider-arrow next" onclick="nextHeroSlide()" aria-label="다음 슬라이드">›</button>
-                        <div class="slider-dots">
-                            ${heroSlides.map((_, i) => `<div class="slider-dot ${i === 0 ? 'active' : ''}" onclick="goHeroSlide(${i})" aria-label="${i+1}번 슬라이드"></div>`).join('')}
-                        </div>
-                    </section>
-            
-                    <section style="background:var(--ink); padding:2rem 0; overflow-x:auto; scroll-snap-type: x mandatory;">
-                        <div class="container" style="display:flex; gap:2rem; min-width:800px;">
-                            ${['CEO & Executive', 'Signature Presence Program', 'Private Programs', 'Soul Speech ACADEMY'].map(t => `<a href="#programs" style="color:#fff; font-size:0.95rem; scroll-snap-align: start; white-space:nowrap;">${t} →</a>`).join('')}
-                        </div>
-                    </section>
+        <div class="page-view active home-redesign">
+        <section class="editorial-hero container">
+          <div class="hero-copy">
+            <span class="eyebrow"><span class="brand-dot"></span> EXECUTIVE PRESENCE & COMMUNICATION</span>
+            <p class="hero-prelude">당신의 전문성이, 당신답게 빛나도록.</p>
+            <h1>전문성을<br><span>영향력으로.</span></h1>
+            <p class="hero-english">Expertise into <em>influence.</em></p>
+            <p class="hero-description">보이는 태도와 들리는 언어가 만나는 곳.<br>H²A는 당신만의 존재감과 소통의 힘을 설계합니다.</p>
+            <div class="hero-actions"><a href="#programs" class="btn btn-primary">나에게 맞는 프로그램 <span aria-hidden="true">↗</span></a><a href="#about" class="text-link">H2A 알아보기 <span aria-hidden="true">→</span></a></div>
+            <div class="hero-signature"><span>EXPERTISE</span><i></i><span>PRESENCE</span><i></i><span>INFLUENCE</span></div>
+          </div>
+          <div class="hero-feature">
+            <div class="feature-topline"><span>THE H²A PERSPECTIVE</span><span>01 — 03</span></div>
+            <section class="hero-slider-wrap" aria-roledescription="캐러셀" aria-label="H2A 소개">
+         ${heroSlides.map((s,i)=>`<div class="hero-slide ${i===0?'active':''}" aria-hidden="${i!==0}" ${i===0?'':'inert'}><img class="hero-slide-bg" src="${s.bg}" alt="${i===2?'Soul Speech 실제 강의 현장':'브랜드 분위기 참고 이미지'}" ${i===0?'fetchpriority="high"':'loading="lazy"'}><div class="hero-slide-overlay"></div><div class="hero-slide-content"><span class="feature-kicker">${i===2?'SOUL SPEECH IN PRACTICE':'H² ASSOCIATES'}</span><h2 class="hero-slide-title">${escapeHTML(s.title)}</h2><p class="hero-slide-desc">${escapeHTML(s.desc)}</p><a href="${s.btnLink}" class="feature-link">${escapeHTML(s.btnTxt)} <span aria-hidden="true">↗</span></a></div></div>`).join('')}
+         <div class="hero-control-bar"><span class="hero-counter" aria-live="polite">01 / ${String(heroSlides.length).padStart(2,'0')}</span><div class="slider-dots">${heroSlides.map((_,i)=>`<button class="slider-dot ${i===0?'active':''}" onclick="goHeroSlide(${i})" aria-label="${i+1}번 슬라이드" aria-pressed="${i===0}"><span></span></button>`).join('')}</div><div class="hero-arrows"><button class="slider-arrow prev" onclick="prevHeroSlide()" aria-label="이전 슬라이드">←</button><button class="slider-arrow next" onclick="nextHeroSlide()" aria-label="다음 슬라이드">→</button></div></div>
+        </section>
+          </div>
+        </section>
+        <nav class="academy-shortcuts container" aria-label="아카데미 바로가기">
+          <a href="#appearance"><span class="shortcut-index">01</span><div><small>PRESENCE & IMAGE</small><strong>외면소통 ACADEMY</strong></div><span class="shortcut-arrow" aria-hidden="true">↗</span></a>
+          <a href="#soul-speech"><span class="shortcut-index">02</span><div><small>VOICE & COMMUNICATION</small><strong>Soul Speech ACADEMY</strong></div><span class="shortcut-arrow" aria-hidden="true">↗</span></a>
+          <a href="#business"><span class="shortcut-index">03</span><div><small>FOR ORGANIZATIONS</small><strong>기업교육 & 맞춤 솔루션</strong></div><span class="shortcut-arrow" aria-hidden="true">↗</span></a>
+        </nav>
+        <section class="brand-intro container section-wrap">
+          <span class="eyebrow">OUR PHILOSOPHY</span>
+          <div><h2>실력은 이미 당신 안에.<br>이제, <span>전달되는 방식을 바꿀 때.</span></h2><p>전문성이 있어도 그 가치가 저절로 전달되는 것은 아닙니다.<br>어떻게 보이고, 말하고, 관계 맺고, 기억될지.<br>H2A는 전문성에 걸맞은 존재감을 함께 만들어갑니다.</p></div>
+          <span class="philosophy-mark" aria-hidden="true">H<sup>2</sup></span>
+        </section>
+        <section class="academy-section section-wrap">
+         <div class="container">
+          <div class="section-heading"><div><span class="eyebrow">TWO ACADEMIES. ONE INFLUENCE.</span><h2>두 가지 전문성,<br>하나의 완성된 존재감.</h2></div><p>보이는 신뢰와 마음에 닿는 말.<br>당신의 변화를 두 아카데미가 함께합니다.</p></div>
+          <div class="academy-grid">
+           <a class="academy-card appearance-card" href="#appearance">
+            <div class="academy-card-top"><span class="eyebrow">01 / APPEARANCE</span><span class="round-arrow" aria-hidden="true">↗</span></div>
+            <div class="academy-card-copy"><span class="academy-english">The art of<br><em>presence.</em></span><h3>외면소통 ACADEMY</h3><p>말하기 전부터 전해지는 당신의 가치.<br>이미지, 태도, 관계의 품격을 설계합니다.</p><span class="academy-cta">아카데미 살펴보기 <span aria-hidden="true">→</span></span></div>
+            <img class="academy-portrait" src="assets/directors/hwang.jpg" alt="외면소통 ACADEMY 프로그램 디렉터 황정선" loading="lazy" width="280" height="350">
+            <div class="academy-card-bottom"><span>APPEARANCE · ATTITUDE · AFFECT</span><span>황정선 디렉터</span></div>
+           </a>
+           <a class="academy-card speech-card" href="#soul-speech">
+            <div class="academy-card-top"><span class="eyebrow">02 / SOUL SPEECH</span><span class="round-arrow" aria-hidden="true">↗</span></div>
+            <div class="academy-card-copy"><span class="academy-english">The power of<br><em>your voice.</em></span><h3>Soul Speech ACADEMY</h3><p>기술을 넘어, 존재로 말하는 힘.<br>나만의 목소리와 진정성 있는 언어를 발견합니다.</p><span class="academy-cta">아카데미 살펴보기 <span aria-hidden="true">→</span></span></div>
+            <img class="academy-portrait" src="assets/soul-speech/director.jpg" alt="Soul Speech ACADEMY 프로그램 디렉터 남복희" loading="lazy" width="280" height="350">
+            <div class="academy-card-bottom"><span>VOICE · MESSAGE · COMMUNICATION</span><span>남복희 디렉터</span></div>
+           </a>
+          </div>
+         </div>
+        </section>
 
-                    <section class="section-wrap" style="background: var(--surface-light);">
-                        <div class="container">
-                            <span class="label-sm">Programs</span><h2 class="section-title eng-title">H2A PROGRAMS</h2>
-                            <div class="grid-2" style="margin-top: 3rem;">
-                                ${programsData.slice(0,4).map(p => `
-                                    <a href="#${p.category==='experience'?'appearance/experience/'+p.slug:(p.category==='soulspeech'?'soul-speech/'+p.slug:'appearance/'+p.slug)}" class="card-img-top">
-                                        <div class="img-wrap">${renderSampleLabel(p.isSample, p.sampleLabel)}<img src="${p.image}" alt="${escapeHTML(p.title)}" style="height:280px;" loading="lazy"></div>
-                                        <div class="card-body">
-                                            ${renderBadge(p.status)}<h3 class="eng-title" style="font-size:1.8rem; margin:0.5rem 0;">${p.title}</h3>
-                                            <p style="color:var(--text-sub); margin-bottom:1.5rem;">${p.subtitle}</p>
-                                            <span style="margin-top:auto; font-weight:700; color:var(--brand-red-dark); font-size:0.95rem;">상세보기 →</span>
-                                        </div>
-                                    </a>
-                                `).join('')}
-                            </div>
-                            <div class="text-center" style="margin-top:3rem;"><a href="#programs" class="btn btn-thin">전체 프로그램 보기</a></div>
-                        </div>
-                    </section>
+        <section class="home-programs container section-wrap"><div class="section-heading"><div><span class="eyebrow">CURATED PROGRAMS</span><h2>지금, 나에게 필요한 변화.</h2></div><a href="#programs" class="text-link">전체 프로그램 <span aria-hidden="true">↗</span></a></div>
+         <div class="program-editorial-grid">${[programsData[0],programsData[1],programsData.find(p=>p.category==='soulspeech')].filter(Boolean).map((p,i)=>`<a href="#${p.category==='soulspeech'?'soul-speech': 'appearance'}/${p.slug}" class="program-editorial-card"><div class="program-card-image"><img src="${p.image}" alt="${escapeHTML(p.title)}" loading="lazy">${renderSampleLabel(p.isSample,p.sampleLabel)}<span class="program-number">0${i+1}</span></div><div class="program-card-meta"><span>${p.category==='soulspeech'?'SOUL SPEECH':'APPEARANCE'}</span><span aria-hidden="true">↗</span></div><h3>${escapeHTML(p.title)}</h3><p>${escapeHTML(p.subtitle)}</p><div class="program-card-footer"><span>프로그램 자세히 보기</span><span aria-hidden="true">→</span></div></a>`).join('')}</div>
+        </section>
+        <section class="corporate-section container section-wrap">
+         <div class="corporate-copy"><span class="eyebrow">H²A FOR BUSINESS</span><h2>사람의 변화가<br>조직의 <span>가능성으로.</span></h2><p>리더의 존재감부터 조직의 커뮤니케이션까지.<br>기업의 목표와 상황에 맞는 교육을 함께 설계합니다.</p><a href="#business/proposal" class="btn btn-outline">기업교육 제안 요청 <span aria-hidden="true">↗</span></a></div>
+         <div class="corporate-model"><span class="eyebrow">INTEGRATED SOLUTION</span><div class="model-row"><span>01</span><strong>Presence</strong><span>보이는 신뢰</span></div><div class="model-row"><span>02</span><strong>Communication</strong><span>전해지는 진정성</span></div><div class="model-row model-result"><span>↗</span><strong>Influence</strong><span>함께 만드는 영향력</span></div><a class="text-link" href="#business">기업교육 알아보기 <span aria-hidden="true">→</span></a></div>
+        </section>
 
-                    <section class="section-wrap">
-                        <div class="container">
-                            <span class="label-sm">News</span><h2 class="section-title eng-title">H2A NEWS</h2>
-                            <div style="border-top:1px solid var(--line);">
-                                ${noticesData.slice(0,4).map(n => `
-                                    <a href="#notices/detail/${n.id}" class="news-row">
-                                        <div class="img-wrap">${renderSampleLabel(n.isSample, n.sampleLabel)}<img src="${imgUrls.office2}" alt="${escapeHTML(n.title)}" loading="lazy"></div>
-                                        <div class="news-content">
-                                            <span style="color:var(--brand-red); font-size:0.85rem; font-weight:700;">${n.category}</span>
-                                            <h3>${n.title}</h3>
-                                            <p style="color:var(--text-sub);">${n.excerpt}</p>
-                                            <div class="news-meta"><span>${n.date}</span></div>
-                                        </div>
-                                    </a>
-                                `).join('')}
-                            </div>
-                            <div class="text-center" style="margin-top:3rem;"><a href="#notices" class="btn btn-thin">공지사항 전체보기</a></div>
-                        </div>
-                    </section>
-
-                    <section class="section-wrap text-center" style="background: var(--surface);">
-                        <div class="container">
-                            <span class="label-sm">Solution</span><h2 class="section-title eng-title">H2A INTEGRATED SOLUTION</h2>
-                            <div class="grid-3" style="align-items:center; margin-top:3rem;">
-                                <div class="card-basic"><span class="eng-title" style="font-size:2rem; color:var(--brand-red);">01</span><h3 class="eng-title" style="font-size:1.3rem; margin-top:1rem;">Appearance<br>Attitude<br>Affect</h3><p style="margin-top:1rem; color:var(--text-sub);">외면소통 ACADEMY</p></div>
-                                <div style="font-size:2rem; color:var(--text-sub); font-weight:300;">×</div>
-                                <div class="card-basic"><span class="eng-title" style="font-size:2rem; color:var(--brand-red);">02</span><h3 class="eng-title" style="font-size:1.3rem; margin-top:1rem;">Voice<br>Message<br>Communication</h3><p style="margin-top:1rem; color:var(--text-sub);">Soul Speech ACADEMY</p></div>
-                            </div>
-                            <div style="margin:2rem 0; font-size:2rem; color:var(--text-sub);">↓</div><h3 class="eng-title" style="font-size:2.5rem; color:var(--brand-red-dark); letter-spacing:0.1em;">INFLUENCE</h3>
-                        </div>
-                    </section>
-
-                    <section class="section-wrap">
-                        <div class="container text-center">
-                            <span class="label-sm">Insights</span><h2 class="section-title eng-title">H2A INSIGHTS</h2>
-                            <div class="grid-3 text-left" style="margin-top:3rem;">
-                                ${insightsData.slice(0,3).map(i => `
-                                    <a href="#insights/detail/${i.id}" class="card-img-top">
-                                        <div class="img-wrap">${renderSampleLabel(i.isSample, i.sampleLabel)}<img src="${i.image}" alt="${escapeHTML(i.title)}" loading="lazy"></div>
-                                        <div class="card-body">
-                                            <span style="color:var(--brand-red); font-size:0.85rem; font-weight:700;">${i.category}</span>
-                                            <h4 style="font-size:1.1rem; font-weight:700; margin:0.5rem 0;">${i.title}</h4>
-                                            <p style="color:var(--text-sub); font-size:0.95rem;">${i.excerpt}</p>
-                                        </div>
-                                    </a>
-                                `).join('')}
-                            </div>
-                            <div class="text-center" style="margin-top:3rem;"><a href="#insights" class="btn btn-thin">인사이트 전체보기</a></div>
-                        </div>
-                    </section>
-
-                    <section class="section-wrap" style="background:var(--surface);">
-                        <div class="container text-center">
-                            <span class="label-sm">Experts</span><h2 class="section-title eng-title">PROGRAM EXPERTS</h2>
-                            <p class="body-large" style="margin-bottom:3rem;">각 분야의 전문성을 H2A의 프로그램으로 연결합니다.</p>
-                            <div class="grid-2 text-left">
-                                ${Object.values(expertsData).map(e => `
-                                    <div class="card-img-top">
-                                        <div class="img-wrap">${renderSampleLabel(!e.photoConfirmed, '공개 전 당사자 확인 필요')}${e.img ? `<img src="${e.img}" alt="${escapeHTML(e.name)}" style="height:350px;" loading="lazy">` : `<span class="img-placeholder" style="height:350px;" aria-hidden="true"></span>`}</div>
-                                        <div class="card-body">
-                                            <h3 class="eng-title" style="font-size:1.8rem; margin-bottom:0.5rem;">${e.name}</h3>
-                                            <p style="font-weight:700; color:var(--brand-red-dark);">${e.role}</p>
-                                            <p style="color:var(--text-sub); font-size:0.95rem; margin-top:0.5rem;">${e.externalRole}</p>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="section-wrap">
-                        <div class="container">
-                            <span class="label-sm text-center">Gallery</span><h2 class="section-title eng-title text-center">교육 현장</h2>
-                            <div class="grid-4" style="margin-top:3rem;">
-                                ${galleryData.slice(0,4).map((g, idx) => `
-                                    <div class="img-wrap" style="cursor:pointer;" onclick="openModal(${idx})">
-                                        ${renderSampleLabel(g.isSample, g.sampleLabel)}<img src="${g.image}" alt="${escapeHTML(g.title)}" style="height:200px;" loading="lazy">
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="section-wrap text-center" style="background: var(--brand-red-deep); color: #fff;">
-                        <div class="container">
-                            <h2 class="eng-title" style="font-size: 2.5rem; margin-bottom: 1.5rem;">Ready to build your influence?</h2>
-                            <div style="display: flex; gap: 1rem; justify-content: center;"><a href="#contact" class="btn" style="background:#fff; color:var(--brand-red-deep);">개인 프로그램 상담</a><a href="#business/proposal" class="btn" style="border:1px solid #fff; color:#fff;">기업교육 제안 요청</a></div>
-                        </div>
-                    </section>
-                </div>`,
+        <section class="home-gallery section-wrap"><div class="container"><div class="section-heading"><div><span class="eyebrow">MOMENTS OF GROWTH</span><h2>변화가 시작되는 현장.</h2></div><a href="#gallery" class="text-link">교육 현장 더 보기 <span aria-hidden="true">↗</span></a></div><div class="field-grid">${galleryData.map((g,index)=>({g,index})).filter(({g})=>!g.isSample).slice(0,3).map(({g,index},i)=>`<button class="field-card" onclick="openModal(${index})" aria-label="${escapeHTML(g.title)} 사진 크게 보기"><div class="field-image"><img src="${g.image}" alt="${escapeHTML(g.title)}" loading="lazy"><span class="round-arrow" aria-hidden="true">↗</span></div><div class="field-caption"><span>0${i+1} / SOUL SPEECH</span><h3>${escapeHTML(g.title)}</h3></div></button>`).join('')}</div></div></section><section class="home-news container section-wrap"><div><span class="eyebrow">LATEST UPDATES</span><h2>H2A 소식.</h2><a href="#notices" class="text-link">공지사항 전체보기 <span aria-hidden="true">↗</span></a></div><div class="editorial-news-list">${noticesData.slice(0,3).map(n=>`<a href="#notices/detail/${n.id}" class="editorial-news-row"><div><span class="news-category">${escapeHTML(n.category)}</span>${renderSampleLabel(n.isSample,n.sampleLabel)}</div><h3>${escapeHTML(n.title)}</h3><div><time>${n.date}</time><span aria-hidden="true">↗</span></div></a>`).join('')}</div></section>
+        <section class="closing-section">
+         <div class="container"><div><span class="eyebrow">YOUR NEXT CHAPTER</span><h2>당신의 다음 장을,<br>함께 시작합니다.</h2><p>나에게 필요한 변화, H2A와 이야기해 보세요.</p></div><div class="closing-actions"><a href="#contact" class="btn btn-paper">개인 프로그램 상담 <span aria-hidden="true">↗</span></a><a href="#business/proposal" class="text-link">기업교육 제안 요청 <span aria-hidden="true">→</span></a></div><span class="closing-watermark" aria-hidden="true">H²</span></div>
+        </section>
+        </div>`,
 
             'about': () => `<div class="page-view active">${rTitle('About', '회사 소개')}
                 <div class="container section-wrap grid-2 items-center"><div class="img-wrap relative">${renderSampleLabel(true, '화면 검수용 샘플')}<img src="${imgUrls.office2}" alt="Office" loading="lazy"></div><div><h3 class="section-title">전문성을 영향력으로.</h3><p class="body-large" style="margin-bottom: 2rem;">H2A는 리더와 전문가의 전문성과 경험을 발견하고, 그들이 어떻게 보이고, 말하고, 관계 맺고, 기억될지를 통합적으로 설계하는 Executive Presence & Communication Company입니다.<br><br>전문성을 콘텐츠로, 콘텐츠를 프로그램으로, 프로그램을 브랜드와 비즈니스로 발전시킵니다.<br><br>Expertise → Presence → Influence</p><h4 class="eng-title" style="font-size:1.2rem; margin:2rem 0 1rem; color:var(--brand-red-dark);">WHAT WE BELIEVE</h4><p class="body-large">GREAT EXPERTISE DESERVES TO BE SEEN, HEARD AND REMEMBERED.<br><br>전문성이 있어도 그 가치가 저절로 전달되는 것은 아닙니다. H2A가 설계하는 것은 단순한 이미지나 화법이 아니라 사람이 신뢰받고, 기억되고, 선택받는 방식입니다.</p></div></div>
@@ -1128,7 +1491,7 @@
                     <div class="grid-2 mt-xl">
                         ${Object.values(expertsData).map(e => `
                             <div class="card-basic" style="padding:0; border:none; background:transparent;">
-                                <div class="img-wrap relative mb-md">${renderSampleLabel(!e.photoConfirmed, '공개 전 당사자 최종 확인 필요')}${e.img ? `<img src="${e.img}" alt="${escapeHTML(e.name)}" style="height:350px;" loading="lazy">` : `<span class="img-placeholder" style="height:350px;" aria-hidden="true"></span>`}</div>
+                                <div class="img-wrap relative mb-md">${renderSampleLabel(!e.photoConfirmed, '공개 전 당사자 최종 확인 필요')}${e.img ? `<img src="${e.img}" alt="${escapeHTML(e.name)}" class="director-portrait" loading="lazy">` : `<span class="img-placeholder director-portrait" aria-hidden="true"></span>`}</div>
                                 <h4 class="eng-title" style="font-size:1.8rem; margin-bottom:0.5rem;">${e.name}</h4>
                                 <p style="font-weight:700; color:var(--brand-red-dark); margin-bottom:0.5rem;">${e.role}</p>
                                 <p style="color:var(--text-sub); margin-bottom:2rem;">${e.externalRole}</p>
@@ -1383,7 +1746,7 @@
                     if(!hasOwnOrder) {
                         titleHtml = `0${i+1}. ${c.t}`;
                     }
-                    return `<li><div style="margin-bottom:1rem;"><h4 class="eng-title" style="font-size:1.2rem; color:var(--brand-red-dark); font-weight:700;">${escapeHTML(titleHtml)}</h4>${c.sub ? `<p style="font-weight:700; margin-top:0.5rem; color:var(--ink); font-size:1.05rem;">${escapeHTML(c.sub)}</p>` : ''}</div><div>${content}</div></li>`;
+                    return `<li><div style="margin-bottom:1rem;"><h4 class="eng-title" style="font-size:1.2rem; color:var(--brand-red-dark); font-weight:700; display:flex; align-items:center; gap:0.5rem;">${renderCurrIcon(c.icon)}${escapeHTML(titleHtml)}</h4>${c.sub ? `<p style="font-weight:700; margin-top:0.5rem; color:var(--ink); font-size:1.05rem;">${escapeHTML(c.sub)}</p>` : ''}</div><div>${content}</div></li>`;
                 }).join('') : '';
 
                 let outHtml = '';
@@ -1421,7 +1784,7 @@
                     <div style="margin-top: 6rem; border-top: 1px solid var(--line); padding-top: 4rem;">
                         <span class="label-sm">Program Director</span><h3 class="section-title eng-title">EXPERT</h3>
                         <div class="grid-2" style="align-items:center; margin-top:2rem;">
-                            <div class="img-wrap relative">${renderSampleLabel(!expert.photoConfirmed, '공개 전 당사자 확인 필요')}${expert.img ? `<img src="${expert.img}" alt="${escapeHTML(expert.name)}" style="height:300px;" loading="lazy">` : `<span class="img-placeholder" style="height:300px;" aria-hidden="true"></span>`}</div>
+                            <div class="img-wrap relative">${renderSampleLabel(!expert.photoConfirmed, '공개 전 당사자 확인 필요')}${expert.img ? `<img src="${expert.img}" alt="${escapeHTML(expert.name)}" class="director-portrait" loading="lazy">` : `<span class="img-placeholder" style="height:300px;" aria-hidden="true"></span>`}</div>
                             <div>
                                 <h4 class="eng-title" style="font-size:1.5rem; margin-bottom:0.5rem;">${expert.name}</h4>
                                 <p style="font-weight:700; color:var(--brand-red-dark); margin-bottom:1rem;">${expert.role}</p>
@@ -1437,13 +1800,27 @@
                         </div>
                     </div>` : '';
 
+                const infoPanelHtml = `                <aside>
+                            <div class="info-panel">
+                                <h4 class="eng-title" style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--brand-red-dark);">PROGRAM INFO</h4>
+                                <div class="info-row"><span class="label-sm" style="margin:0;">대상</span><span class="val">${escapeHTML(p.audience)}</span></div>
+                                <div class="info-row"><span class="label-sm" style="margin:0;">기간</span><span class="val">${escapeHTML(p.duration)}</span></div>
+                                <div class="info-row"><span class="label-sm" style="margin:0;">총시간</span><span class="val">${escapeHTML(p.totalHours)}</span></div>
+                                <div class="info-row"><span class="label-sm" style="margin:0;">정원</span><span class="val">${escapeHTML(p.capacity)}</span></div>
+                                <div class="info-row"><span class="label-sm" style="margin:0;">일정</span><span class="val" style="color:var(--brand-red-dark); font-weight:700;">${escapeHTML(p.schedule)}</span></div>
+                                <div class="info-row"><span class="label-sm" style="margin:0;">장소</span><span class="val">${escapeHTML(p.place)}</span></div>
+                                <div class="info-row"><span class="label-sm" style="margin:0;">신청마감</span><span class="val">${escapeHTML(p.deadline)}</span></div>
+                                <div class="info-row" style="border-top: 1px solid var(--ink); margin-top: 1rem; padding-top: 1.5rem;"><span class="label-sm" style="margin:0;">수강료</span><span class="val" style="font-size:1.1rem; font-weight:700; color:var(--ink);">${escapeHTML(p.price)} <span style="font-size:0.8rem; font-weight:400;">(VAT ${escapeHTML(p.vatIncluded?'포함':'별도')})</span></span></div>
+                                ${btnHtml}
+                            </div>
+                        </aside>`;
                 return `
-                <div class="page-view active">
+                <div class="page-view active program-detail">
                     <section class="hero-section" style="background:var(--surface); border-bottom:1px solid var(--line);">
                         <div class="container">
-                            <div class="breadcrumb"><a href="#programs">프로그램</a> > <a href="#${p.category==='experience'?'appearance/private-programs':p.category}">${p.category.toUpperCase()}</a> > ${escapeHTML(p.title)}</div>
+                            <div class="breadcrumb"><a href="#programs">프로그램</a> > <a href="#${p.category==='experience'?'appearance/private-programs':p.category==='soulspeech'?'soul-speech':p.category}">${p.category.toUpperCase()}</a> > ${escapeHTML(p.title)}</div>
                         </div>
-                        <div class="container grid-2" style="align-items: center;">
+                        <div class="container program-title-block">
                             <div>
                                 ${sloganHtml}
                                 ${renderSampleLabel(p.isSample, p.sampleLabel)}<br>
@@ -1451,18 +1828,18 @@
                                 <h1 class="page-title eng-title" style="margin: 0.5rem 0 1rem;">${escapeHTML(p.title)}</h1>
                                 <p class="body-large">${escapeHTML(p.subtitle)}</p>
                             </div>
-                            <div class="img-wrap relative"><img src="${p.image}" alt="${escapeHTML(p.title)}" style="height:350px;" loading="lazy"></div>
+                            </div><div class="container program-summary-grid"><div class="img-wrap relative"><img src="${p.image}" alt="${escapeHTML(p.title)}" loading="eager"></div>${infoPanelHtml}
                         </div>
                     </section>
-                    <section class="container detail-grid">
+                    <nav class="detail-section-nav container" aria-label="프로그램 상세 목차"><button data-scroll-to="program-intro">프로그램 소개</button><button data-scroll-to="program-curriculum">커리큘럼</button><button data-scroll-to="program-notice">운영 안내</button></nav><section class="container detail-grid">
                         <div>
-                            ${introSect}
-                            <h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">CURRICULUM</h3>
+                            <div id="program-intro" tabindex="-1">${introSect}</div>
+                            <h3 id="program-curriculum" tabindex="-1" class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">CURRICULUM</h3>
                             <ul class="curriculum-list">${currHtml}</ul>
                             ${outHtml}
                             ${beyondHtml}
                             <div style="margin-top: 4rem;">
-                                <h3 class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">NOTICE</h3>
+                                <h3 id="program-notice" tabindex="-1" class="eng-title section-title" style="font-size:1.8rem; margin-bottom:2rem;">NOTICE</h3>
                                 <ul style="color:var(--text-sub); list-style:disc; padding-left:20px; line-height:1.8;">
                                     <li><strong>포함사항:</strong> ${escapeHTML(p.included || '자료 확인 중')}</li>
                                     <li><strong>불포함사항:</strong> ${escapeHTML(p.excluded || '자료 확인 중')}</li>
@@ -1476,20 +1853,7 @@
                                 <button onclick="history.back()" class="btn btn-thin">← 이전 화면으로 돌아가기</button>
                             </div>
                         </div>
-                        <aside>
-                            <div class="info-panel">
-                                <h4 class="eng-title" style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--brand-red-dark);">PROGRAM INFO</h4>
-                                <div class="info-row"><span class="label-sm" style="margin:0;">대상</span><span class="val">${escapeHTML(p.audience)}</span></div>
-                                <div class="info-row"><span class="label-sm" style="margin:0;">기간</span><span class="val">${escapeHTML(p.duration)}</span></div>
-                                <div class="info-row"><span class="label-sm" style="margin:0;">총시간</span><span class="val">${escapeHTML(p.totalHours)}</span></div>
-                                <div class="info-row"><span class="label-sm" style="margin:0;">정원</span><span class="val">${escapeHTML(p.capacity)}</span></div>
-                                <div class="info-row"><span class="label-sm" style="margin:0;">일정</span><span class="val" style="color:var(--brand-red-dark); font-weight:700;">${escapeHTML(p.schedule)}</span></div>
-                                <div class="info-row"><span class="label-sm" style="margin:0;">장소</span><span class="val">${escapeHTML(p.place)}</span></div>
-                                <div class="info-row"><span class="label-sm" style="margin:0;">신청마감</span><span class="val">${escapeHTML(p.deadline)}</span></div>
-                                <div class="info-row" style="border-top: 1px solid var(--ink); margin-top: 1rem; padding-top: 1.5rem;"><span class="label-sm" style="margin:0;">수강료</span><span class="val" style="font-size:1.1rem; font-weight:700; color:var(--ink);">${escapeHTML(p.price)} <span style="font-size:0.8rem; font-weight:400;">(VAT ${escapeHTML(p.vatIncluded?'포함':'별도')})</span></span></div>
-                                ${btnHtml}
-                            </div>
-                        </aside>
+
                     </section>
                 </div>`;
             },
@@ -1539,7 +1903,7 @@
                     </div></div>
                     <div class="container section-wrap grid-2" style="align-items:start;">
                         <div style="background:var(--surface); padding:3rem; border:1px solid var(--line);">
-                            <h3 class="section-title" id="contact-dynamic-title">${titleHTML}</h3>
+                            <h1 class="section-title" id="contact-dynamic-title">${titleHTML}</h1>
                             <p class="body-large" id="contact-dynamic-desc">${descHTML}</p>
                         </div>
                         <form class="form-grid" style="margin:0; max-width:100%;" onsubmit="event.preventDefault(); location.hash='#contact-complete';">
@@ -1547,6 +1911,20 @@
                             <div class="form-group"><label class="checkbox-label"><input type="checkbox" required style="width:auto;"> [필수] 개인정보 수집 및 이용 동의</label></div>
                             <button type="submit" class="btn btn-primary" id="contact-dynamic-btn" style="margin-top:1rem;">${btnHTML}</button>
                         </form>
+                    </div>
+                </div>
+                <!-- 오시는 길 — 피드백 260827 "꼭 필요할까요?" 에 따라 독립 메뉴에서 내리고 여기로 합쳤다. -->
+                <div class="container section-wrap" style="border-top:1px solid var(--line);">
+                    <span class="label-sm">Location</span>
+                    <h2 class="section-title eng-title">오시는 길</h2>
+                    <div class="grid-2 items-center" style="margin-top:2.5rem; gap:2.5rem;">
+                        <div>
+                            <h3 style="font-size:1.35rem; font-weight:700; margin-bottom:1rem;">에이치스퀘어 어쏘시에이츠 주식회사</h3>
+                            <p class="body-large" style="margin-bottom:0.75rem;">서울특별시 강남구 봉은사로 317, 2층 2040호(논현동, 아모제논현빌딩)</p>
+                            <p style="color:var(--text-sub); margin-bottom:2rem;">Tel. 010-9005-6009 / E. biz.h2a@gmail.com</p>
+                            <a href="https://www.google.com/maps?q=%EC%84%9C%EC%9A%B8%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EB%B4%89%EC%9D%80%EC%82%AC%EB%A1%9C+317" class="btn btn-outline" target="_blank" rel="noopener noreferrer">지도에서 열기</a>
+                        </div>
+                        <iframe class="location-map-iframe" style="height:320px; width:100%; border:0;" src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EB%B4%89%EC%9D%80%EC%82%AC%EB%A1%9C+317&z=17&output=embed&hl=ko" loading="lazy" allowfullscreen title="구글 지도"></iframe>
                     </div>
                 </div>`;
             },
@@ -1669,7 +2047,7 @@
         function router() {
             const hash = window.location.hash || '#home';
             closeAllMegas(); 
-            document.getElementById('mobileNav').classList.remove('active');
+            closeMobileMenu();
             window.scrollTo(0, 0);
     
             let html = '';
@@ -1702,6 +2080,7 @@
             else { html = views['message']('404 NOT FOUND', '요청한 페이지를 찾을 수 없습니다.', 'HOME으로 이동', '#home', true); }
 
             appContainer.innerHTML = html;
+            document.title = (appContainer.querySelector('h1')?.textContent.trim() || 'H2A') + ' | H² Associates Ltd.';
 
             // Hero slider lifecycle: start on home, stop elsewhere
             if (hash === '#home') { initHeroSlider(); } else { stopHeroSlider(); }
