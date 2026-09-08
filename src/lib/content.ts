@@ -11,6 +11,7 @@ import faq from '@/content/faqData.json';
 import terms from '@/content/termsData.json';
 import privacy from '@/content/privacyData.json';
 import refund from '@/content/refundData.json';
+import legal from '@/content/legalDocs.json';
 import imgs from '@/content/imgUrls.json';
 import video from '@/content/featuredVideoData.json';
 import portone from '@/content/portoneConfig.json';
@@ -50,6 +51,11 @@ export const faqData = faq as unknown as { q: string; a: string }[];
 export const termsData = terms as unknown as string[];
 export const privacyData = privacy as unknown as string[];
 export const refundData = refund as unknown as string[];
+export type LegalBodyItem = string | string[] | { table: { head: string[]; rows: string[][] } };
+export interface LegalSection { h: string; body: LegalBodyItem[] }
+export interface LegalDoc { slug: string; title: string; draft?: boolean; draftNote?: string; sections: LegalSection[]; footer?: LegalSection }
+export type LegalSlug = 'terms' | 'privacy' | 'refund';
+export const legalDocs = legal as unknown as Record<LegalSlug, LegalDoc>;
 export const imgUrls = imgs as unknown as Record<string, string>;
 export const featuredVideoData = video as unknown as { url: string; title: string; description: string; poster: string; channel?: string };
 export const portoneConfig = portone as unknown as { storeId: string; channelKey: string; channelKeyEximbay: string; testAmount: number };

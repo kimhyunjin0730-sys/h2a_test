@@ -885,3 +885,14 @@ summary:focus-visible { outline:2px solid var(--brand-red); outline-offset:4px; 
 .director-field img { display:block; width:100%; aspect-ratio:2 / 1; object-fit:cover; }
 .director-field figcaption { font-size:0.78rem; color:var(--text-sub); margin-top:0.4rem; }
 @media (max-width:600px) { .director-field { grid-template-columns:1fr 1fr; } .director-field figure:first-child { grid-column:1 / -1; } }
+
+/* 약관 3종 본문 (inc/legal.php · 시안 views.legal) */
+.legal-draft { display:inline-block; border:1px solid var(--brand-red); color:var(--brand-red-dark); padding:0.3rem 0.7rem; font-size:0.8rem; font-weight:700; margin-bottom:1.2rem; }
+.legal-content .legal-section { margin-bottom:2.2rem; }
+.legal-content .legal-section h3 { font-size:1.05rem; font-weight:700; color:var(--ink); margin:0 0 0.8rem; }
+.legal-content .legal-section p { margin:0 0 0.8rem; line-height:1.8; font-size:0.95rem; color:var(--text-sub); }
+.legal-content .legal-section ul { list-style:disc; padding-left:1.3rem; margin:0 0 0.8rem; line-height:1.8; font-size:0.95rem; color:var(--text-sub); }
+.legal-content .table-wrap { overflow-x:auto; margin:0 0 1rem; }
+.legal-content table { width:100%; border-collapse:collapse; font-size:0.88rem; line-height:1.6; color:var(--text-sub); }
+.legal-content th, .legal-content td { border:1px solid var(--line); padding:0.55rem 0.7rem; text-align:left; vertical-align:top; }
+.legal-content th { background:var(--surface); color:var(--ink); font-weight:700; white-space:nowrap; }

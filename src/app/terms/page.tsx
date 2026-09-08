@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
 import LegalPage from '@/components/LegalPage';
-import { termsData } from '@/lib/content';
 export const metadata: Metadata = { title: '이용약관' };
-export default function Page() { return <LegalPage title="이용약관" items={termsData} />; }
+export default function Page() { return <LegalPage slug="terms" />; }
