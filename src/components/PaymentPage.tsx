@@ -8,13 +8,14 @@ import { showToast } from '@/lib/toast';
 import { postJson } from '@/lib/api';
 
 /* 시안 views.payment + ui.js processPayment. 결제창은 포트원 V2 브라우저 SDK, 성공 뒤 /api/payments/complete 로 서버 검증. */
-type Method = { label: string; payMethod: 'CARD' | 'TRANSFER' | 'VIRTUAL_ACCOUNT' | 'EASY_PAY'; easyPay?: string; channel?: 'eximbay'; icon: React.ReactNode };
+type Method = { label: string; payMethod: 'CARD' | 'TRANSFER' | 'VIRTUAL_ACCOUNT' | 'EASY_PAY'; easyPay?: string; channel?: 'eximbay'; currency?: string; testAmount?: number; icon: React.ReactNode };
 const METHODS: Method[] = [
   { label: '신용·체크카드', payMethod: 'CARD', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
   { label: '계좌이체', payMethod: 'TRANSFER', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 12h13" /><path d="M13 6l6 6-6 6" /></svg> },
   { label: '가상계좌(무통장)', payMethod: 'VIRTUAL_ACCOUNT', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="5" y="3" width="14" height="18" rx="2" /><line x1="9" y1="9" x2="15" y2="9" /><line x1="9" y1="13" x2="15" y2="13" /></svg> },
-  { label: '알리페이 (Alipay)', payMethod: 'EASY_PAY', easyPay: 'ALIPAY', channel: 'eximbay', icon: <span className="pay-brand-dot" style={{ background: '#1677FF' }}></span> },
-  { label: '위챗페이 (WeChat Pay)', payMethod: 'EASY_PAY', easyPay: 'WECHAT_PAY', channel: 'eximbay', icon: <span className="pay-brand-dot" style={{ background: '#07C160' }}></span> },
+  // 엑심베이 공용 테스트 MID 는 해외 간편결제를 USD 로만 받는다(KRW 는 PC36). 100 = $1. 위챗 코드는 WECHAT.
+  { label: '알리페이 (Alipay)', payMethod: 'EASY_PAY', easyPay: 'ALIPAY', channel: 'eximbay', currency: 'CURRENCY_USD', testAmount: 100, icon: <span className="pay-brand-dot" style={{ background: '#1677FF' }}></span> },
+  { label: '위챗페이 (WeChat Pay)', payMethod: 'EASY_PAY', easyPay: 'WECHAT', channel: 'eximbay', currency: 'CURRENCY_USD', testAmount: 100, icon: <span className="pay-brand-dot" style={{ background: '#07C160' }}></span> },
 ];
 
 type Cfg = { storeId: string; channelKey: string; channelKeyEximbay: string; testAmount: number };
@@ -79,12 +80,13 @@ export default function PaymentPage() {
     const isEx = method.channel === 'eximbay';
     if (isEx && !cfg.channelKeyEximbay) return showToast('엑심베이 채널 키가 없습니다. 콘솔에서 엑심베이(신모듈 V2) 채널을 만든 뒤 테스트 설정에 넣어주세요.');
     const realPrice = priceOf(program);
-    const amount = isTest ? cfg.testAmount : realPrice;
+    if (isEx && !isTest) return showToast('해외 결제(알리페이·위챗페이)는 USD 가격 확정 뒤 열립니다.');
+    const amount = isTest ? (method.testAmount || cfg.testAmount) : realPrice;
     const paymentId = 'h2a-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const req: any = {
       storeId: cfg.storeId, channelKey: isEx ? cfg.channelKeyEximbay : cfg.channelKey, paymentId,
-      orderName: (isTest ? '[테스트] ' : '') + program, totalAmount: amount, currency: 'CURRENCY_KRW', payMethod: method.payMethod,
+      orderName: (isTest ? '[테스트] ' : '') + program, totalAmount: amount, currency: method.currency || 'CURRENCY_KRW', payMethod: method.payMethod,
       redirectUrl: location.origin + location.pathname + '?portone=return',
     };
     if (method.easyPay) req.easyPay = { easyPayProvider: method.easyPay };
