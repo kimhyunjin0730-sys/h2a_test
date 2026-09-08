@@ -471,6 +471,15 @@
         .live-hero .hero-slide { position:absolute; inset:0; height:100%; opacity:0; visibility:hidden; transition:opacity 1s ease,visibility 1s; pointer-events:none; }
         .live-hero .hero-slide.active { opacity:1; visibility:visible; pointer-events:auto; }
         .theatre-background { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; transform:scale(1.035); object-position:center; filter:saturate(.72); }
+        /* 히어로 모션(9/8, 원그로브 참고) — 배경 느린 확대·축소, 겹침 전환, 스크롤 시 문구 페이드. 히어로 선택자에만 적용. 모션 줄이기 설정은 아래 reduce 블록이 전부 끈다. */
+        .live-hero .hero-slide { transition:opacity 1.6s ease,visibility 1.6s; }
+        .theatre-background { animation:heroKenBurns 9s ease-in-out infinite alternate; will-change:transform; }
+        .live-hero .hero-slide:not(.active) .theatre-background, .live-hero.is-paused .theatre-background { animation-play-state:paused; }
+        @keyframes heroKenBurns { from { transform:scale(1.035); } to { transform:scale(var(--kb-scale,1.11)); } }
+        @supports (animation-timeline:scroll()) {
+         .hero-sticky .theatre-copy { animation:heroCopyFade linear both; animation-timeline:scroll(root); animation-range:0 55vh; }
+         @keyframes heroCopyFade { to { opacity:0; transform:translateY(-48px); } }
+        }
         .theatre-shade { position:absolute; inset:0; background:linear-gradient(90deg,#101516ad,#10151620 90%),linear-gradient(0deg,#101516a3,transparent 65%); }
         .theatre-copy { position:absolute; z-index:2; left:0; right:0; bottom:150px; color:#fff; padding-left:48px; padding-right:48px; }
         .theatre-label { display:block; font-size:12px; letter-spacing:.09em; margin-bottom:24px; }
@@ -682,6 +691,8 @@
          .theatre-copy p { font-size:12px; line-height:1.9; }
          .theatre-link { font-size:12px; gap:42px; margin-top:18px; min-height:48px; }
          .theatre-background { object-position:60% center; }
+         .theatre-background { --kb-scale:1.07; }
+         .hero-sticky .theatre-copy { animation:none; }
          .theatre-shade { background:linear-gradient(0deg,#0c1116df,#0c111610),linear-gradient(90deg,#0c111666,transparent); }
          .campaign-controls { bottom:18px; padding-top:12px; margin:0 22px; left:0; right:0; width:calc(100% - 44px); padding-left:0; padding-right:0; flex-wrap:wrap; gap:4px; }
          .campaign-pagination { gap:7px; justify-content:space-between; width:100%; }
