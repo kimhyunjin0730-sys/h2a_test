@@ -19,7 +19,7 @@ export default function HeroTheatre() {
     const toggle = wrap.querySelector<HTMLElement>('.slider-toggle');
     const controller = new AbortController(); const signal = controller.signal;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    let userPaused = reduced.matches, focus = false, explicitPlay = false, remaining = 7000, started = 0, current = 0;
+    let userPaused = reduced.matches, focus = false, explicitPlay = false, remaining = 5000, started = 0, current = 0;
     let timer: ReturnType<typeof setTimeout> | null = null;
     function pauseTimer() { if (timer) { remaining = Math.max(0, remaining - (performance.now() - started)); clearTimeout(timer); timer = null; } }
     function schedule() {
@@ -31,7 +31,7 @@ export default function HeroTheatre() {
       if (!paused && slides.length > 1) { started = performance.now(); timer = setTimeout(() => show(current + 1), remaining); }
     }
     function show(index: number) {
-      pauseTimer(); remaining = 7000;
+      pauseTimer(); remaining = 5000;
       const next = (index + slides.length) % slides.length;
       if (slides.some((slide, i) => i !== next && slide.contains(document.activeElement))) toggle?.focus();
       slides.forEach((slide, i) => { slide.classList.toggle('active', i === next); (slide as HTMLElement & { inert: boolean }).inert = i !== next; slide.setAttribute('aria-hidden', String(i !== next)); });
