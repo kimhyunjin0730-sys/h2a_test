@@ -17,8 +17,9 @@ export function toPath(hash: string): string {
   return fixed[h] ?? `/${h}`;
 }
 
-/** assets/… 상대 경로를 절대 경로로. 외부 URL 은 그대로. */
-export const asset = (p: string) => (/^(https?:)?\/\//.test(p) || p.startsWith('/') ? p : `/${p}`);
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+/** assets/… 상대 경로를 절대 경로로(basePath 포함). 외부 URL 은 그대로. */
+export const asset = (p: string) => (/^(https?:)?\/\//.test(p) ? p : `${BASE}/${p.replace(/^\//, '')}`);
 
 export const programPath = (p: Program) =>
   p.category === 'soulspeech' ? `/soul-speech/${p.slug}` : p.category === 'experience' ? `/appearance/experience/${p.slug}` : `/appearance/${p.slug}`;

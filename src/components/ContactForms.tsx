@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { programsData } from '@/lib/content';
 import { ADDRESS, MAP_EMBED, MAP_URL } from '@/lib/links';
 import { showToast } from '@/lib/toast';
+import { postJson } from '@/lib/api';
 
 /* 시안 views.contactForms + renderFormToggle. 전송은 /api/contact (메일). */
 export default function ContactForms({ isBusiness }: { isBusiness: boolean }) {
@@ -24,11 +25,11 @@ export default function ContactForms({ isBusiness }: { isBusiness: boolean }) {
     fd.forEach((v, k) => { data[k] = String(v); });
     setBusy(true);
     try {
-      const r = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-      const j = await r.json();
-      if (!r.ok || !j.ok) { showToast(j.error || '전송에 실패했습니다. 잠시 후 다시 시도해주세요.'); return; }
+      const j = await postJson('/api/contact', data);
+      if (!j.ok) { showToast(String(j.error || '전송에 실패했습니다. 잠시 후 다시 시도해주세요.')); return; }
+      if (j.preview) showToast('미리보기에서는 실제로 전송되지 않습니다.');
       router.push('/contact/complete');
-    } catch { showToast('전송에 실패했습니다. 네트워크를 확인해주세요.'); } finally { setBusy(false); }
+    } finally { setBusy(false); }
   };
 
   return (

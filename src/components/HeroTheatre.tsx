@@ -1,12 +1,13 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import { asset } from '@/lib/links';
 
 /* 시안 views.home 의 히어로 3장 + core.js initHeroSlider (자동 재생·일시정지·키보드·터치). */
 const SLIDES = [
-  { label: 'H² ASSOCIATES', title: ['전문성을', '영향력으로.'], desc: <>보이는 태도와 들리는 언어가 만나는 곳.<br />당신의 전문성이 제대로 전해지도록, H2A가 함께합니다.</>, link: '/programs', linkText: '프로그램 살펴보기', src: '/assets/soul-speech/lecture-1.jpg', srcSet: '/assets/soul-speech/lecture-1.jpg 1400w', pos: '60% center', alt: '남복희 디렉터가 수강생들과 함께하는 실제 강의 현장', source: '남복희 디렉터 제공 · 교육 현장' },
-  { label: '외면소통 ACADEMY', title: ['말하기 전부터,', '신뢰가 시작됩니다.'], desc: <>이미지와 태도, 매너와 관계.<br />나의 전문성에 어울리는 존재감을 설계합니다.</>, link: '/appearance', linkText: '외면소통 프로그램', src: '/assets/soul-speech/workshop.jpg', srcSet: '/assets/soul-speech/workshop.jpg 1613w', pos: '75% center', alt: '남복희 디렉터가 참여자들과 소통하는 실제 교육 실습 현장', source: '남복희 디렉터 제공 · 교육 현장' },
-  { label: 'Soul Speech ACADEMY', title: ['목소리에 나를 담고,', '마음에 닿는 말로.'], desc: <>말하는 기술을 넘어, 존재로 말하는 힘.<br />나만의 목소리와 진정성 있는 언어를 발견합니다.</>, link: '/soul-speech', linkText: '소울스피치 프로그램', src: '/assets/soul-speech/lecture-hero.jpg', srcSet: '/assets/soul-speech/lecture-hero-800.jpg 800w, /assets/soul-speech/lecture-hero.jpg 1600w', pos: undefined, alt: '남복희 디렉터의 Soul Speech 실제 강의 현장', source: 'Soul Speech 실제 강의 현장' },
+  { label: 'H² ASSOCIATES', title: ['전문성을', '영향력으로.'], desc: <>보이는 태도와 들리는 언어가 만나는 곳.<br />당신의 전문성이 제대로 전해지도록, H2A가 함께합니다.</>, link: '/programs', linkText: '프로그램 살펴보기', src: asset('assets/soul-speech/lecture-1.jpg'), srcSet: `${asset('assets/soul-speech/lecture-1.jpg')} 1400w`, pos: '60% center', alt: '남복희 디렉터가 수강생들과 함께하는 실제 강의 현장', source: '남복희 디렉터 제공 · 교육 현장' },
+  { label: '외면소통 ACADEMY', title: ['말하기 전부터,', '신뢰가 시작됩니다.'], desc: <>이미지와 태도, 매너와 관계.<br />나의 전문성에 어울리는 존재감을 설계합니다.</>, link: '/appearance', linkText: '외면소통 프로그램', src: asset('assets/soul-speech/workshop.jpg'), srcSet: `${asset('assets/soul-speech/workshop.jpg')} 1613w`, pos: '75% center', alt: '남복희 디렉터가 참여자들과 소통하는 실제 교육 실습 현장', source: '남복희 디렉터 제공 · 교육 현장' },
+  { label: 'Soul Speech ACADEMY', title: ['목소리에 나를 담고,', '마음에 닿는 말로.'], desc: <>말하는 기술을 넘어, 존재로 말하는 힘.<br />나만의 목소리와 진정성 있는 언어를 발견합니다.</>, link: '/soul-speech', linkText: '소울스피치 프로그램', src: asset('assets/soul-speech/lecture-hero.jpg'), srcSet: `${asset('assets/soul-speech/lecture-hero-800.jpg')} 800w, ${asset('assets/soul-speech/lecture-hero.jpg')} 1600w`, pos: undefined, alt: '남복희 디렉터의 Soul Speech 실제 강의 현장', source: 'Soul Speech 실제 강의 현장' },
 ];
 
 export default function HeroTheatre() {

@@ -40,12 +40,12 @@ export default function HomePage() {
           <div className="academy-panel panel-presence" id="academy-panel-presence" role="tabpanel" aria-labelledby="academy-tab-presence" data-academy-panel="presence" tabIndex={0}>
             <div className="explorer-copy"><span className="panel-label">외면소통 ACADEMY</span><h3>실력에 어울리는<br />첫인상과 태도.</h3><p>어떻게 보이고, 행동하고, 기억되는지.<br />나의 전문성과 역할에 맞는 이미지를 설계합니다.</p><div className="topic-tags"><span>리더 프레즌스</span><span>비즈니스 매너</span><span>이미지 전략</span></div><Link className="btn btn-primary" href="/appearance">프로그램 자세히 보기 <span aria-hidden="true">→</span></Link><Link className="explorer-director" href="/leaders">황정선 디렉터 소개 <span aria-hidden="true">↗</span></Link></div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <div className="explorer-visual"><div className="explorer-portrait"><img src="/assets/directors/hwang.jpg" alt="이미지 전략가 황정선" width={280} height={350} loading="lazy" /></div><div className="explorer-caption"><strong>말하기 전부터 전해지는<br />나의 이미지와 태도</strong><span>황정선 · 이미지공작소 대표</span></div></div>
+            <div className="explorer-visual"><div className="explorer-portrait"><img src={asset('assets/directors/hwang.jpg')} alt="이미지 전략가 황정선" width={280} height={350} loading="lazy" /></div><div className="explorer-caption"><strong>말하기 전부터 전해지는<br />나의 이미지와 태도</strong><span>황정선 · 이미지공작소 대표</span></div></div>
           </div>
           <div className="academy-panel panel-speech" id="academy-panel-speech" role="tabpanel" aria-labelledby="academy-tab-speech" data-academy-panel="speech" tabIndex={0} hidden>
             <div className="explorer-copy"><span className="panel-label">Soul Speech ACADEMY</span><h3>말하는 기술보다,<br />나를 전하는 힘.</h3><p>목소리와 언어, 생각과 감정을 연결합니다.<br />나의 이야기를 진정성 있게 전하는 법을 배웁니다.</p><div className="topic-tags"><span>소울 보이스</span><span>언어 설계</span><span>12주 마스터 과정</span></div><Link className="btn btn-primary" href="/soul-speech">프로그램 자세히 보기 <span aria-hidden="true">→</span></Link><a className="explorer-director" href={nam.videoUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-red-dark)', fontWeight: 600 }}>{nam.videoLabel} <span aria-hidden="true">↗</span></a><Link className="explorer-director" href="/leaders">남복희 디렉터 소개 <span aria-hidden="true">↗</span></Link></div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <div className="explorer-visual"><div className="explorer-portrait"><img src="/assets/soul-speech/director.jpg" alt="소울스피치랩 대표 남복희" width={280} height={350} loading="lazy" /></div><div className="explorer-caption"><strong>“말은 기술보다<br />먼저 존재입니다.”</strong><span>남복희 · 소울스피치랩 대표</span></div></div>
+            <div className="explorer-visual"><div className="explorer-portrait"><img src={asset('assets/soul-speech/director.jpg')} alt="소울스피치랩 대표 남복희" width={280} height={350} loading="lazy" /></div><div className="explorer-caption"><strong>“말은 기술보다<br />먼저 존재입니다.”</strong><span>남복희 · 소울스피치랩 대표</span></div></div>
           </div>
           <div className="academy-panel panel-business" id="academy-panel-business" role="tabpanel" aria-labelledby="academy-tab-business" data-academy-panel="business" tabIndex={0} hidden>
             <div className="explorer-copy"><span className="panel-label">H2A 기업교육</span><h3>우리 조직의 과제에<br />맞춘 교육.</h3><p>대상과 목표, 현장의 상황을 먼저 이해합니다.<br />진단부터 실습과 피드백까지 함께 설계합니다.</p><div className="topic-tags"><span>임원 리더십</span><span>조직 소통</span><span>맞춤 워크숍</span></div><Link className="btn btn-primary" href="/business/proposal">기업교육 제안 요청 <span aria-hidden="true">→</span></Link><Link className="explorer-director" href="/business">기업교육 살펴보기 <span aria-hidden="true">↗</span></Link></div>
@@ -78,7 +78,7 @@ export default function HomePage() {
       </section>
       <section className="live-closing">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <div className="live-contact-image" aria-hidden="true"><img src="/assets/soul-speech/lecture-2.jpg" alt="" loading="lazy" /></div>
+        <div className="live-contact-image" aria-hidden="true"><img src={asset('assets/soul-speech/lecture-2.jpg')} alt="" loading="lazy" /></div>
         <div className="container" data-reveal><span className="kicker">변화의 시작, H2A</span><h2>어디서 시작할지 고민이라면,<br />먼저 이야기 나눠보세요.</h2><p>프로그램 선택부터 기업 맞춤 교육까지 안내해드립니다.</p><Link href="/contact" className="btn btn-primary">상담 문의하기 <span aria-hidden="true">→</span></Link></div>
       </section>
     </div>

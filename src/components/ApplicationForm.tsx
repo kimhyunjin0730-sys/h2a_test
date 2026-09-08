@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { PageTitle } from '@/components/bits';
 import { programsData } from '@/lib/content';
 import { showToast } from '@/lib/toast';
+import { postJson } from '@/lib/api';
 
 /* 시안 views.application. 전송은 /api/apply (메일 + 신청번호). */
 export default function ApplicationForm() {
@@ -25,12 +26,12 @@ export default function ApplicationForm() {
     if (last?.paymentId) data.paymentId = last.paymentId;
     setBusy(true);
     try {
-      const r = await fetch('/api/apply', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-      const j = await r.json();
-      if (!r.ok || !j.ok) { showToast(j.error || '접수에 실패했습니다.'); return; }
-      sessionStorage.setItem('h2a_application_no', j.applicationNo || '');
+      const j = await postJson('/api/apply', data);
+      if (!j.ok) { showToast(String(j.error || '접수에 실패했습니다.')); return; }
+      if (j.preview) showToast('미리보기에서는 실제로 접수되지 않습니다.');
+      sessionStorage.setItem('h2a_application_no', String(j.applicationNo || ''));
       router.push('/application/complete');
-    } catch { showToast('접수에 실패했습니다. 네트워크를 확인해주세요.'); } finally { setBusy(false); }
+    } finally { setBusy(false); }
   };
   const agree = (label: string, href?: string) => (
     <label className="checkbox-label"><input type="checkbox" required /> {label} {href ? <Link href={href} target="_blank" style={{ color: 'var(--brand-red)', textDecoration: 'underline' }}>내용 보기</Link> : null}</label>

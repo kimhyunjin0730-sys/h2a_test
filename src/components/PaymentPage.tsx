@@ -5,6 +5,7 @@ import * as PortOne from '@portone/browser-sdk/v2';
 import { PageTitle } from '@/components/bits';
 import { portoneConfig, programsData } from '@/lib/content';
 import { showToast } from '@/lib/toast';
+import { postJson } from '@/lib/api';
 
 /* 시안 views.payment + ui.js processPayment. 결제창은 포트원 V2 브라우저 SDK, 성공 뒤 /api/payments/complete 로 서버 검증. */
 type Method = { label: string; payMethod: 'CARD' | 'TRANSFER' | 'VIRTUAL_ACCOUNT' | 'EASY_PAY'; easyPay?: string; channel?: 'eximbay'; icon: React.ReactNode };
@@ -61,12 +62,8 @@ export default function PaymentPage() {
   }, []);
 
   async function finish(res: { paymentId: string; txId: string }, pending: { program?: string; amount?: number; method?: string } | null) {
-    let verify: Record<string, unknown> = {};
-    try {
-      const r = await fetch('/api/payments/complete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ paymentId: res.paymentId, amount: pending?.amount, program: pending?.program, method: pending?.method }) });
-      verify = await r.json();
-      if (!r.ok || !verify.ok) { setError('서버 검증 실패: ' + (verify.error || verify.status || r.status)); sessionStorage.removeItem('h2a_portone_pending'); return; }
-    } catch (e) { verify = { ok: false, error: String(e) }; }
+    const verify = await postJson('/api/payments/complete', { paymentId: res.paymentId, amount: pending?.amount, program: pending?.program, method: pending?.method });
+    if (!verify.ok) { setError('서버 검증 실패: ' + (verify.error || verify.status || '')); sessionStorage.removeItem('h2a_portone_pending'); return; }
     sessionStorage.setItem('h2a_portone_last', JSON.stringify({ program: '', amount: 0, method: '', ...(pending || {}), ...res, verify, at: new Date().toISOString() }));
     sessionStorage.removeItem('h2a_portone_pending');
     sessionStorage.setItem('h2a_apply_prog', pending?.program || '');
