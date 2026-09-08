@@ -11,7 +11,9 @@ export function ApplyButton({ title, cta }: { title: string; cta: string }) {
     if (!program || !program.paymentEnabled) { sessionStorage.setItem('h2a_inq_prog', title); router.push('/contact'); return; }
     sessionStorage.setItem('h2a_pay_prog', title); router.push('/payment');
   };
-  return <button className="btn btn-primary btn-full" style={{ marginTop: '2rem' }} onClick={go}>{cta}</button>;
+  // 라벨은 목적지와 맞춘다: 결제 페이지로 가면 「프로그램 신청」, 문의 폼이면 프로그램의 cta.
+  const label = programsData.find((p) => p.title === title)?.paymentEnabled ? '프로그램 신청' : cta;
+  return <button className="btn btn-primary btn-full" style={{ marginTop: '2rem' }} onClick={go}>{label}</button>;
 }
 
 export function ContactProgramButton({ title }: { title: string }) {

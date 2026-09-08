@@ -41,7 +41,7 @@ export default function Header() {
               onMouseEnter={() => setMega(m.id)} onFocus={() => setMega(m.id)}>{m.label}</button>
           ))}
         </nav>
-        <Link href="/payment" className="btn btn-primary header-cta">프로그램 상담</Link>
+        <Link href="/payment" className="btn btn-primary header-cta">프로그램 신청</Link>
         <button className="hamburger" id="hamburgerBtn" ref={hamburgerRef} aria-label={mobileOpen ? '모바일 메뉴 닫기' : '모바일 메뉴 열기'} aria-expanded={mobileOpen} aria-controls="mobileNav"
           onClick={(e) => { e.stopPropagation(); setMobileOpen((o) => !o); }}><span className="menu-lines" aria-hidden="true"></span></button>
       </div>
@@ -65,7 +65,7 @@ export default function Header() {
             </div>
           </div>
         ))}
-        <div className="m-nav-item m-nav-cta"><Link href="/payment" className="btn btn-primary" onClick={() => setMobileOpen(false)}>프로그램 상담</Link></div>
+        <div className="m-nav-item m-nav-cta"><Link href="/payment" className="btn btn-primary" onClick={() => setMobileOpen(false)}>프로그램 신청</Link></div>
       </nav>
     </header>
   );
