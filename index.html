@@ -139,8 +139,8 @@
         .list-item { border-bottom: 1px solid var(--line); padding: 4rem 0; display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: start; }
         .list-item:first-child { padding-top: 0; }
         .list-item:last-child { border-bottom: none; }
-        .list-meta { display: grid; grid-template-columns: 80px 1fr; gap: 0.5rem 1rem; margin: 1.5rem 0; font-size: 0.95rem; color: var(--text-sub); }
-        .list-meta span:nth-child(odd) { color: var(--ink); font-weight: 700; }
+        .list-meta { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.5rem 1.25rem; margin: 1.5rem 0; font-size: 0.95rem; color: var(--text-sub); align-items: center; }
+        .list-meta span:nth-child(odd) { color: var(--ink); font-weight: 700; white-space: nowrap; }
 
         .breadcrumb { font-size: 0.85rem; color: var(--text-sub); margin-bottom: 2rem; }
         .detail-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 6rem; padding-top: 80px; padding-bottom: 80px; align-items: start; }
@@ -2248,11 +2248,6 @@
                         <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>신용·체크카드</button>
                         <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h13"/><path d="M13 6l6 6-6 6"/></svg>계좌이체</button>
                         <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/></svg>가상계좌(무통장)</button>
-                        <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#FEE500;"></span>카카오페이</button>
-                        <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#03C75A;"></span>네이버페이</button>
-                        <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#0064FF;"></span>토스페이</button>
-                        <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#1677FF;"></span>알리페이 (Alipay)</button>
-                        <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#07C160;"></span>위챗페이 (WeChat Pay)</button>
                     </div>
                     <label class="checkbox-label" style="margin-top:2rem; display:block;"><input type="checkbox" id="pay-agree"> [필수] 유료 서비스 결제 진행 및 결제조건 동의</label>
                     <button type="button" id="pay-submit" onclick="processPayment()" class="btn btn-primary btn-full" style="margin-top:1.5rem;">결제하기</button>
