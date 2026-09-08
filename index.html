@@ -1510,8 +1510,9 @@
             if (/네이버페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'NAVERPAY' };
             if (/토스페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'TOSSPAY' };
             // 해외결제는 엑심베이 채널(신모듈 V2)로 보낸다. 결제수단은 엑심베이 결제창 안에서 MID 설정대로 표시된다.
-            if (/알리페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'ALIPAY', channel: 'eximbay' };
-            if (/위챗페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'WECHAT_PAY', channel: 'eximbay' };
+            // 엑심베이 공용 테스트 MID 는 해외 간편결제를 USD 로만 받는다(KRW 는 PC36 오류). 100 = 1달러. 위챗 코드는 WECHAT.
+            if (/알리페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'ALIPAY', channel: 'eximbay', currency: 'CURRENCY_USD', amount: 100 };
+            if (/위챗페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'WECHAT', channel: 'eximbay', currency: 'CURRENCY_USD', amount: 100 };
             return null;
         };
         window.finishPortonePayment = (res) => {
@@ -1552,7 +1553,7 @@
             const paymentId = 'h2a-test-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
             const req = {
                 storeId: cfg.storeId, channelKey: isEx ? cfg.channelKeyEximbay : cfg.channelKey, paymentId,
-                orderName: '[테스트] ' + prog, totalAmount: cfg.testAmount, currency: 'CURRENCY_KRW',
+                orderName: '[테스트] ' + prog, totalAmount: method.amount || cfg.testAmount, currency: method.currency || 'CURRENCY_KRW',
                 payMethod: method.payMethod,
                 redirectUrl: location.origin + location.pathname + '?portone=return'
             };
@@ -1560,9 +1561,9 @@
             if (method.payMethod === 'VIRTUAL_ACCOUNT') req.virtualAccount = { accountExpiry: { validHours: 24 } };
             if (isEx) { // 엑심베이 필수값: 구매자 이름·이메일, 상품 목록(링크 포함)
                 req.customer = { fullName: '테스트 고객', email: 'biz.h2a@gmail.com' };
-                req.products = [{ id: 'h2a-program', name: '[테스트] ' + prog, amount: cfg.testAmount, quantity: 1, link: 'https://h2a.co.kr/programs/' }];
+                req.products = [{ id: 'h2a-program', name: '[테스트] ' + prog, amount: req.totalAmount, quantity: 1, link: 'https://h2a.co.kr/programs/' }];
             }
-            sessionStorage.setItem('h2a_portone_pending', JSON.stringify({ paymentId, program: prog, amount: cfg.testAmount, method: tile.textContent.trim() }));
+            sessionStorage.setItem('h2a_portone_pending', JSON.stringify({ paymentId, program: prog, amount: req.totalAmount, currency: req.currency, method: tile.textContent.trim() }));
 
             const btn = document.querySelector('#pay-submit'); if (btn) btn.disabled = true;
             try {
@@ -2326,7 +2327,7 @@
                 let last = null;
                 try { last = JSON.parse(sessionStorage.getItem('h2a_portone_last') || 'null'); } catch (e) { /* 무시 */ }
                 if (!last) return views['message']('PAYMENT COMPLETE', '데모 결제가 완료 처리되었습니다. (주문번호 H2A-DEMO-0001 · 화면 검수용 샘플이며 실제 결제가 이루어지지 않았습니다)', '결제 확인으로 이동', '#payment-lookup');
-                const rows = [['프로그램', last.program || '-'], ['결제 수단', last.method || '-'], ['금액', (Number(last.amount) || 0).toLocaleString('ko-KR') + '원 (테스트 · 실제 출금 없음)'], ['결제 ID', last.paymentId || '-'], ['거래 ID', last.txId || '-'], ['시각', last.at ? new Date(last.at).toLocaleString('ko-KR') : '-']];
+                const rows = [['프로그램', last.program || '-'], ['결제 수단', last.method || '-'], ['금액', (last.currency === 'CURRENCY_USD' ? '$' + ((Number(last.amount) || 0) / 100).toFixed(2) : (Number(last.amount) || 0).toLocaleString('ko-KR') + '원') + ' (테스트 · 실제 출금 없음)'], ['결제 ID', last.paymentId || '-'], ['거래 ID', last.txId || '-'], ['시각', last.at ? new Date(last.at).toLocaleString('ko-KR') : '-']];
                 return `<div class="page-view active"><div class="container section-wrap text-center" style="padding-top:150px; max-width:720px;">
                     <h1 class="eng-title message-title" style="font-size:3rem; margin-bottom:1rem;">PAYMENT COMPLETE</h1>
                     <p class="body-large" style="margin-bottom:2rem;">포트원 테스트 결제가 승인되었습니다. 콘솔 &gt; 결제 내역(테스트)에서 아래 결제 ID 로 확인할 수 있습니다.</p>
