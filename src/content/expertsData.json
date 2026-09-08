@@ -59,6 +59,20 @@
   "videoUrl": "https://www.youtube.com/watch?v=0qjsbkaiIZQ",
   "videoLabel": "남복희 유튜브 영상 보기",
   "photoConfirmed": true,
-  "img": "assets/soul-speech/director.jpg"
+  "img": "assets/soul-speech/director.jpg",
+  "fieldPhotos": [
+   {
+    "src": "assets/soul-speech/lecture-hero.jpg",
+    "label": "Soul Speech 강의 현장"
+   },
+   {
+    "src": "assets/soul-speech/field-radio.jpg",
+    "label": "방송 스튜디오"
+   },
+   {
+    "src": "assets/soul-speech/field-mc.jpg",
+    "label": "행사 진행"
+   }
+  ]
  }
 }

@@ -579,7 +579,7 @@
   "curr": [
    {
     "t": "1단계 · 내면 발굴",
-    "image": "assets/soul-speech/lecture-1.jpg",
+    "image": "assets/soul-speech/stage-1.jpg",
     "stage": 1,
     "items": [
      "Wk 01 AWAKENING 내면이 깨어나는 순간",
@@ -590,7 +590,7 @@
    },
    {
     "t": "2단계 · 언어 설계",
-    "image": "assets/soul-speech/lecture-hero.jpg",
+    "image": "assets/soul-speech/stage-2.jpg",
     "stage": 2,
     "items": [
      "Wk 05 VIBRATION 말이 진동으로 설계되다",
@@ -601,7 +601,7 @@
    },
    {
     "t": "3단계 · 존재 표현",
-    "image": "assets/soul-speech/lecture-2.jpg",
+    "image": "assets/soul-speech/stage-3.jpg",
     "stage": 3,
     "items": [
      "Wk 09 PURPOSE 목적 있는 말이 움직인다",

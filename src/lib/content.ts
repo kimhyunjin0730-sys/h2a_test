@@ -32,6 +32,7 @@ export interface Expert {
   id: string; name: string; role: string; externalRole: string; img?: string; photoConfirmed?: boolean;
   edu: string; exp: string[]; books: string[]; topics?: string[]; videoUrl?: string; videoLabel?: string;
   quoteTitle?: string; quote?: string;
+  fieldPhotos?: { src: string; label: string }[];
 }
 export interface ContentItem {
   id: string; title: string; date: string; category?: string; excerpt?: string; body?: string; image?: string;

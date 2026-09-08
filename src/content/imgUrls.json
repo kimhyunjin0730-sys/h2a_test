@@ -20,5 +20,10 @@
  "ssLectureHero": "assets/soul-speech/lecture-hero.jpg",
  "ssLecture1": "assets/soul-speech/lecture-1.jpg",
  "ssLecture2": "assets/soul-speech/lecture-2.jpg",
- "dirHwang": "assets/directors/hwang.jpg"
+ "dirHwang": "assets/directors/hwang.jpg",
+ "ssStage1": "assets/soul-speech/stage-1.jpg",
+ "ssStage2": "assets/soul-speech/stage-2.jpg",
+ "ssStage3": "assets/soul-speech/stage-3.jpg",
+ "ssFieldRadio": "assets/soul-speech/field-radio.jpg",
+ "ssFieldMc": "assets/soul-speech/field-mc.jpg"
 }

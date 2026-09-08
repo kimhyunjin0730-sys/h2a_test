@@ -878,3 +878,10 @@ summary:focus-visible { outline:2px solid var(--brand-red); outline-offset:4px; 
  .kicker, .label-sm, .news-category, .topic-tags span, .explorer-caption span, time, .floating-contact { font-size:12px; }
  .program-card-meta, .field-caption > span, .program-summary-grid .info-row .label-sm, .theatre-label, .hero-photo-source, .cal-header, .cal-event { font-size:12px !important; }
 }
+
+/* 디렉터 현장 컷 (남복희 수정요청 개발자 요청 1번) */
+.director-field { display:grid; grid-template-columns:repeat(3, 1fr); gap:0.75rem; margin-top:1.75rem; }
+.director-field figure { margin:0; }
+.director-field img { display:block; width:100%; aspect-ratio:2 / 1; object-fit:cover; }
+.director-field figcaption { font-size:0.78rem; color:var(--text-sub); margin-top:0.4rem; }
+@media (max-width:600px) { .director-field { grid-template-columns:1fr 1fr; } .director-field figure:first-child { grid-column:1 / -1; } }
