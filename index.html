@@ -8,8 +8,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"></noscript>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Outfit:wght@700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Outfit:wght@700&display=swap"></noscript>
     <link rel="icon" type="image/png" href="assets/brand/site-icon-red.png">
     <link rel="apple-touch-icon" href="assets/brand/site-icon-red.png">
     <script>(function(){var h=location.hash;if(!h||h==="#"||h==="#home"){var l=document.createElement("link");l.rel="preload";l.as="image";l.href="assets/soul-speech/lecture-1.jpg";l.setAttribute("imagesrcset","assets/soul-speech/lecture-1.jpg 1400w");l.setAttribute("imagesizes","100vw");l.setAttribute("fetchpriority","high");document.head.appendChild(l);}})();</script>
@@ -30,9 +32,11 @@
             --brand-red-soft: #F0E2DC;
             --brand-red-deep: #54251F;
     
-            --font-eng: 'Playfair Display', 'Noto Sans KR', sans-serif;
-            --font-kor: 'Noto Sans KR', sans-serif;
-            --font-logo: Arial, Helvetica, 'Noto Sans', sans-serif;
+            /* 9/8: 본문 Pretendard(명함과 동일, 원그로브 톤). 로고는 명함 워드마크와 같은 Outfit Bold + 명함 빨강. */
+            --font-eng: 'Pretendard', 'Noto Sans KR', sans-serif;
+            --font-kor: 'Pretendard', 'Noto Sans KR', sans-serif;
+            --font-logo: 'Outfit', 'Pretendard', Arial, sans-serif;
+            --brand-logo: #CF181F;
     
             --max-width: 1376px;
             --header-height: 88px;
@@ -57,7 +61,7 @@
         .body-large { font-size: 1.1rem; color: var(--text-sub); font-weight: 300; line-height: 1.8; }
         .label-sm { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brand-red-dark); display: block; margin-bottom: 1rem; }
 
-        .h2a-logo { font-family: var(--font-logo); font-weight: 700; letter-spacing: -0.03em; display: inline-flex; align-items: flex-start; }
+        .h2a-logo { font-family: var(--font-logo); font-weight: 700; letter-spacing: -0.02em; display: inline-flex; align-items: flex-start; }
         .h2a-logo sup { font-size: 0.6em; line-height: 1; margin-top: 0.2em; }
 
         .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
@@ -83,7 +87,7 @@
         /* 3. HEADER & MEGA MENU */
         header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.98); border-bottom: 1px solid var(--line); z-index: 1000; height: var(--header-height); }
         .header-inner { display: flex; justify-content: space-between; align-items: center; height: 100%; }
-        .logo-link { font-size: 1.3rem; color: var(--brand-red-dark); z-index: 1001; }
+        .logo-link { font-size: 1.3rem; color: var(--brand-logo); z-index: 1001; }
         .logo-link:hover { opacity: 0.8; }
 
         .pc-nav { display: flex; height: 100%; }
@@ -434,7 +438,7 @@
         header { background:rgba(255,255,255,.97); backdrop-filter:blur(12px); border-bottom:1px solid #eee; transition:box-shadow .25s; }
         header.is-scrolled { box-shadow:0 4px 20px #00000009; }
         .header-inner { max-width:none; padding-left:48px; padding-right:48px; }
-        .logo-link { display:inline-flex; align-items:center; min-height:48px; font-size:23px; letter-spacing:-.06em; }
+        .logo-link { display:inline-flex; align-items:center; min-height:48px; font-size:23px; letter-spacing:-.02em; }
         .h2a-logo sup { margin-right:.12em; }
         .pc-nav > button { padding:0 25px; font-size:15px; font-weight:500; }
         .header-cta { min-height:44px; padding:11px 23px; border-radius:30px; font-size:12px; }
@@ -498,7 +502,7 @@
         .campaign-controls .slider-dot { display:grid; place-items:center; width:38px; height:44px; border-radius:0; background:none; }
         .campaign-controls .slider-dot span { width:20px; height:2px; background:#ffffff50; position:relative; overflow:hidden; }
         .campaign-controls .slider-dot.active span { background:#fff; }
-        .campaign-controls .slider-dot.active span::after { content:''; position:absolute; inset:0; background:var(--brand-red); transform-origin:left; animation:slideProgress 7s linear; }
+        .campaign-controls .slider-dot.active span::after { content:''; position:absolute; inset:0; background:var(--brand-red); transform-origin:left; animation:slideProgress 5s linear; }
         .live-hero.is-paused .slider-dot.active span::after { animation-play-state:paused; }
         .campaign-controls .slider-arrow { position:static; transform:none; width:44px; height:44px; background:none; color:#fff; font-size:20px; }
         .campaign-controls .slider-arrow:hover,.slider-toggle:hover { background:#ffffff20; }
@@ -1042,7 +1046,7 @@
             let userPaused = reduced.matches;
             let focus = false;
             let explicitPlay = false;
-            let remaining = 7000;
+            let remaining = 5000;
             let started = 0;
             const toggle = wrap.querySelector('.slider-toggle');
             function pauseTimer() {
@@ -1068,7 +1072,7 @@
                 }
             }
             function show(index) {
-                pauseTimer(); remaining = 7000;
+                pauseTimer(); remaining = 5000;
                 const current = (index + slides.length) % slides.length;
                 // Only move focus when an active slide containing focus is being replaced.
                 if (slides.some((slide,i) => i !== current && slide.contains(document.activeElement))) toggle?.focus();
