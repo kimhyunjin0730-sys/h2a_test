@@ -6,19 +6,15 @@ import { programsData } from '@/lib/content';
 /* 시안 goApplication / goContact / history.back / 상담 예약(관심 프로그램 미리 선택) */
 export function ApplyButton({ title, cta }: { title: string; cta: string }) {
   const router = useRouter();
-  const go = () => {
-    const program = programsData.find((p) => p.title === title);
-    if (!program || !program.paymentEnabled) { sessionStorage.setItem('h2a_inq_prog', title); router.push('/contact'); return; }
-    sessionStorage.setItem('h2a_pay_prog', title); router.push('/payment');
-  };
-  // 라벨은 목적지와 맞춘다: 결제 페이지로 가면 「프로그램 신청」, 문의 폼이면 프로그램의 cta.
-  const label = programsData.find((p) => p.title === title)?.paymentEnabled ? '프로그램 신청' : cta;
-  return <button className="btn btn-primary btn-full" style={{ marginTop: '2rem' }} onClick={go}>{label}</button>;
+  // 규칙(9/8): 상단 메뉴 「문의」·플로팅 「상담 문의」 외의 상담·신청 버튼은 모두 결제 페이지로. 가격 미확정은 결제 페이지가 안내한다.
+  void programsData; void cta;
+  const go = () => { sessionStorage.setItem('h2a_pay_prog', title); router.push('/payment'); };
+  return <button className="btn btn-primary btn-full" style={{ marginTop: '2rem' }} onClick={go}>프로그램 신청</button>;
 }
 
 export function ContactProgramButton({ title }: { title: string }) {
   const router = useRouter();
-  return <button className="btn btn-primary" onClick={() => { sessionStorage.setItem('h2a_inq_prog', title); router.push('/contact'); }}>이 프로그램 상담하기 →</button>;
+  return <button className="btn btn-primary" onClick={() => { sessionStorage.setItem('h2a_pay_prog', title); router.push('/payment'); }}>이 프로그램 신청하기 →</button>;
 }
 
 export function BackButton() {
@@ -27,5 +23,5 @@ export function BackButton() {
 }
 
 export function InquiryLink({ program, href = '/contact', className, children }: { program: string; href?: string; className?: string; children: React.ReactNode }) {
-  return <Link href={href} className={className} onClick={() => sessionStorage.setItem('h2a_inq_prog', program)}>{children}</Link>;
+  return <Link href={href} className={className} onClick={() => sessionStorage.setItem(href.startsWith('/payment') ? 'h2a_pay_prog' : 'h2a_inq_prog', program)}>{children}</Link>;
 }

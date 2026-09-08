@@ -79,7 +79,7 @@ export default function HomePage() {
       <section className="live-closing">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <div className="live-contact-image" aria-hidden="true"><img src={asset('assets/soul-speech/lecture-2.jpg')} alt="" loading="lazy" /></div>
-        <div className="container" data-reveal><span className="kicker">변화의 시작, H2A</span><h2>어디서 시작할지 고민이라면,<br />먼저 이야기 나눠보세요.</h2><p>프로그램 선택부터 기업 맞춤 교육까지 안내해드립니다.</p><Link href="/contact" className="btn btn-primary">상담 문의하기 <span aria-hidden="true">→</span></Link></div>
+        <div className="container" data-reveal><span className="kicker">변화의 시작, H2A</span><h2>어디서 시작할지 고민이라면,<br />먼저 이야기 나눠보세요.</h2><p>프로그램 선택부터 기업 맞춤 교육까지 안내해드립니다.</p><div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}><Link href="/payment" className="btn btn-primary">프로그램 신청하기 <span aria-hidden="true">→</span></Link><Link href="/business/proposal" className="btn btn-outline">기업교육 제안 요청 <span aria-hidden="true">→</span></Link></div></div>
       </section>
     </div>
   );

@@ -26,7 +26,7 @@ export default function ProgramsHub({ cat, title }: { cat: Cat; title: string })
         <section className="soul-hero">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={asset(imgUrls.ssLectureHero)} alt="Soul Speech 실제 강의 현장" fetchPriority="high" />
-          <div className="container"><span className="kicker">Soul Speech ACADEMY</span><h1>말은 사람의 생각과<br />마음을 세상과 연결합니다.</h1><p>말하는 기술보다 먼저, 나를 전하는 힘.</p><InquiryLink program="12 WEEKS 변화의 12단계" className="btn btn-paper">상담 예약 →</InquiryLink></div>
+          <div className="container"><span className="kicker">Soul Speech ACADEMY</span><h1>말은 사람의 생각과<br />마음을 세상과 연결합니다.</h1><p>말하는 기술보다 먼저, 나를 전하는 힘.</p><InquiryLink program="12 WEEKS 변화의 12단계" href="/payment" className="btn btn-paper">프로그램 신청 →</InquiryLink></div>
         </section>
       ) : <PageTitle eng={cat.toUpperCase()} kor={title} />}
 
@@ -79,7 +79,7 @@ export default function ProgramsHub({ cat, title }: { cat: Cat; title: string })
 
       {cat === 'soulspeech' ? (
         <div className="container section-wrap text-center" style={{ paddingTop: 0 }}>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '4rem' }}><Link href="/contact" className="btn btn-outline">상담 예약</Link><Link href="/soul-speech/program" className="btn btn-outline">12주 자세히 보기</Link></div>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '4rem' }}><InquiryLink program="12 WEEKS 변화의 12단계" href="/payment" className="btn btn-outline">프로그램 신청</InquiryLink><Link href="/soul-speech/program" className="btn btn-outline">12주 자세히 보기</Link></div>
           <div style={{ borderTop: '1px solid var(--line)', paddingTop: '2rem', color: 'var(--text-sub)', fontSize: '0.9rem' }}><p style={{ marginBottom: '0.5rem' }}>Soul Speech Academy · 소울스피치랩 · 소울스피치 연구소</p><p className="eng-title" style={{ color: 'var(--brand-red-dark)' }}>SOUL SPEECH LAB &nbsp;|&nbsp; 감사와 사랑의 언어로 세상과 연결한다</p></div>
         </div>
       ) : null}

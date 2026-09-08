@@ -104,7 +104,7 @@ export default function ProgramDetail({ p }: { p: Program }) {
             </div>
           </div>
         ) : null}
-        <div className="program-end-cta"><div><strong>이 과정이 나에게 맞을까요?</strong><p>{p.title} 상담으로 확인하세요.</p></div><ContactProgramButton title={p.title} /></div>
+        <div className="program-end-cta"><div><strong>이 과정이 나에게 맞을까요?</strong><p>{p.title} 신청으로 시작하세요.</p></div><ContactProgramButton title={p.title} /></div>
         <div style={{ marginTop: '4rem', display: 'flex', justifyContent: 'space-between', borderTop: '1px solid var(--line)', paddingTop: '2rem' }}><BackButton /></div>
       </div></section>
     </div>
