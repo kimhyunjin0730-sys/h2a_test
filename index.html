@@ -1377,7 +1377,8 @@
         // 값은 콘솔(H2A 계정) > 결제 연동 > 연동 정보: 채널 관리(채널 키) · 식별코드·API Keys(상점 아이디).
         // 결제 페이지의 「포트원 테스트 설정」에서 브라우저별로 임시 저장(localStorage)할 수도 있다.
         // ------------------------------------------------------------------
-        const portoneConfig = { storeId: '', channelKey: '', testAmount: 1000 };
+        // h2a-dev (테스트 · 토스페이먼츠 공용 MID iamporttest_3). 실연동 채널로 바꿀 때 channelKey 교체.
+        const portoneConfig = { storeId: 'store-27d5dba9-a310-4a34-a91c-069619f932d9', channelKey: 'channel-key-ceaa7028-6573-4d58-b28f-32b7b8e9c7f7', testAmount: 1000 };
 
         /* H2A - UI 유틸리티 및 메뉴 로직 */
         // ------------------------------------------------------------------
@@ -1477,7 +1478,9 @@
         // Payment — 포트원 테스트 채널이 설정돼 있으면 실제 결제창(V2 브라우저 SDK), 아니면 데모
         // ------------------------------------------------------------------
         const portoneSettings = () => {
-            const cfg = Object.assign({ storeId: '', channelKey: '', testAmount: 1000 }, window.portoneConfig || {});
+            // data.js 의 const 는 window 에 붙지 않으므로 식별자로 직접 읽는다.
+            const fixed = (typeof portoneConfig !== 'undefined') ? portoneConfig : (window.portoneConfig || {});
+            const cfg = Object.assign({ storeId: '', channelKey: '', testAmount: 1000 }, fixed);
             try { const saved = JSON.parse(localStorage.getItem('h2a_portone') || 'null'); if (saved && typeof saved === 'object') Object.assign(cfg, saved); } catch (e) { /* 무시 */ }
             cfg.storeId = String(cfg.storeId || '').trim(); cfg.channelKey = String(cfg.channelKey || '').trim();
             cfg.testAmount = Math.max(100, parseInt(cfg.testAmount, 10) || 1000);
