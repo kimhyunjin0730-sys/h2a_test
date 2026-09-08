@@ -12,8 +12,8 @@ export default function ApplicationForm() {
   const [program, setProgram] = useState('');
   const [busy, setBusy] = useState(false);
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- 마운트 뒤 브라우저 저장소(sessionStorage/localStorage)에서 값을 읽어 동기화한다
     const p = sessionStorage.getItem('h2a_apply_prog');
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 마운트 뒤 브라우저 저장소(sessionStorage/localStorage)에서 값을 읽어 동기화한다
     if (p) { const hit = programsData.find((x) => x.title.includes(p) || p.includes(x.title)); if (hit) setProgram(hit.title); sessionStorage.removeItem('h2a_apply_prog'); }
   }, []);
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
