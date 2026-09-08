@@ -21,6 +21,7 @@ export default function Header() {
   const hamburgerRef = useRef<HTMLButtonElement>(null);
 
   // 경로가 바뀌면 메뉴를 닫는다 (시안 router() 의 closeAllMegas/closeMobileMenu).
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- 경로가 바뀌면 열린 메뉴를 닫는다(시안 router() 동작)
   useEffect(() => { setMega(null); setMobileOpen(false); document.body.style.overflow = ''; }, [pathname]);
   useEffect(() => { document.body.style.overflow = mobileOpen ? 'hidden' : ''; }, [mobileOpen]);
   useEffect(() => {

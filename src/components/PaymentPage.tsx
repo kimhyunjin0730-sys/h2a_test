@@ -45,6 +45,7 @@ export default function PaymentPage() {
   const isTest = /iamporttest|test/i.test(cfg.channelKey) || true; // 실연동 채널로 바꾸면 안내 문구를 손본다.
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 마운트 뒤 브라우저 저장소(sessionStorage/localStorage)에서 값을 읽어 동기화한다
     const c = readCfg(); setCfg(c); setForm({ storeId: c.storeId, channelKey: c.channelKey, channelKeyEximbay: c.channelKeyEximbay, testAmount: String(c.testAmount) });
     setProgram(sessionStorage.getItem('h2a_pay_prog') || '');
     // 모바일: 결제창이 페이지를 떠났다가 ?portone=return 으로 돌아온 경우

@@ -7,6 +7,7 @@ type Last = { program?: string; amount?: number; method?: string; paymentId?: st
 
 export default function PaymentComplete() {
   const [last, setLast] = useState<Last | null | undefined>(undefined);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- 마운트 뒤 sessionStorage 의 결제 결과를 읽는다
   useEffect(() => { try { setLast(JSON.parse(sessionStorage.getItem('h2a_portone_last') || 'null')); } catch { setLast(null); } }, []);
   if (last === undefined) return null;
   if (!last) return <Message title="PAYMENT COMPLETE" desc="결제 정보가 없습니다. 결제 페이지에서 다시 진행해주세요." btnTxt="결제 페이지로" href="/payment" />;

@@ -12,6 +12,7 @@ export default function ContactForms({ isBusiness }: { isBusiness: boolean }) {
   const [busy, setBusy] = useState(false);
   const [program, setProgram] = useState('');
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- 마운트 뒤 브라우저 저장소(sessionStorage/localStorage)에서 값을 읽어 동기화한다
     const pending = sessionStorage.getItem('h2a_inq_prog');
     if (pending && !isBusiness) { setProgram(pending); sessionStorage.removeItem('h2a_inq_prog'); }
   }, [isBusiness]);
