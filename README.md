@@ -1,4 +1,10 @@
-# h2a-next — H² Associates Ltd. 홈페이지 (Next.js)
+# h2a_test — H² Associates Ltd. 홈페이지
+
+이 저장소는 두 가지를 담는다.
+- **루트 `index.html` · `assets/` · `next/`** — GitHub Pages 공개 미리보기 (시안 https://kimhyunjin0730-sys.github.io/h2a_test/ , React 정적판 https://kimhyunjin0730-sys.github.io/h2a_test/next/ ). 원본은 `h2a` 작업 저장소의 `src/`.
+- **`src/` · `public/` · `package.json` 등** — 사이트를 React(Next.js)로 옮긴 소스. Vercel 에서 이 저장소를 그대로 import 하면 서버 기능(결제 검증·웹훅·문의 메일)까지 동작한다.
+
+## Next.js 소스
 
 시안(`h2a/src`)을 그대로 React(Next.js App Router)로 옮긴 사이트. 결제는 포트원 V2 브라우저 SDK + 서버 검증 API.
 
