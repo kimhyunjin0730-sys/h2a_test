@@ -1040,7 +1040,6 @@
             const signal = controller.signal;
             const reduced = matchMedia('(prefers-reduced-motion: reduce)');
             let userPaused = reduced.matches;
-            let hover = false;
             let focus = false;
             let explicitPlay = false;
             let remaining = 7000;
@@ -1055,7 +1054,8 @@
             }
             function schedule() {
                 pauseTimer();
-                const paused = userPaused || (!explicitPlay && (hover || focus)) || document.hidden;
+                // 마우스를 올려도 계속 넘어간다(9/8 요청). 일시정지 버튼·키보드 포커스·탭 숨김·모션 줄이기만 멈춘다.
+                const paused = userPaused || (!explicitPlay && focus) || document.hidden;
                 wrap.classList.toggle('is-paused', paused);
                 if (toggle) {
                     toggle.textContent = userPaused ? '▶' : 'Ⅱ';
@@ -1097,8 +1097,6 @@
             on(wrap.querySelector('.slider-arrow.next'),'click',window.nextHeroSlide);
             dots.forEach((dot,i) => on(dot,'click',() => show(i)));
             on(toggle,'click',() => { userPaused = !userPaused; explicitPlay = !userPaused; schedule(); });
-            on(wrap,'mouseenter',() => { hover = true; explicitPlay = false; schedule(); });
-            on(wrap,'mouseleave',() => { hover = false; schedule(); });
             on(wrap,'focusin',() => { focus = true; explicitPlay = false; schedule(); });
             on(wrap,'focusout',event => { if (!wrap.contains(event.relatedTarget)) { focus = false; schedule(); } });
             on(document,'visibilitychange',schedule);
@@ -1161,7 +1159,7 @@
 
         const heroSlides = [
             { title: 'WE TURN EXPERTISE INTO INFLUENCE.', desc: '전문성을 존재감으로, 존재감을 영향력으로.', btnTxt: 'H2A 알아보기', btnLink: '#about', bg: imgUrls.ssLecture1 },
-            { title: '외면소통 ACADEMY', desc: '이미지 리더십과 프레즌스를 완성하는 교육', btnTxt: '프로그램 보기', btnLink: '#appearance', bg: imgUrls.ssWorkshop },
+            { title: '외면소통 ACADEMY', desc: '이미지 리더십과 프레즌스를 완성하는 교육', btnTxt: '프로그램 보기', btnLink: '#appearance', bg: 'assets/stock/photo-1617761141732-d481912af1a9.jpg' }, // 9/8 유리 외벽 건물(Unsplash)로 교체
             { title: 'Soul Speech ACADEMY', desc: '마음을 움직이는 스피치', btnTxt: '프로그램 보기', btnLink: '#soul-speech', bg: imgUrls.ssLectureHero }
         ];
 
