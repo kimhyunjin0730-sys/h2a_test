@@ -923,7 +923,7 @@
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-news">소식</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-contact">문의</button>
             </nav>
-            <a href="#payment" class="btn btn-primary header-cta">프로그램 상담</a>
+            <a href="#payment" class="btn btn-primary header-cta">프로그램 신청</a>
             <button class="hamburger" id="hamburgerBtn" aria-label="모바일 메뉴 열기" aria-expanded="false" aria-controls="mobileNav"><span class="menu-lines" aria-hidden="true"></span></button>
         </div>
 
@@ -961,7 +961,7 @@
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">기업교육 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#business" class="m-link">기업교육 소개</a><a href="#business/solution" class="m-link">H<sup>2</sup>A</a><a href="#business/quantum" class="m-link">Quantum 품격</a><a href="#business/proposal" class="m-link">기업교육 제안 요청</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">소식 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#gallery" class="m-link">교육 현장</a><a href="#notices" class="m-link">공지사항</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">문의 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#contact" class="m-link">문의하기</a><a href="#faq" class="m-link">FAQ</a></div></div>
-            <div class="m-nav-item m-nav-cta"><a href="#payment" class="btn btn-primary">프로그램 상담</a></div>
+            <div class="m-nav-item m-nav-cta"><a href="#payment" class="btn btn-primary">프로그램 신청</a></div>
         </nav>
     </header>
 
@@ -2082,7 +2082,7 @@
                     closingHtml = `<div style="margin-top: 6rem; padding: 4rem 0; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background:var(--surface-light);"><h3 class="eng-title" style="font-size:1.6rem; color:var(--brand-red-dark); font-weight:400; font-style:italic;">"${escapeHTML(p.closing)}"</h3></div>`;
                 }
         
-                const btnHtml = `<button class="btn btn-primary btn-full" style="margin-top: 2rem;" onclick="goApplication(this.dataset.program)" data-program="${escapeHTML(p.title)}">${p.cta}</button>`;
+                const btnHtml = `<button class="btn btn-primary btn-full" style="margin-top: 2rem;" onclick="goApplication(this.dataset.program)" data-program="${escapeHTML(p.title)}">${((typeof portoneReady === 'function' && portoneReady()) || p.paymentEnabled) ? '프로그램 신청' : p.cta}</button>`;
 
                 const expert = expertsData[p.expert] || expertsData['hwang'];
                 const expertHtml = p.expert !== 'all' ? `
