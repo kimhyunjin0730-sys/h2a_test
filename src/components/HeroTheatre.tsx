@@ -19,12 +19,13 @@ export default function HeroTheatre() {
     const toggle = wrap.querySelector<HTMLElement>('.slider-toggle');
     const controller = new AbortController(); const signal = controller.signal;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-    let userPaused = reduced.matches, hover = false, focus = false, explicitPlay = false, remaining = 7000, started = 0, current = 0;
+    let userPaused = reduced.matches, focus = false, explicitPlay = false, remaining = 7000, started = 0, current = 0;
     let timer: ReturnType<typeof setTimeout> | null = null;
     function pauseTimer() { if (timer) { remaining = Math.max(0, remaining - (performance.now() - started)); clearTimeout(timer); timer = null; } }
     function schedule() {
       pauseTimer();
-      const paused = userPaused || (!explicitPlay && (hover || focus)) || document.hidden;
+      // 마우스를 올려도 계속 넘어간다. 일시정지 버튼·키보드 포커스·탭 숨김·모션 줄이기만 멈춘다.
+      const paused = userPaused || (!explicitPlay && focus) || document.hidden;
       wrap!.classList.toggle('is-paused', paused);
       if (toggle) { toggle.textContent = userPaused ? '▶' : 'Ⅱ'; toggle.setAttribute('aria-pressed', String(userPaused)); toggle.setAttribute('aria-label', userPaused ? '슬라이드 자동 재생 시작' : '슬라이드 자동 재생 정지'); }
       if (!paused && slides.length > 1) { started = performance.now(); timer = setTimeout(() => show(current + 1), remaining); }
@@ -45,8 +46,6 @@ export default function HeroTheatre() {
     on(wrap.querySelector('.slider-arrow.next'), 'click', () => show(current + 1));
     dots.forEach((dot, i) => on(dot, 'click', () => show(i)));
     on(toggle, 'click', () => { userPaused = !userPaused; explicitPlay = !userPaused; schedule(); });
-    on(wrap, 'mouseenter', () => { hover = true; explicitPlay = false; schedule(); });
-    on(wrap, 'mouseleave', () => { hover = false; schedule(); });
     on(wrap, 'focusin', () => { focus = true; explicitPlay = false; schedule(); });
     on(wrap, 'focusout', (event) => { if (!wrap.contains((event as FocusEvent).relatedTarget as Node)) { focus = false; schedule(); } });
     on(document, 'visibilitychange', schedule);
