@@ -473,9 +473,9 @@
         .theatre-background { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; transform:scale(1.035); object-position:center; filter:saturate(.72); }
         /* 히어로 모션(9/8, 원그로브 참고) — 배경 느린 확대·축소, 겹침 전환, 스크롤 시 문구 페이드. 히어로 선택자에만 적용. 모션 줄이기 설정은 아래 reduce 블록이 전부 끈다. */
         .live-hero .hero-slide { transition:opacity 1.6s ease,visibility 1.6s; }
-        .theatre-background { animation:heroKenBurns 9s ease-in-out infinite alternate; will-change:transform; }
+        .theatre-background { animation:heroKenBurns 8s ease-in-out infinite alternate; will-change:transform; }
         .live-hero .hero-slide:not(.active) .theatre-background, .live-hero.is-paused .theatre-background { animation-play-state:paused; }
-        @keyframes heroKenBurns { from { transform:scale(1.035); } to { transform:scale(var(--kb-scale,1.11)); } }
+        @keyframes heroKenBurns { from { transform:scale(1.035) translateX(0); } to { transform:scale(var(--kb-scale,1.18)) translateX(var(--kb-pan,-1.6%)); } }
         @supports (animation-timeline:scroll()) {
          .hero-sticky .theatre-copy { animation:heroCopyFade linear both; animation-timeline:scroll(root); animation-range:0 55vh; }
          @keyframes heroCopyFade { to { opacity:0; transform:translateY(-48px); } }
@@ -691,7 +691,7 @@
          .theatre-copy p { font-size:12px; line-height:1.9; }
          .theatre-link { font-size:12px; gap:42px; margin-top:18px; min-height:48px; }
          .theatre-background { object-position:60% center; }
-         .theatre-background { --kb-scale:1.07; }
+         .theatre-background { --kb-scale:1.11; --kb-pan:-1%; }
          .hero-sticky .theatre-copy { animation:none; }
          .theatre-shade { background:linear-gradient(0deg,#0c1116df,#0c111610),linear-gradient(90deg,#0c111666,transparent); }
          .campaign-controls { bottom:18px; padding-top:12px; margin:0 22px; left:0; right:0; width:calc(100% - 44px); padding-left:0; padding-right:0; flex-wrap:wrap; gap:4px; }
@@ -1125,6 +1125,7 @@
         const imgUrls = {
             office1: 'assets/stock/photo-1497366811353-6870744d04b2.jpg',
             office2: 'assets/stock/photo-1497366754035-f200968a6e72.jpg',
+            aboutMeeting: 'assets/stock/photo-1551836022-d5d88e9218df.jpg', // 회사 소개 — 전문가 두 사람의 회의 장면 (9/8 교체, 이전: office2 빈 복도)
             office3: 'assets/stock/photo-1497366216548-37526070297c.jpg',
             workshop1: 'assets/stock/photo-1517245386807-bb43f82c33c4.jpg',
             workshop2: 'assets/stock/photo-1521737711867-e3b97375f902.jpg',
@@ -1738,7 +1739,7 @@
         <section class="live-closing"><div class="live-contact-image" aria-hidden="true"><img src="assets/soul-speech/lecture-2.jpg" alt="" loading="lazy"></div><div class="container" data-reveal><span class="kicker">변화의 시작, H2A</span><h2>어디서 시작할지 고민이라면,<br>먼저 이야기 나눠보세요.</h2><p>프로그램 선택부터 기업 맞춤 교육까지 안내해드립니다.</p><a href="#contact" class="btn btn-primary">상담 문의하기 <span aria-hidden="true">→</span></a></div></section></div>`,
 
             'about': () => `<div class="page-view active">${rTitle('About', '회사 소개')}
-                <div class="container section-wrap grid-2 items-center"><div class="img-wrap relative">${renderSampleLabel(true, '화면 검수용 샘플')}<img src="${imgUrls.office2}" alt="Office" loading="lazy"></div><div><h3 class="section-title">전문성을 영향력으로.</h3><p class="body-large" style="margin-bottom: 2rem;">H2A는 리더와 전문가의 전문성과 경험을 발견하고, 그들이 어떻게 보이고, 말하고, 관계 맺고, 기억될지를 통합적으로 설계하는 Executive Presence & Communication Company입니다.<br><br>전문성을 콘텐츠로, 콘텐츠를 프로그램으로, 프로그램을 브랜드와 비즈니스로 발전시킵니다.<br><br>Expertise → Presence → Influence</p><h4 class="eng-title" style="font-size:1.2rem; margin:2rem 0 1rem; color:var(--brand-red-dark);">WHAT WE BELIEVE</h4><p class="body-large">GREAT EXPERTISE DESERVES TO BE SEEN, HEARD AND REMEMBERED.<br><br>전문성이 있어도 그 가치가 저절로 전달되는 것은 아닙니다. H2A가 설계하는 것은 단순한 이미지나 화법이 아니라 사람이 신뢰받고, 기억되고, 선택받는 방식입니다.</p></div></div>
+                <div class="container section-wrap grid-2 items-center"><div class="img-wrap relative">${renderSampleLabel(true, '화면 검수용 샘플')}<img src="${imgUrls.aboutMeeting}" srcset="${imgUrls.aboutMeeting.replace(/\.jpg$/, '-800.jpg')} 800w, ${imgUrls.aboutMeeting} 1400w" sizes="(max-width: 760px) 100vw, 50vw" alt="회의실에서 대화하는 두 전문가" loading="lazy"></div><div><h3 class="section-title">전문성을 영향력으로.</h3><p class="body-large" style="margin-bottom: 2rem;">H2A는 리더와 전문가의 전문성과 경험을 발견하고, 그들이 어떻게 보이고, 말하고, 관계 맺고, 기억될지를 통합적으로 설계하는 Executive Presence & Communication Company입니다.<br><br>전문성을 콘텐츠로, 콘텐츠를 프로그램으로, 프로그램을 브랜드와 비즈니스로 발전시킵니다.<br><br>Expertise → Presence → Influence</p><h4 class="eng-title" style="font-size:1.2rem; margin:2rem 0 1rem; color:var(--brand-red-dark);">WHAT WE BELIEVE</h4><p class="body-large">GREAT EXPERTISE DESERVES TO BE SEEN, HEARD AND REMEMBERED.<br><br>전문성이 있어도 그 가치가 저절로 전달되는 것은 아닙니다. H2A가 설계하는 것은 단순한 이미지나 화법이 아니라 사람이 신뢰받고, 기억되고, 선택받는 방식입니다.</p></div></div>
                 <div class="container section-wrap" style="padding-top:0;"><details class="prose-disclosure"><summary>대표이사 인사말 · 한석용</summary><!-- 실제 대표 사진 수령 전까지 사진 영역을 두지 않는다. 스톡 인물 사진을 실명 옆에 두지 않기 위한 것. 사진을 받으면 grid-2 + img-wrap 으로 되돌린다. --><div class="mt-xl" style="max-width:900px;"><div><h3 class="section-title mb-md" style="font-size:clamp(1.45rem, 2.3vw, 2rem); line-height:1.5; font-weight:500; color:var(--ink);">전문성은 그 자체로도 가치가 있지만,<br>사람들에게 제대로 전달되고 기억될 때 비로소 영향력이 됩니다.</h3>
                     <p class="body-large" style="margin-bottom:1.1rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">H2A는 한 사람 안에 축적된 지식과 경험, 고유한 철학을 발견하고 이를 콘텐츠와 프로그램, 브랜드와 비즈니스로 연결하기 위해 설립되었습니다. 우리는 단순히 잘 보이고 잘 말하는 기술을 가르치는 데 그치지 않습니다. 한 사람의 전문성이 그에 걸맞은 존재감으로 드러나고, 신뢰와 관계, 지속 가능한 영향력으로 확장되도록 돕고자 합니다.</p>
                     <p class="body-large" style="margin-bottom:1.1rem; color:var(--ink); font-weight:400; font-size:1.02rem; line-height:1.85;">이러한 철학을 바탕으로 H2A는 황정선 박사의 ‘외면소통 ACADEMY’와 남복희 박사의 ‘Soul Speech ACADEMY’를 선보입니다.</p>
