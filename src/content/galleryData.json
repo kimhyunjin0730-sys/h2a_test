@@ -1,0 +1,82 @@
+[
+ {
+  "id": "g1",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "Executive Consulting 현장",
+  "category": "1:1 Coaching",
+  "image": "assets/stock/photo-1560250097-0b93528c311a.jpg"
+ },
+ {
+  "id": "g2",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "Signature Presence 워크숍",
+  "category": "Workshop",
+  "image": "assets/stock/photo-1517245386807-bb43f82c33c4.jpg"
+ },
+ {
+  "id": "g3",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "The Table 다이닝 실습",
+  "category": "Experience",
+  "image": "assets/stock/photo-1414235077428-338989a2e8c0.jpg"
+ },
+ {
+  "id": "g4",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "Social Presence 네트워킹",
+  "category": "Workshop",
+  "image": "assets/stock/photo-1521737711867-e3b97375f902.jpg"
+ },
+ {
+  "id": "g5",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "Dress & Presence 컨설팅",
+  "category": "Experience",
+  "image": "assets/stock/photo-1497366811353-6870744d04b2.jpg"
+ },
+ {
+  "id": "g6",
+  "isSample": false,
+  "sampleLabel": "",
+  "title": "Soul Speech 특강",
+  "category": "Speech",
+  "image": "assets/soul-speech/lecture-hero.jpg"
+ },
+ {
+  "id": "g9",
+  "isSample": false,
+  "sampleLabel": "",
+  "title": "Soul Speech 12주 과정",
+  "category": "Speech",
+  "image": "assets/soul-speech/lecture-1.jpg"
+ },
+ {
+  "id": "g10",
+  "isSample": false,
+  "sampleLabel": "",
+  "title": "Soul Speech 강의 현장",
+  "category": "Speech",
+  "image": "assets/soul-speech/lecture-2.jpg"
+ },
+ {
+  "id": "g7",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "기업 임원진 워크숍",
+  "category": "Corporate",
+  "image": "assets/stock/photo-1524178232363-1fb2b075b655.jpg"
+ },
+ {
+  "id": "g8",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "Private 네트워킹 모임",
+  "category": "Private",
+  "image": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=80"
+ }
+]

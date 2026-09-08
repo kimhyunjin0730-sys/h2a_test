@@ -1,0 +1,23 @@
+[
+ {
+  "title": "WE TURN EXPERTISE INTO INFLUENCE.",
+  "desc": "전문성을 존재감으로, 존재감을 영향력으로.",
+  "btnTxt": "H2A 알아보기",
+  "btnLink": "#about",
+  "bg": "assets/soul-speech/lecture-1.jpg"
+ },
+ {
+  "title": "외면소통 ACADEMY",
+  "desc": "이미지 리더십과 프레즌스를 완성하는 교육",
+  "btnTxt": "프로그램 보기",
+  "btnLink": "#appearance",
+  "bg": "assets/soul-speech/workshop.jpg"
+ },
+ {
+  "title": "Soul Speech ACADEMY",
+  "desc": "마음을 움직이는 스피치",
+  "btnTxt": "프로그램 보기",
+  "btnLink": "#soul-speech",
+  "bg": "assets/soul-speech/lecture-hero.jpg"
+ }
+]
