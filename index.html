@@ -991,6 +991,7 @@
     <!-- ==========================================================================
          JAVASCRIPT DATA & LOGIC
          ========================================================================== -->
+    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
     <script>
         /* H2A - 전역 함수 (히어로 슬라이더, 메가메뉴 제어) */
         // ------------------------------------------------------------------
@@ -1358,6 +1359,15 @@
         const privacyData = ['1. 처리 목적: 프로그램 제공 및 상담 (샘플)', '2. 필수 수집항목: 성명, 연락처, 이메일', '3. 선택 수집항목: 직함, 소속', '4. 보유기간: 관계 법령에 따른 기간 동안 보관 (자료 확인 중)', '5. 파기: 목적 달성 시 지체 없이 파기', '6. 제3자 제공: 법령에 의하지 않고는 제공하지 않음', '7. 처리 위탁: 시스템 운영을 위한 위탁 처리', '8. PG 결제정보: PG사 선정 후 반영 (운영 전 확인 필요)', '9. 정보주체 권리: 열람 및 정정 요청 가능', '10. 쿠키: 웹사이트 최적화를 위해 사용', '11. 안전조치: 기술적 관리적 보호조치 시행', '12. 개인정보 보호책임자: 한석용 (대표이사) · 010-9005-6009 · biz.h2a@gmail.com', '13. 권익침해 구제: 관련 기관을 통해 구제 가능', '14. 정책 변경 및 시행일: 2026.01.01부터 시행'];
         const refundData = ['1. 프로그램 시작 전 취소: 전액 환불 (샘플 환불정책 · 법률 검토 전 사용 금지)', '2. 시작 후 취소: 진행된 세션 비율 공제 후 환불', '3. 일부 참여: 개별 규정에 따름', '4. 노쇼: 환불 불가', '5. 신청자 변경: 시작 3일 전까지 사전 협의 시 가능', '6. 일정 변경: 회사 승인 시 가능', '7. 최소인원 미달: 전액 환불 및 폐강 안내', '8. 회사 사정에 따른 취소: 전액 환불', '9. 불가항력: 상호 협의', '10. 교재 제공: 사용 시 비용 공제', '11. 진단 제공: 실시 후 비용 공제', '12. 결과물 제공: 제작 착수 시 공제', '13. 부분취소: 적용 가능 프로그램에 한함', '14. 환불수단: 결제 수단과 동일하게 처리', '15. 처리기간: 접수 후 영업일 기준 3~5일 소요', '16. 접수방법: 고객센터 유선 또는 온라인 게시판', '17. 분쟁 처리: 전자상거래법에 따름'];
 
+        // ------------------------------------------------------------------
+        // 포트원 테스트 연동 (시안 전용)
+        // storeId·channelKey 가 비어 있으면 결제 페이지는 예전처럼 데모로 동작한다.
+        // 두 값은 공개 식별자라 브라우저에 둬도 되지만, API Secret 은 절대 여기에 넣지 말 것.
+        // 값은 콘솔(H2A 계정) > 결제 연동 > 연동 정보: 채널 관리(채널 키) · 식별코드·API Keys(상점 아이디).
+        // 결제 페이지의 「포트원 테스트 설정」에서 브라우저별로 임시 저장(localStorage)할 수도 있다.
+        // ------------------------------------------------------------------
+        const portoneConfig = { storeId: '', channelKey: '', testAmount: 1000 };
+
         /* H2A - UI 유틸리티 및 메뉴 로직 */
         // ------------------------------------------------------------------
         // 2. UI UTILS & EVENT HANDLERS
@@ -1452,19 +1462,89 @@
             document.getElementById('lookup-result').classList.remove('hidden');
         };
 
-        // Payment (demo only — no real PG)
+        // ------------------------------------------------------------------
+        // Payment — 포트원 테스트 채널이 설정돼 있으면 실제 결제창(V2 브라우저 SDK), 아니면 데모
+        // ------------------------------------------------------------------
+        const portoneSettings = () => {
+            const cfg = Object.assign({ storeId: '', channelKey: '', testAmount: 1000 }, window.portoneConfig || {});
+            try { const saved = JSON.parse(localStorage.getItem('h2a_portone') || 'null'); if (saved && typeof saved === 'object') Object.assign(cfg, saved); } catch (e) { /* 무시 */ }
+            cfg.storeId = String(cfg.storeId || '').trim(); cfg.channelKey = String(cfg.channelKey || '').trim();
+            cfg.testAmount = Math.max(100, parseInt(cfg.testAmount, 10) || 1000);
+            return cfg;
+        };
+        window.portoneReady = () => { const c = portoneSettings(); return !!(c.storeId && c.channelKey); };
+        window.savePortoneKeys = () => {
+            const storeId = (document.getElementById('portone-store') || {}).value || '';
+            const channelKey = (document.getElementById('portone-channel') || {}).value || '';
+            const amount = (document.getElementById('portone-amount') || {}).value || '';
+            if (!storeId.trim() || !channelKey.trim()) return showToast('상점 아이디와 채널 키를 모두 입력해주세요.');
+            if (/^portone|secret/i.test(storeId + channelKey) && !/^store-/.test(storeId.trim())) return showToast('API Secret 은 여기에 넣지 마세요. 상점 아이디(store-…)와 채널 키만 넣습니다.');
+            localStorage.setItem('h2a_portone', JSON.stringify({ storeId: storeId.trim(), channelKey: channelKey.trim(), testAmount: parseInt(amount, 10) || 1000 }));
+            showToast('이 브라우저에 테스트 설정을 저장했습니다.'); router();
+        };
+        window.clearPortoneKeys = () => { localStorage.removeItem('h2a_portone'); showToast('테스트 설정을 지웠습니다. 데모 결제로 돌아갑니다.'); router(); };
+        const portonePayMethod = (label) => {
+            if (/카드/.test(label)) return { payMethod: 'CARD' };
+            if (/계좌이체/.test(label)) return { payMethod: 'TRANSFER' };
+            if (/가상계좌/.test(label)) return { payMethod: 'VIRTUAL_ACCOUNT' };
+            if (/카카오페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'KAKAOPAY' };
+            if (/네이버페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'NAVERPAY' };
+            if (/토스페이/.test(label)) return { payMethod: 'EASY_PAY', easyPay: 'TOSSPAY' };
+            return null; // 알리페이·위챗페이는 테스트 채널에서 다루지 않는다
+        };
+        window.finishPortonePayment = (res) => {
+            let pending = null;
+            try { pending = JSON.parse(sessionStorage.getItem('h2a_portone_pending') || 'null'); } catch (e) { /* 무시 */ }
+            const last = Object.assign({ program: '', amount: 0, method: '' }, pending || {}, res, { at: new Date().toISOString() });
+            sessionStorage.setItem('h2a_portone_last', JSON.stringify(last));
+            sessionStorage.removeItem('h2a_portone_pending');
+            sessionStorage.setItem('h2a_apply_prog', last.program || '');
+            location.hash = '#payment-complete';
+        };
         window.selectPayMethod = (el) => {
             document.querySelectorAll('.pay-tile').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
         };
-        window.processPayment = () => {
+        window.processPayment = async () => {
             const prog = sessionStorage.getItem('h2a_pay_prog');
             if(!prog) return showToast('프로그램을 선택해주세요.');
-            if(!document.querySelector('.pay-tile.active')) return showToast('결제 수단을 선택해주세요.');
+            const tile = document.querySelector('.pay-tile.active');
+            if(!tile) return showToast('결제 수단을 선택해주세요.');
             if(!document.getElementById('pay-agree').checked) return showToast('결제 진행 동의에 체크해주세요.');
-            sessionStorage.setItem('h2a_apply_prog', prog);
-            showToast('데모 결제가 완료되었습니다. 신청 정보를 입력해주세요.');
-            setTimeout(() => { location.hash = '#application'; }, 600);
+
+            sessionStorage.removeItem('h2a_portone_error');
+            const cfg = portoneSettings();
+            if (!(cfg.storeId && cfg.channelKey)) {
+                // 데모 — 포트원 설정 전과 동일
+                sessionStorage.setItem('h2a_apply_prog', prog);
+                showToast('데모 결제가 완료되었습니다. 신청 정보를 입력해주세요.');
+                setTimeout(() => { location.hash = '#application'; }, 600);
+                return;
+            }
+            if (!window.PortOne || typeof PortOne.requestPayment !== 'function') return showToast('포트원 SDK 를 불러오지 못했습니다. 새로고침 후 다시 시도해주세요.');
+            const method = portonePayMethod(tile.textContent.trim());
+            if (!method) return showToast('테스트 채널에서는 카드·계좌이체·가상계좌·간편결제만 확인합니다.');
+
+            const paymentId = 'h2a-test-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+            const req = {
+                storeId: cfg.storeId, channelKey: cfg.channelKey, paymentId,
+                orderName: '[테스트] ' + prog, totalAmount: cfg.testAmount, currency: 'CURRENCY_KRW',
+                payMethod: method.payMethod,
+                redirectUrl: location.origin + location.pathname + '?portone=return'
+            };
+            if (method.easyPay) req.easyPay = { easyPayProvider: method.easyPay };
+            if (method.payMethod === 'VIRTUAL_ACCOUNT') req.virtualAccount = { accountExpiry: { validHours: 24 } };
+            sessionStorage.setItem('h2a_portone_pending', JSON.stringify({ paymentId, program: prog, amount: cfg.testAmount, method: tile.textContent.trim() }));
+
+            const btn = document.querySelector('#pay-submit'); if (btn) btn.disabled = true;
+            try {
+                const res = await PortOne.requestPayment(req);
+                if (!res) return; // 모바일: 결제창이 페이지를 떠나 redirectUrl 로 돌아온다
+                if (res.code !== undefined) { showToast('결제 실패: ' + (res.message || res.code)); return; }
+                finishPortonePayment({ paymentId: res.paymentId || paymentId, txId: res.txId || '' });
+            } catch (e) {
+                showToast('결제창을 열지 못했습니다: ' + (e && e.message ? e.message : e));
+            } finally { if (btn) btn.disabled = false; }
         };
 
         // Form Route Actions
@@ -2138,10 +2218,14 @@
                 const p = programsData.find(x => x.title === progTitle);
                 return `<div class="page-view active">${rTitle('Payment','결제하기')}
                 <div class="container section-wrap" style="max-width:800px;">
-                    <div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">화면 검수용 데모입니다. 실제 결제는 PG사 선정·연동 후 제공됩니다.</div>
+                    ${(() => { const live = window.portoneReady && portoneReady(); const err = sessionStorage.getItem('h2a_portone_error');
+                        return (live
+                            ? `<div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">포트원 테스트 채널에 연결돼 있습니다. 결제창은 토스페이먼츠 테스트 환경이라 실제 출금은 없습니다.</div>`
+                            : `<div style="background:var(--brand-red-soft); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-weight:700; font-size:0.9rem;">화면 검수용 데모입니다. 실제 결제는 PG사 선정·연동 후 제공됩니다.</div>`)
+                            + (err ? `<div role="alert" style="border:1px solid var(--brand-red); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-size:0.9rem;">결제가 완료되지 않았습니다: ${escapeHTML(err)}</div>` : ''); })()}
                     <div style="border:1px solid var(--line); background:var(--surface); padding:2rem; margin-bottom:2.5rem;">
                         <h4 style="font-size:1.05rem; margin-bottom:1.2rem;">주문 정보</h4>
-                        <div class="list-meta" style="margin:0;"><span>프로그램</span><span><select id="pay-program" onchange="sessionStorage.setItem('h2a_pay_prog', this.value); router();" style="width:100%; padding:6px 8px; border:1px solid var(--line); font-family:inherit;"><option value="">프로그램을 선택하세요</option>${programsData.map(x => `<option value="${x.title}" ${p && p.title === x.title ? 'selected' : ''}>${x.title}</option>`).join('')}</select></span><span>일정</span><span>${p ? escapeHTML(p.schedule) : '-'}</span><span>결제 예정 금액</span><span style="font-weight:700; color:var(--brand-red-dark);">${p ? escapeHTML(p.price) : '-'}</span></div>
+                        <div class="list-meta" style="margin:0;"><span>프로그램</span><span><select id="pay-program" onchange="sessionStorage.setItem('h2a_pay_prog', this.value); router();" style="width:100%; padding:6px 8px; border:1px solid var(--line); font-family:inherit;"><option value="">프로그램을 선택하세요</option>${programsData.map(x => `<option value="${x.title}" ${p && p.title === x.title ? 'selected' : ''}>${x.title}</option>`).join('')}</select></span><span>일정</span><span>${p ? escapeHTML(p.schedule) : '-'}</span><span>결제 예정 금액</span><span style="font-weight:700; color:var(--brand-red-dark);">${p ? escapeHTML(p.price) : '-'}</span>${(window.portoneReady && portoneReady()) ? `<span>테스트 결제 금액</span><span style="font-weight:700;">${Number(portoneSettings().testAmount).toLocaleString('ko-KR')}원 <small style="font-weight:400; color:var(--text-sub);">(테스트 채널 · 실제 출금 없음)</small></span>` : ''}</div>
                     </div>
                     <h4 style="font-size:1.05rem; margin-bottom:1.2rem;">결제 수단 선택</h4>
                     <div class="pay-method-grid">
@@ -2155,8 +2239,19 @@
                         <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#07C160;"></span>위챗페이 (WeChat Pay)</button>
                     </div>
                     <label class="checkbox-label" style="margin-top:2rem; display:block;"><input type="checkbox" id="pay-agree"> [필수] 유료 서비스 결제 진행 및 결제조건 동의</label>
-                    <button type="button" onclick="processPayment()" class="btn btn-primary btn-full" style="margin-top:1.5rem;">결제하기</button>
-                    <p style="margin-top:1rem; font-size:0.85rem; color:var(--text-sub);">본 화면은 시안 검수용 데모로, 버튼을 눌러도 실제 결제가 이루어지지 않습니다. PG사 선정 후 해당 PG의 결제창이 이 자리에 연동됩니다.</p>
+                    <button type="button" id="pay-submit" onclick="processPayment()" class="btn btn-primary btn-full" style="margin-top:1.5rem;">결제하기</button>
+                    ${(window.portoneReady && portoneReady())
+                        ? `<p style="margin-top:1rem; font-size:0.85rem; color:var(--text-sub);">결제하기를 누르면 포트원 결제창이 열립니다. 결제 내역은 포트원 콘솔 > 결제 내역(테스트)에서 확인합니다.</p>`
+                        : `<p style="margin-top:1rem; font-size:0.85rem; color:var(--text-sub);">본 화면은 시안 검수용 데모로, 버튼을 눌러도 실제 결제가 이루어지지 않습니다. PG사 선정 후 해당 PG의 결제창이 이 자리에 연동됩니다.</p>`}
+                    ${(() => { const c = (typeof portoneSettings === 'function') ? portoneSettings() : { storeId: '', channelKey: '', testAmount: 1000 };
+                        return `<details style="margin-top:2.5rem; border-top:1px dashed var(--line); padding-top:1rem; font-size:0.85rem; color:var(--text-sub);"><summary style="cursor:pointer;">포트원 테스트 설정 (개발용 · 이 브라우저에만 저장)</summary>
+                        <div style="display:grid; gap:8px; margin-top:12px;">
+                          <label>상점 아이디 <input id="portone-store" value="${escapeHTML(c.storeId)}" placeholder="store-…" autocomplete="off" style="padding:8px;"></label>
+                          <label>채널 키 <input id="portone-channel" value="${escapeHTML(c.channelKey)}" placeholder="channel-key-…" autocomplete="off" style="padding:8px;"></label>
+                          <label>테스트 금액(원) <input id="portone-amount" type="number" min="100" step="100" value="${escapeHTML(String(c.testAmount))}" style="padding:8px;"></label>
+                          <div style="display:flex; gap:8px;"><button type="button" class="btn btn-outline" onclick="savePortoneKeys()">저장</button><button type="button" class="btn btn-outline" onclick="clearPortoneKeys()">지우기</button></div>
+                          <p style="margin:0;">API Secret 은 넣지 않습니다. 콘솔 &gt; 결제 연동 &gt; 연동 정보에서 채널 키(채널 관리)와 상점 아이디(식별코드·API Keys)를 복사하세요.</p>
+                        </div></details>`; })()}
                 </div></div>`;
             },
 
@@ -2201,6 +2296,18 @@
                     </div>
                 </div></div>`,
 
+            'paymentComplete': () => {
+                let last = null;
+                try { last = JSON.parse(sessionStorage.getItem('h2a_portone_last') || 'null'); } catch (e) { /* 무시 */ }
+                if (!last) return views['message']('PAYMENT COMPLETE', '데모 결제가 완료 처리되었습니다. (주문번호 H2A-DEMO-0001 · 화면 검수용 샘플이며 실제 결제가 이루어지지 않았습니다)', '결제 확인으로 이동', '#payment-lookup');
+                const rows = [['프로그램', last.program || '-'], ['결제 수단', last.method || '-'], ['금액', (Number(last.amount) || 0).toLocaleString('ko-KR') + '원 (테스트 · 실제 출금 없음)'], ['결제 ID', last.paymentId || '-'], ['거래 ID', last.txId || '-'], ['시각', last.at ? new Date(last.at).toLocaleString('ko-KR') : '-']];
+                return `<div class="page-view active"><div class="container section-wrap text-center" style="padding-top:150px; max-width:720px;">
+                    <h1 class="eng-title message-title" style="font-size:3rem; margin-bottom:1rem;">PAYMENT COMPLETE</h1>
+                    <p class="body-large" style="margin-bottom:2rem;">포트원 테스트 결제가 승인되었습니다. 콘솔 &gt; 결제 내역(테스트)에서 아래 결제 ID 로 확인할 수 있습니다.</p>
+                    <div style="text-align:left; border:1px solid var(--line); background:var(--surface); padding:1.5rem; margin-bottom:2.5rem;">${rows.map(([k, v]) => `<div class="info-row"><span>${k}</span><span class="val" style="word-break:break-all;">${escapeHTML(String(v))}</span></div>`).join('')}</div>
+                    <a href="#application" class="btn btn-primary" style="margin-right:8px;">신청 정보 입력</a><a href="#payment" class="btn btn-outline">다시 테스트</a>
+                </div></div>`;
+            },
             'message': (title, desc, btnTxt, btnLink, isErr = false) => `<div class="page-view active"><div class="container section-wrap text-center" style="padding-top:150px;"><h1 class="eng-title message-title" style="font-size:3rem; margin-bottom:1rem; ${isErr?'color:var(--brand-red);':''}">${title}</h1><p class="body-large" style="margin-bottom:3rem;">${desc}</p><a href="${btnLink}" class="btn ${isErr?'btn-primary':'btn-outline'}">${btnTxt}</a></div></div>`,
 
             'legal': (title, dataArr) => `<div class="page-view active">${rTitle('Policy', title)}<div class="container section-wrap" style="max-width:900px; padding-top:0;">${renderSampleLabel(true, '화면 검수용 초안 · 법률 및 운영정책 검토 전 사용 금지')}<div class="legal-content" style="margin-top:2rem;">${dataArr.map(item => `<h3 class="eng-title">${item}</h3><p>(화면 검수용 샘플 텍스트)</p>`).join('')}</div></div></div>`
@@ -2367,7 +2474,7 @@
             '#contact': () => views['contactForms'](false), '#business-contact': () => views['contactForms'](true), '#business/proposal': () => views['contactForms'](true),
             '#application': views['application'], '#payment-lookup': views['payment-lookup'],
             '#payment': views['payment'],
-            '#payment-complete': () => views['message']('PAYMENT COMPLETE', '데모 결제가 완료 처리되었습니다. (주문번호 H2A-DEMO-0001 · 화면 검수용 샘플이며 실제 결제가 이루어지지 않았습니다)', '결제 확인으로 이동', '#payment-lookup'),
+            '#payment-complete': () => views['paymentComplete'](),
             '#application-complete': () => views['message']('신청 화면 확인 완료', '화면 검수용 데모입니다. 입력한 신청 정보는 저장되거나 담당자에게 전달되지 않았습니다.', '홈으로 돌아가기', '#home'),
             '#contact-complete': () => views['message']('문의 화면 확인 완료', '화면 검수용 데모입니다. 입력한 문의는 저장되거나 담당자에게 전달되지 않았습니다.', '홈으로 돌아가기', '#home'),
             '#terms': () => views['legal']('이용약관', termsData), '#privacy': () => views['legal']('개인정보처리방침', privacyData), '#refund': () => views['legal']('취소·환불정책', refundData)
@@ -2377,6 +2484,7 @@
             const hash = window.location.hash || '#home';
             closeAllMegas(); 
             closeMobileMenu();
+            if (hash !== '#payment') sessionStorage.removeItem('h2a_portone_error');
             window.scrollTo({top:0,left:0,behavior:"instant"});
     
             let html = '';
@@ -2433,6 +2541,22 @@
                 if(p) { const sel = document.getElementById('apply-program'); if(sel) { Array.from(sel.options).forEach((o,i)=>{if(o.value.includes(p)) sel.selectedIndex=i;}); } } sessionStorage.removeItem('h2a_apply_prog'); 
             }
         }
+
+        // 포트원 결제창이 페이지를 떠났다가(모바일) redirectUrl 로 돌아온 경우
+        (function handlePortoneReturn() {
+            const q = new URLSearchParams(location.search);
+            if (q.get('portone') !== 'return') return;
+            history.replaceState(null, '', location.pathname + location.hash);
+            if (q.get('code')) {
+                sessionStorage.setItem('h2a_portone_error', (q.get('message') || q.get('code')) + (q.get('pgMessage') ? ' (' + q.get('pgMessage') + ')' : ''));
+                sessionStorage.removeItem('h2a_portone_pending');
+                location.hash = '#payment';
+                return;
+            }
+            let pending = null;
+            try { pending = JSON.parse(sessionStorage.getItem('h2a_portone_pending') || 'null'); } catch (e) { /* 무시 */ }
+            finishPortonePayment({ paymentId: q.get('paymentId') || (pending && pending.paymentId) || '', txId: q.get('txId') || '' });
+        })();
 
         if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
         window.addEventListener('hashchange', router);
