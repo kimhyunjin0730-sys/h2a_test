@@ -1,6 +1,7 @@
 {
  "storeId": "store-27d5dba9-a310-4a34-a91c-069619f932d9",
- "channelKey": "channel-key-ceaa7028-6573-4d58-b28f-32b7b8e9c7f7",
+ "channelKey": "channel-key-3dc26ce6-075e-4698-a9c1-f2c0d7bae626",
  "channelKeyEximbay": "channel-key-60606731-85de-417c-887a-75380bf89b52",
- "testAmount": 1000
+ "testAmount": 1000,
+ "easyPay": true
 }
