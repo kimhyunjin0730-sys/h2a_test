@@ -8,11 +8,11 @@ import { showToast } from '@/lib/toast';
 import { postJson } from '@/lib/api';
 
 /* 시안 views.payment + ui.js processPayment. 결제창은 포트원 V2 브라우저 SDK, 성공 뒤 /api/payments/complete 로 서버 검증. */
-type Method = { label: string; payMethod: 'CARD' | 'TRANSFER' | 'VIRTUAL_ACCOUNT' | 'EASY_PAY'; easyPay?: string; domesticEasy?: boolean; channel?: 'eximbay'; currency?: string; testAmount?: number; icon: React.ReactNode };
+type Method = { label: string; payMethod: 'CARD' | 'TRANSFER' | 'VIRTUAL_ACCOUNT' | 'EASY_PAY'; easyPay?: string; domesticEasy?: boolean; vbank?: boolean; channel?: 'eximbay'; currency?: string; testAmount?: number; icon: React.ReactNode };
 const METHODS: Method[] = [
   { label: '신용·체크카드', payMethod: 'CARD', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
   { label: '계좌이체', payMethod: 'TRANSFER', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M4 12h13" /><path d="M13 6l6 6-6 6" /></svg> },
-  { label: '가상계좌(무통장)', payMethod: 'VIRTUAL_ACCOUNT', icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="5" y="3" width="14" height="18" rx="2" /><line x1="9" y1="9" x2="15" y2="9" /><line x1="9" y1="13" x2="15" y2="13" /></svg> },
+  { label: '가상계좌(무통장)', payMethod: 'VIRTUAL_ACCOUNT', vbank: true, icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="5" y="3" width="14" height="18" rx="2" /><line x1="9" y1="9" x2="15" y2="9" /><line x1="9" y1="13" x2="15" y2="13" /></svg> },
   // KCP 제휴 간편결제 — portoneConfig.easyPay(또는 NEXT_PUBLIC_PORTONE_EASYPAY=1) 일 때만 노출
   { label: '카카오페이', payMethod: 'EASY_PAY', easyPay: 'KAKAOPAY', domesticEasy: true, icon: <span className="pay-brand-dot" style={{ background: '#FEE500' }}></span> },
   { label: '네이버페이', payMethod: 'EASY_PAY', easyPay: 'NAVERPAY', domesticEasy: true, icon: <span className="pay-brand-dot" style={{ background: '#03C75A' }}></span> },
@@ -135,7 +135,7 @@ export default function PaymentPage() {
         </div>
         <h4 style={{ fontSize: '1.05rem', marginBottom: '1.2rem' }}>결제 수단 선택</h4>
         <div className="pay-method-grid">
-          {METHODS.filter((m) => !m.domesticEasy || process.env.NEXT_PUBLIC_PORTONE_EASYPAY === '1' || (portoneConfig as { easyPay?: boolean }).easyPay).map((m) => <button type="button" key={m.label} className={`pay-tile${method?.label === m.label ? ' active' : ''}`} onClick={() => setMethod(m)}>{m.icon}{m.label}</button>)}
+          {METHODS.filter((m) => !m.vbank || (portoneConfig as { vbank?: boolean }).vbank).filter((m) => !m.domesticEasy || process.env.NEXT_PUBLIC_PORTONE_EASYPAY === '1' || (portoneConfig as { easyPay?: boolean }).easyPay).map((m) => <button type="button" key={m.label} className={`pay-tile${method?.label === m.label ? ' active' : ''}`} onClick={() => setMethod(m)}>{m.icon}{m.label}</button>)}
         </div>
         <label className="checkbox-label" style={{ marginTop: '2rem', display: 'block' }}><input type="checkbox" id="pay-agree" checked={agree} onChange={(e) => setAgree(e.target.checked)} /> [필수] 유료 서비스 결제 진행 및 결제조건 동의</label>
         <button type="button" id="pay-submit" onClick={pay} className="btn btn-primary btn-full" style={{ marginTop: '1.5rem' }} disabled={busy}>{busy ? '결제창 여는 중…' : '결제하기'}</button>

@@ -3,5 +3,6 @@
  "channelKey": "channel-key-ceaa7028-6573-4d58-b28f-32b7b8e9c7f7",
  "channelKeyEximbay": "channel-key-60606731-85de-417c-887a-75380bf89b52",
  "testAmount": 1000,
- "easyPay": false
+ "easyPay": false,
+ "vbank": false
 }
