@@ -5,7 +5,7 @@
   "sampleLabel": "화면 검수용 샘플 이미지",
   "title": "Executive Consulting 현장",
   "category": "1:1 Coaching",
-  "image": "assets/stock/photo-1560250097-0b93528c311a.jpg"
+  "image": "assets/stock/photo-1557804506-669a67965ba0.jpg"
  },
  {
   "id": "g2",
@@ -13,23 +13,23 @@
   "sampleLabel": "화면 검수용 샘플 이미지",
   "title": "Signature Presence 워크숍",
   "category": "Workshop",
-  "image": "assets/stock/photo-1517245386807-bb43f82c33c4.jpg"
+  "image": "assets/stock/photo-1552664730-d307ca884978.jpg"
  },
  {
   "id": "g3",
   "isSample": true,
   "sampleLabel": "화면 검수용 샘플 이미지",
-  "title": "The Table 다이닝 실습",
+  "title": "The Table 비즈니스 다이닝 실습",
   "category": "Experience",
-  "image": "assets/stock/photo-1414235077428-338989a2e8c0.jpg"
+  "image": "assets/stock/photo-1528605248644-14dd04022da1.jpg"
  },
  {
   "id": "g4",
   "isSample": true,
   "sampleLabel": "화면 검수용 샘플 이미지",
-  "title": "Social Presence 네트워킹",
+  "title": "Social Presence 네트워킹 실습",
   "category": "Workshop",
-  "image": "assets/stock/photo-1521737711867-e3b97375f902.jpg"
+  "image": "assets/stock/photo-1515187029135-18ee286d815b.jpg"
  },
  {
   "id": "g5",
@@ -59,17 +59,41 @@
   "id": "g10",
   "isSample": false,
   "sampleLabel": "",
-  "title": "Soul Speech 강의 현장",
+  "title": "Soul Speech 스튜디오 실습",
   "category": "Speech",
-  "image": "assets/soul-speech/lecture-2.jpg"
+  "image": "assets/soul-speech/studio-1.jpg"
+ },
+ {
+  "id": "g11",
+  "isSample": false,
+  "sampleLabel": "",
+  "title": "국군방송 라디오 진행 현장",
+  "category": "Speech",
+  "image": "assets/soul-speech/radio-onair.jpg"
+ },
+ {
+  "id": "g12",
+  "isSample": false,
+  "sampleLabel": "",
+  "title": "군 장병 스피치 교육",
+  "category": "Speech",
+  "image": "assets/soul-speech/military-1.jpg"
  },
  {
   "id": "g7",
   "isSample": true,
   "sampleLabel": "화면 검수용 샘플 이미지",
-  "title": "기업 임원진 워크숍",
+  "title": "기업 임원진 커뮤니케이션 워크숍",
   "category": "Corporate",
-  "image": "assets/stock/photo-1524178232363-1fb2b075b655.jpg"
+  "image": "assets/stock/photo-1542744173-8e7e53415bb0.jpg"
+ },
+ {
+  "id": "g13",
+  "isSample": true,
+  "sampleLabel": "화면 검수용 샘플 이미지",
+  "title": "기업 특강",
+  "category": "Corporate",
+  "image": "assets/stock/photo-1591115765373-5207764f72e7.jpg"
  },
  {
   "id": "g8",
@@ -77,6 +101,6 @@
   "sampleLabel": "화면 검수용 샘플 이미지",
   "title": "Private 네트워킹 모임",
   "category": "Private",
-  "image": "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=80"
+  "image": "assets/stock/photo-1524758631624-e2822e304c36.jpg"
  }
 ]

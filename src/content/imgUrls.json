@@ -1,7 +1,6 @@
 {
  "office1": "assets/stock/photo-1497366811353-6870744d04b2.jpg",
  "office2": "assets/stock/photo-1497366754035-f200968a6e72.jpg",
- "aboutMeeting": "assets/stock/photo-1551836022-d5d88e9218df.jpg",
  "office3": "assets/stock/photo-1497366216548-37526070297c.jpg",
  "workshop1": "assets/stock/photo-1517245386807-bb43f82c33c4.jpg",
  "workshop2": "assets/stock/photo-1521737711867-e3b97375f902.jpg",
@@ -21,9 +20,7 @@
  "ssLecture1": "assets/soul-speech/lecture-1.jpg",
  "ssLecture2": "assets/soul-speech/lecture-2.jpg",
  "dirHwang": "assets/directors/hwang.jpg",
- "ssStage1": "assets/soul-speech/stage-1.jpg",
- "ssStage2": "assets/soul-speech/stage-2.jpg",
- "ssStage3": "assets/soul-speech/stage-3.jpg",
- "ssFieldRadio": "assets/soul-speech/field-radio.jpg",
- "ssFieldMc": "assets/soul-speech/field-mc.jpg"
+ "ssStudio1": "assets/soul-speech/studio-1.jpg",
+ "ssRadioOnair": "assets/soul-speech/radio-onair.jpg",
+ "ssMilitary1": "assets/soul-speech/military-1.jpg"
 }
