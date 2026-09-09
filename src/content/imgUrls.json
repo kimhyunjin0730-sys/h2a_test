@@ -22,5 +22,10 @@
  "dirHwang": "assets/directors/hwang.jpg",
  "ssStudio1": "assets/soul-speech/studio-1.jpg",
  "ssRadioOnair": "assets/soul-speech/radio-onair.jpg",
- "ssMilitary1": "assets/soul-speech/military-1.jpg"
+ "ssMilitary1": "assets/soul-speech/military-1.jpg",
+ "ssTalkshow": "assets/soul-speech/talkshow.jpg",
+ "ssOutdoor": "assets/soul-speech/outdoor.jpg",
+ "ssConcert": "assets/soul-speech/concert.jpg",
+ "ssBroadcastPanel": "assets/soul-speech/broadcast-panel.jpg",
+ "aboutMeeting": "assets/stock/photo-1622533087594-627c3aa0d.jpg"
 }
