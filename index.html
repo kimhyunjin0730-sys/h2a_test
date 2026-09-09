@@ -949,6 +949,15 @@
         .board-nav a:hover { color:var(--brand-red-dark); }
         .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
         @media (max-width:600px) { .board-toolbar { justify-content:stretch; } .board-toolbar input { min-width:0; flex:1 1 100%; } .board-toolbar select { flex:1 1 auto; } .board-item { padding:1.1rem 0; } .board-title { font-size:1.02rem; } }
+
+        /* 봇 방지 숨김 칸 · 결제 확인 */
+        .hp-field { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; opacity:0; }
+        .lookup-form { border:1px solid var(--line); background:var(--surface); padding:2rem; margin-bottom:2rem; }
+        .lookup-result { border:1px solid var(--line); padding:1.5rem; margin-top:1.5rem; }
+        .lookup-result .info-row { display:flex; justify-content:space-between; gap:1rem; padding:0.6rem 0; border-bottom:1px solid var(--line); font-size:0.95rem; }
+        .lookup-result .info-row:last-of-type { border-bottom:0; }
+        .lookup-result .val { font-weight:600; text-align:right; word-break:break-all; }
+        .lookup-status { display:inline-block; padding:0.25rem 0.7rem; border:1px solid var(--brand-red); color:var(--brand-red-dark); font-weight:700; font-size:0.85rem; margin-bottom:1rem; }
     </style>
 </head>
 <body>
@@ -1542,10 +1551,20 @@
         // Payment Lookup Form Handler
         window.handlePaymentLookup = (e) => {
             e.preventDefault();
-            const val = document.getElementById('lookup-input').value;
-            if(!val) return showToast('신청번호 또는 연락처를 입력해주세요.');
-            document.getElementById('lookup-result').classList.remove('hidden');
+            const no = (document.getElementById('lookup-no').value || '').trim().toUpperCase();
+            const contact = (document.getElementById('lookup-contact').value || '').trim();
+            const err = document.getElementById('lookup-error'); const box = document.getElementById('lookup-result');
+            let last = null; try { last = JSON.parse(sessionStorage.getItem('h2a_portone_last') || 'null'); } catch (x) { /* 무시 */ }
+            let order = null; try { order = JSON.parse(sessionStorage.getItem('h2a_apply_order') || 'null'); } catch (x) { /* 무시 */ }
+            const known = (last && last.applicationNo === no) || (order && order.no === no);
+            const contactOk = order && order.key && order.key.split('|').slice(1).some(v => v && (v.replace(/[^0-9]/g,'') === contact.replace(/[^0-9]/g,'') || v.toLowerCase() === contact.toLowerCase()));
+            if (!known || !contactOk) { err.textContent = '일치하는 신청을 찾을 수 없습니다. 신청번호와 신청 시 입력한 연락처(또는 이메일)를 확인해주세요.'; err.classList.remove('hidden'); box.classList.add('hidden'); return; }
+            err.classList.add('hidden');
+            const rows = [['신청번호', no], ['프로그램', (last && last.program) || (order && order.program) || '-'], ['결제 수단', (last && last.method) || '-'], ['금액', last ? (last.currency === 'CURRENCY_USD' ? '$' + ((Number(last.amount)||0)/100).toFixed(2) : (Number(last.amount)||0).toLocaleString('ko-KR') + '원') : '-']];
+            box.innerHTML = `<span class="lookup-status">${last ? '결제 완료 (데모)' : '신청 접수 · 결제 전'}</span>` + rows.map(([k,v]) => `<div class="info-row"><span>${escapeHTML(k)}</span><span class="val">${escapeHTML(String(v))}</span></div>`).join('');
+            box.classList.remove('hidden');
         };
+
 
         // ------------------------------------------------------------------
         // Payment — 포트원 테스트 채널이 설정돼 있으면 실제 결제창(V2 브라우저 SDK), 아니면 데모
@@ -2381,22 +2400,17 @@
                 </div></div>`,
 
             'payment-lookup': () => `
-                <div class="page-view active">${rTitle('Payment Status','결제 확인')}
-                <div class="container section-wrap" style="max-width:800px;">
-                    <form class="form-grid" onsubmit="handlePaymentLookup(event)"><div class="form-group"><label>신청번호 또는 연락처</label><input type="text" id="lookup-input" required placeholder="예) 010-1234-5678 또는 H2A-APP-..."></div><button type="submit" class="btn btn-outline">상태 조회하기</button></form>
-            
-                    <div id="lookup-result" class="hidden" style="border:1px solid var(--line); padding:3rem; background:var(--surface); margin-top:3rem;">
-                        ${renderSampleLabel(true, '화면 검수용 조회 예시')}
-                        <h3 style="margin-bottom:1.5rem; border-bottom:1px solid var(--line); padding-bottom:1rem;">신청 진행 상태</h3>
-                        <div style="display:flex; justify-content:space-between; margin-bottom:2rem; text-align:center; font-size:0.9rem; color:var(--text-sub);">
-                            <div><div style="width:20px;height:20px;border-radius:50%;background:var(--brand-red);margin:0 auto 10px;"></div>신청 접수</div>
-                            <div><div style="width:20px;height:20px;border-radius:50%;background:var(--brand-red);margin:0 auto 10px;"></div>담당자 확인</div>
-                            <div><div style="width:20px;height:20px;border-radius:50%;background:var(--brand-red);margin:0 auto 10px;"></div>결제 안내 발송</div>
-                            <div><div style="width:20px;height:20px;border-radius:50%;background:var(--line);margin:0 auto 10px;"></div>입금 확인</div>
-                            <div><div style="width:20px;height:20px;border-radius:50%;background:var(--line);margin:0 auto 10px;"></div>결제 완료</div>
-                        </div>
-                        <p style="margin-bottom:0.5rem;"><strong>프로그램:</strong> Signature Presence Program</p><p style="margin-bottom:0.5rem;"><strong>신청자:</strong> 샘플 유저</p><p style="margin-bottom:0.5rem;"><strong>결제금액:</strong> 5,500,000원 (VAT 포함)</p><p style="margin-bottom:2rem; font-size:1.2rem; color:var(--brand-red-dark);"><strong>현재 상태: 결제 대기 (안내 발송됨)</strong></p>
-                    </div>
+                <div class="page-view active">${rTitle('Payment','결제 확인')}
+                <div class="container section-wrap" style="max-width:720px;">
+                    <p class="body-large" style="margin-bottom:2rem;">프로그램 신청 시 받은 신청번호와 그때 입력한 연락처 또는 이메일을 넣으면 결제 상태를 확인할 수 있습니다.</p>
+                    <form class="lookup-form form-grid" style="margin:0; max-width:100%;" onsubmit="handlePaymentLookup(event)">
+                        <div class="form-group"><label for="lookup-no">신청번호</label><input id="lookup-no" type="text" required placeholder="H2A-APP-260909-ABCD" style="text-transform:uppercase;"></div>
+                        <div class="form-group"><label for="lookup-contact">연락처 또는 이메일</label><input id="lookup-contact" type="text" required placeholder="010-0000-0000 또는 name@example.com"></div>
+                        <div id="lookup-error" class="hidden" style="border:1px solid var(--brand-red); color:var(--brand-red-dark); padding:0.9rem 1rem; font-size:0.9rem;"></div>
+                        <button type="submit" class="btn btn-primary btn-full">조회하기</button>
+                    </form>
+                    <div id="lookup-result" class="lookup-result hidden"></div>
+                    <p style="font-size:0.85rem; color:var(--text-sub); margin-top:2rem;">시안에서는 이 브라우저에서 진행한 데모 결제만 조회됩니다. 실제 사이트는 서버 기록을 조회합니다.</p>
                 </div></div>`,
 
             'paymentComplete': () => {
