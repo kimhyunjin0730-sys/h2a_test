@@ -924,6 +924,31 @@
         .consent-links a { color:var(--brand-red); text-decoration:underline; }
         .consent-detail { margin:0.5rem 0 0.9rem 1.7rem; padding:0.8rem 1rem 0.8rem 2rem; border:1px solid var(--line); background:var(--surface); font-size:0.85rem; line-height:1.7; color:var(--text-sub); list-style:disc; }
         .consent-detail li { margin-bottom:0.25rem; }
+
+        /* 공지사항 게시판 */
+        .board-toolbar { display:flex; gap:0.6rem; justify-content:flex-end; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; }
+        .board-toolbar select, .board-toolbar input { height:44px; border:1px solid var(--line); background:#fff; padding:0 0.9rem; font:inherit; font-size:0.95rem; }
+        .board-toolbar select { min-width:150px; }
+        .board-toolbar input { min-width:260px; flex:0 1 320px; }
+        .board-toolbar .btn { height:44px; padding:0 1.4rem; }
+        .board-list { border-top:2px solid var(--ink); }
+        .board-item { display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding:1.35rem 0.5rem; border-bottom:1px solid var(--line); color:inherit; text-decoration:none; }
+        .board-item:hover .board-title { color:var(--brand-red-dark); }
+        .board-title { font-size:1.15rem; font-weight:600; line-height:1.5; margin:0 0 0.5rem; }
+        .board-tag { color:var(--brand-red-dark); font-weight:700; margin-right:0.2rem; }
+        .board-meta { display:flex; flex-wrap:wrap; gap:0; font-size:0.88rem; color:var(--text-sub); margin:0; }
+        .board-meta span + span::before { content:"|"; margin:0 0.7rem; color:var(--line); }
+        .board-sample { color:var(--brand-red-dark); }
+        .board-new { flex:0 0 auto; font-size:0.75rem; font-weight:700; letter-spacing:0.05em; color:#E5322D; }
+        .board-detail-head { border-bottom:1px solid var(--ink); padding-bottom:1.2rem; margin-bottom:2rem; }
+        .board-detail-title { font-size:1.6rem; font-weight:700; line-height:1.45; margin:0 0 0.8rem; }
+        .board-body { color:var(--ink); line-height:1.9; }
+        .board-nav { border-top:1px solid var(--ink); margin-top:3rem; }
+        .board-nav a { display:flex; gap:1.2rem; padding:1rem 0.5rem; border-bottom:1px solid var(--line); color:inherit; text-decoration:none; font-size:0.95rem; }
+        .board-nav a span { flex:0 0 3.5rem; color:var(--text-sub); font-size:0.85rem; }
+        .board-nav a:hover { color:var(--brand-red-dark); }
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+        @media (max-width:600px) { .board-toolbar { justify-content:stretch; } .board-toolbar input { min-width:0; flex:1 1 100%; } .board-toolbar select { flex:1 1 auto; } .board-item { padding:1.1rem 0; } .board-title { font-size:1.02rem; } }
     </style>
 </head>
 <body>
@@ -2196,7 +2221,13 @@
             },
 
             'cardsHub': (title, dataArr, isGallery = false) => {
-                if(title === 'NOTICE') return `<div class="page-view active">${rTitle('News','공지사항')}<div class="container section-wrap"><div class="notice-list">${dataArr.map(item=>`<a class="notice-item" href="#notices/detail/${item.id}"><time>${escapeHTML(item.date)}</time><div>${renderSampleLabel(item.isSample,item.sampleLabel)}<h2>${escapeHTML(item.title)}</h2></div><span aria-hidden="true">↗</span></a>`).join('')}</div></div></div>`;
+                if(title === 'NOTICE') {
+                    const dept = (c) => ({'외면소통':'외면소통 ACADEMY','Soul Speech':'Soul Speech ACADEMY','기업교육':'기업교육팀'})[c] || 'H2A 운영팀';
+                    const isNew = (d) => (Date.now() - new Date(d.replace(/\./g,'-')).getTime()) < 7*86400000;
+                    const topics = [...new Set(dataArr.map(n => n.category))];
+                    const rows = [...dataArr].sort((a,b) => b.date.localeCompare(a.date)).map(item => `<a class="board-item" href="#notices/detail/${item.id}"><div class="board-main"><h2 class="board-title"><span class="board-tag">[${escapeHTML(item.category)}]</span> ${escapeHTML(item.title)}</h2><p class="board-meta"><span>공지</span><span>${escapeHTML(dept(item.category))}</span><span>${escapeHTML(item.date.replace(/\./g,'-'))}</span><span>조회수 ${item.views || 0}</span>${item.isSample ? '<span class="board-sample">샘플</span>' : ''}</p></div>${isNew(item.date) ? '<span class="board-new">NEW</span>' : ''}</a>`).join('');
+                    return `<div class="page-view active">${rTitle('Notice','공지사항')}<div class="container section-wrap"><form class="board-toolbar" onsubmit="event.preventDefault();"><select><option>분류 전체</option>${topics.map(t=>`<option>${escapeHTML(t)}</option>`).join('')}</select><input type="search" placeholder="검색어를 입력하세요"><button type="button" class="btn btn-primary">검색</button></form><div class="board-list">${rows}</div></div></div>`;
+                }
                 const cards = dataArr.map((item, idx) => {
                     if(isGallery) return `<button type="button" class="card-img-top gallery-button" onclick="openModal(${idx})" aria-label="${escapeHTML(item.title)} 사진 크게 보기"><div class="img-wrap relative">${renderSampleLabel(item.isSample, item.sampleLabel)}<img src="${item.image}" alt="${escapeHTML(item.title)}" style="height:250px;" loading="lazy"></div><div class="card-body" style="padding:1.5rem;"><h4 style="font-size:1.1rem; font-weight:700;">${escapeHTML(item.title)}</h4><p style="font-size:0.9rem; color:var(--text-sub); margin-top:0.5rem;">${escapeHTML(item.category)}</p></div></button>`;
                     return `<a href="#${item.id.startsWith('r')?'reviews/detail':(item.id.startsWith('n')?'notices/detail':'insights/detail')}/${item.id}" class="card-img-top"><div class="img-wrap relative">${item.image ? `${renderSampleLabel(item.isSample, item.sampleLabel)}<img src="${item.image}" alt="${escapeHTML(item.title)}" style="height:220px;" loading="lazy">` : renderSampleLabel(item.isSample, item.sampleLabel)}</div><div class="card-body" style="padding:2rem;"><h4 style="font-size:1.15rem; font-weight:700; margin-bottom:1rem; line-height:1.4;">${escapeHTML(item.title)}</h4><p style="font-size:0.95rem; color:var(--text-sub); line-height:1.6;">${escapeHTML(item.excerpt)}</p><span style="display:block; margin-top:1.5rem; font-size:0.85rem; color:#A09C98;">${escapeHTML(item.date)}</span></div></a>`;
