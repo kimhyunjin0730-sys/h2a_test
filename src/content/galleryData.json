@@ -72,22 +72,6 @@
   "image": "assets/soul-speech/radio-onair.jpg"
  },
  {
-  "id": "g18",
-  "isSample": false,
-  "sampleLabel": "",
-  "title": "방송 부스에서",
-  "category": "방송·행사",
-  "image": "assets/soul-speech/field-radio.jpg"
- },
- {
-  "id": "g19",
-  "isSample": false,
-  "sampleLabel": "",
-  "title": "행사 진행",
-  "category": "방송·행사",
-  "image": "assets/soul-speech/field-mc.jpg"
- },
- {
   "id": "g20",
   "isSample": false,
   "sampleLabel": "",
