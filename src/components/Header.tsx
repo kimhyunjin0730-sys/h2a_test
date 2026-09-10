@@ -4,10 +4,10 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 /* 시안 index.html 헤더 + ui.js 메가메뉴/모바일 메뉴 로직. 클래스명은 시안과 동일(CSS 그대로 사용). */
-const MENUS: { id: string; label: React.ReactNode; links: { href: string; label: React.ReactNode }[] }[] = [
+type MenuLink = { href: string; label: React.ReactNode; heading?: undefined } | { heading: string; href?: undefined; label?: undefined };
+const MENUS: { id: string; label: React.ReactNode; links: MenuLink[] }[] = [
   { id: 'mega-about', label: 'H2A 소개', links: [{ href: '/about', label: '회사 소개' }, { href: '/leaders', label: '프로그램 디렉터' }] },
-  { id: 'mega-programs', label: '프로그램', links: [{ href: '/appearance', label: '외면소통 ACADEMY' }, { href: '/soul-speech', label: 'Soul Speech ACADEMY' }] },
-  { id: 'mega-business', label: '기업교육', links: [{ href: '/business', label: '기업교육 소개' }, { href: '/business/solution', label: <>H<sup>2</sup>A</> }, { href: '/business/quantum', label: 'Quantum 품격' }, { href: '/business/proposal', label: '기업교육 제안 요청' }] },
+  { id: 'mega-programs', label: '프로그램', links: [{ heading: '개인 프로그램' }, { href: '/appearance', label: '외면소통 ACADEMY' }, { href: '/soul-speech', label: 'Soul Speech ACADEMY' }, { heading: '기업교육' }, { href: '/business', label: '기업교육 소개' }, { href: '/business/solution', label: <>H<sup>2</sup>A</> }, { href: '/business/quantum', label: 'Quantum 품격' }, { href: '/business/proposal', label: '기업교육 제안 요청' }] },
   { id: 'mega-news', label: '소식', links: [{ href: '/gallery', label: '교육 현장' }, { href: '/notices', label: '공지사항' }] },
   { id: 'mega-contact', label: '문의', links: [{ href: '/contact', label: '문의하기' }, { href: '/faq', label: 'FAQ' }] },
 ];
@@ -49,7 +49,7 @@ export default function Header() {
         <div key={m.id} className={`mega-menu${mega === m.id ? ' active' : ''}`} id={m.id}>
           <div className="mega-grid-compact">
             <div className="mega-links" style={{ gridTemplateColumns: '1fr', textAlign: 'center' }}>
-              <ul>{m.links.map((l) => <li key={l.href}><Link href={l.href} className="mega-link" onClick={() => setMega(null)}>{l.label}</Link></li>)}</ul>
+              <ul>{m.links.map((l, i) => l.heading ? <li key={'h' + i} className="mega-heading">{l.heading}</li> : <li key={l.href}><Link href={l.href as string} className="mega-link" onClick={() => setMega(null)}>{l.label}</Link></li>)}</ul>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function Header() {
               {m.label} <span className="icon">{openAcc === m.id ? '-' : '+'}</span>
             </button>
             <div className={`m-nav-body acc-content${openAcc === m.id ? ' active' : ''}`}>
-              {m.links.map((l) => <Link key={l.href} href={l.href} className="m-link" onClick={() => setMobileOpen(false)}>{l.label}</Link>)}
+              {m.links.map((l, i) => l.heading ? <span key={'h' + i} className="m-heading">{l.heading}</span> : <Link key={l.href} href={l.href as string} className="m-link" onClick={() => setMobileOpen(false)}>{l.label}</Link>)}
             </div>
           </div>
         ))}
