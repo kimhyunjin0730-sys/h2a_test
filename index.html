@@ -958,6 +958,11 @@
         .lookup-result .info-row:last-of-type { border-bottom:0; }
         .lookup-result .val { font-weight:600; text-align:right; word-break:break-all; }
         .lookup-status { display:inline-block; padding:0.25rem 0.7rem; border:1px solid var(--brand-red); color:var(--brand-red-dark); font-weight:700; font-size:0.85rem; margin-bottom:1rem; }
+
+        /* 메뉴 소제목 (프로그램 아래 개인/기업교육 묶음) */
+        .mega-links li.mega-heading { font-size:0.75rem; letter-spacing:0.08em; color:var(--text-sub); text-transform:uppercase; padding:0.9rem 0 0.35rem; margin-top:0.4rem; }
+        .mega-links li.mega-heading:first-child { margin-top:0; padding-top:0; }
+        .m-nav-body .m-heading { display:block; font-size:0.75rem; letter-spacing:0.08em; color:var(--text-sub); padding:0.8rem 0 0.3rem; }
     </style>
 </head>
 <body>
@@ -973,8 +978,7 @@
             <nav class="pc-nav" role="navigation" aria-label="메인 메뉴">
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-about">H2A 소개</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-programs">프로그램</button>
-                <button class="pc-nav-btn" aria-expanded="false" data-target="mega-business">기업교육</button>
-                <button class="pc-nav-btn" aria-expanded="false" data-target="mega-news">소식</button>
+                                <button class="pc-nav-btn" aria-expanded="false" data-target="mega-news">소식</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-contact">문의</button>
             </nav>
             <a href="#payment" class="btn btn-primary header-cta">프로그램 신청</a>
@@ -989,12 +993,7 @@
         </div>
         <div class="mega-menu" id="mega-programs">
             <div class="mega-grid-compact">
-                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#appearance" class="mega-link">외면소통 ACADEMY</a></li><li><a href="#soul-speech" class="mega-link">Soul Speech ACADEMY</a></li></ul></div>
-            </div>
-        </div>
-        <div class="mega-menu" id="mega-business">
-            <div class="mega-grid-compact">
-                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#business" class="mega-link">기업교육 소개</a></li><li><a href="#business/solution" class="mega-link">H<sup>2</sup>A</a></li><li><a href="#business/quantum" class="mega-link">Quantum 품격</a></li><li><a href="#business/proposal" class="mega-link">기업교육 제안 요청</a></li></ul></div>
+                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li class="mega-heading">개인 프로그램</li><li><a href="#appearance" class="mega-link">외면소통 ACADEMY</a></li><li><a href="#soul-speech" class="mega-link">Soul Speech ACADEMY</a></li><li class="mega-heading">기업교육</li><li><a href="#business" class="mega-link">기업교육 소개</a></li><li><a href="#business/solution" class="mega-link">H<sup>2</sup>A</a></li><li><a href="#business/quantum" class="mega-link">Quantum 품격</a></li><li><a href="#business/proposal" class="mega-link">기업교육 제안 요청</a></li></ul></div>
             </div>
         </div>
         <div class="mega-menu" id="mega-news">
@@ -1011,8 +1010,7 @@
         <!-- Mobile Accordion Nav -->
         <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="모바일 메뉴">
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">H2A 소개 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#about" class="m-link">회사 소개</a><a href="#leaders" class="m-link">프로그램 디렉터</a></div></div>
-            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">프로그램 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#appearance" class="m-link">외면소통 ACADEMY</a><a href="#soul-speech" class="m-link">Soul Speech ACADEMY</a></div></div>
-            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">기업교육 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#business" class="m-link">기업교육 소개</a><a href="#business/solution" class="m-link">H<sup>2</sup>A</a><a href="#business/quantum" class="m-link">Quantum 품격</a><a href="#business/proposal" class="m-link">기업교육 제안 요청</a></div></div>
+            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">프로그램 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><span class="m-heading">개인 프로그램</span><a href="#appearance" class="m-link">외면소통 ACADEMY</a><a href="#soul-speech" class="m-link">Soul Speech ACADEMY</a><span class="m-heading">기업교육</span><a href="#business" class="m-link">기업교육 소개</a><a href="#business/solution" class="m-link">H<sup>2</sup>A</a><a href="#business/quantum" class="m-link">Quantum 품격</a><a href="#business/proposal" class="m-link">기업교육 제안 요청</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">소식 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#gallery" class="m-link">교육 현장</a><a href="#notices" class="m-link">공지사항</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">문의 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#contact" class="m-link">문의하기</a><a href="#faq" class="m-link">FAQ</a></div></div>
             <div class="m-nav-item m-nav-cta"><a href="#payment" class="btn btn-primary">프로그램 신청</a></div>
