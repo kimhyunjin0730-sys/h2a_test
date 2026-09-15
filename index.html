@@ -962,6 +962,13 @@
         /* 메뉴 소제목 (프로그램 아래 개인/기업교육 묶음) */
         .mega-links li.mega-heading { font-size:0.75rem; letter-spacing:0.08em; color:var(--text-sub); text-transform:uppercase; padding:0.9rem 0 0.35rem; margin-top:0.4rem; }
         .mega-links li.mega-heading:first-child { margin-top:0; padding-top:0; }
+        /* 소제목이 있는 메가메뉴(프로그램)는 링크와 한 줄에 섞지 않고 묶음별로 세운다.
+           한 줄 배치는 항목 폭 합이 컨테이너(1000px)를 1px 만 넘어도 마지막 항목이 홀로 떨어졌다 (2026-09-15). */
+        .mega-links.mega-groups { display:flex; justify-content:center; align-items:flex-start; flex-wrap:wrap; gap:1rem 0; }
+        .mega-group { display:flex; flex-direction:column; align-items:center; gap:0.6rem; padding:0 2rem; }
+        .mega-group + .mega-group { border-left:1px solid var(--line); }
+        .mega-group-title { font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-sub); font-weight:600; line-height:1; }
+        .mega-group ul { gap:26px; }
         .m-nav-body .m-heading { display:block; font-size:0.75rem; letter-spacing:0.08em; color:var(--text-sub); padding:0.8rem 0 0.3rem; }
     </style>
 </head>
@@ -993,7 +1000,10 @@
         </div>
         <div class="mega-menu" id="mega-programs">
             <div class="mega-grid-compact">
-                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li class="mega-heading">개인 프로그램</li><li><a href="#appearance" class="mega-link">HWANG JUNGSUN Academy</a></li><li><a href="#soul-speech" class="mega-link">Soul Speech ACADEMY</a></li><li class="mega-heading">기업교육</li><li><a href="#business" class="mega-link">기업교육 소개</a></li><li><a href="#business/solution" class="mega-link">H<sup>2</sup>A</a></li><li><a href="#business/quantum" class="mega-link">Quantum 품격</a></li><li><a href="#business/proposal" class="mega-link">기업교육 제안 요청</a></li></ul></div>
+                <div class="mega-links mega-groups">
+                    <div class="mega-group"><span class="mega-group-title">개인 프로그램</span><ul><li><a href="#appearance" class="mega-link">HWANG JUNGSUN Academy</a></li><li><a href="#soul-speech" class="mega-link">Soul Speech ACADEMY</a></li></ul></div>
+                    <div class="mega-group"><span class="mega-group-title">기업교육</span><ul><li><a href="#business" class="mega-link">기업교육 소개</a></li><li><a href="#business/solution" class="mega-link">H<sup>2</sup>A</a></li><li><a href="#business/quantum" class="mega-link">Quantum 품격</a></li><li><a href="#business/proposal" class="mega-link">기업교육 제안 요청</a></li></ul></div>
+                </div>
             </div>
         </div>
         <div class="mega-menu" id="mega-news">
