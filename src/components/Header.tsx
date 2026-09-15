@@ -48,8 +48,22 @@ export default function Header() {
       {MENUS.map((m) => (
         <div key={m.id} className={`mega-menu${mega === m.id ? ' active' : ''}`} id={m.id}>
           <div className="mega-grid-compact">
-            <div className="mega-links" style={{ gridTemplateColumns: '1fr', textAlign: 'center' }}>
-              <ul>{m.links.map((l, i) => l.heading ? <li key={'h' + i} className="mega-heading">{l.heading}</li> : <li key={l.href}><Link href={l.href as string} className="mega-link" onClick={() => setMega(null)}>{l.label}</Link></li>)}</ul>
+            <div className={m.links.some(l => l.heading) ? 'mega-links mega-groups' : 'mega-links'} style={m.links.some(l => l.heading) ? undefined : { gridTemplateColumns: '1fr', textAlign: 'center' }}>
+              {(() => {
+                // 소제목 기준으로 묶는다. 소제목이 없으면 제목 없는 묶음 하나.
+                const groups: { title: string; links: MenuLink[] }[] = [];
+                let cur: { title: string; links: MenuLink[] } = { title: '', links: [] };
+                for (const l of m.links) {
+                  if (l.heading) { if (cur.links.length) groups.push(cur); cur = { title: l.heading, links: [] }; continue; }
+                  cur.links.push(l);
+                }
+                if (cur.links.length || !groups.length) groups.push(cur);
+                const grouped = groups.length > 1 || groups[0].title !== '';
+                const items = (ls: MenuLink[]) => ls.map(l => <li key={l.href}><Link href={l.href as string} className="mega-link" onClick={() => setMega(null)}>{l.label}</Link></li>);
+                return grouped
+                  ? groups.map((g, gi) => <div key={gi} className="mega-group">{g.title ? <span className="mega-group-title">{g.title}</span> : null}<ul>{items(g.links)}</ul></div>)
+                  : <ul>{items(m.links)}</ul>;
+              })()}
             </div>
           </div>
         </div>
