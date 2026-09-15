@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 type MenuLink = { href: string; label: React.ReactNode; heading?: undefined } | { heading: string; href?: undefined; label?: undefined };
 const MENUS: { id: string; label: React.ReactNode; links: MenuLink[] }[] = [
   { id: 'mega-about', label: 'H2A 소개', links: [{ href: '/about', label: '회사 소개' }, { href: '/leaders', label: '프로그램 디렉터' }] },
-  { id: 'mega-programs', label: '프로그램', links: [{ heading: '개인 프로그램' }, { href: '/appearance', label: '외면소통 ACADEMY' }, { href: '/soul-speech', label: 'Soul Speech ACADEMY' }, { heading: '기업교육' }, { href: '/business', label: '기업교육 소개' }, { href: '/business/solution', label: <>H<sup>2</sup>A</> }, { href: '/business/quantum', label: 'Quantum 품격' }, { href: '/business/proposal', label: '기업교육 제안 요청' }] },
+  { id: 'mega-programs', label: '프로그램', links: [{ heading: '개인 프로그램' }, { href: '/appearance', label: '황정선 아카데미' }, { href: '/soul-speech', label: 'Soul Speech ACADEMY' }, { heading: '기업교육' }, { href: '/business', label: '기업교육 소개' }, { href: '/business/solution', label: <>H<sup>2</sup>A</> }, { href: '/business/quantum', label: 'Quantum 품격' }, { href: '/business/proposal', label: '기업교육 제안 요청' }] },
   { id: 'mega-news', label: '소식', links: [{ href: '/gallery', label: '교육 현장' }, { href: '/notices', label: '공지사항' }] },
   { id: 'mega-contact', label: '문의', links: [{ href: '/contact', label: '문의하기' }, { href: '/faq', label: 'FAQ' }] },
 ];
