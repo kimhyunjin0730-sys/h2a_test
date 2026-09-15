@@ -47,7 +47,7 @@ export default function FeaturedVideo({ director = 'hwang' }: { director?: 'hwan
         <a className="video-original" href={v.url} target="_blank" rel="noopener noreferrer">유튜브에서 영상 보기 ↗</a>
       </div>
       <div className="video-copy">
-        <span className="kicker">영상으로 만나는 {speech ? '소울스피치' : '외면소통'}</span>
+        <span className="kicker">영상으로 만나는 {speech ? '소울스피치' : '황정선 아카데미'}</span>
         <h2>{v.title}</h2>
         <p>{v.description}</p>
         <div className="video-actions">
