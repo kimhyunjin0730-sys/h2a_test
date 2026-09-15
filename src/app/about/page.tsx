@@ -35,7 +35,7 @@ export default function AboutPage() {
             <h3 className="section-title mb-md" style={{ fontSize: 'clamp(1.45rem, 2.3vw, 2rem)', lineHeight: 1.5, fontWeight: 500, color: 'var(--ink)' }}>전문성은 그 자체로도 가치가 있지만,<br />사람들에게 제대로 전달되고 기억될 때 비로소 영향력이 됩니다.</h3>
             <p className="body-large" style={pStyle}>H2A는 한 사람 안에 축적된 지식과 경험, 고유한 철학을 발견하고 이를 콘텐츠와 프로그램, 브랜드와 비즈니스로 연결하기 위해 설립되었습니다. 우리는 단순히 잘 보이고 잘 말하는 기술을 가르치는 데 그치지 않습니다. 한 사람의 전문성이 그에 걸맞은 존재감으로 드러나고, 신뢰와 관계, 지속 가능한 영향력으로 확장되도록 돕고자 합니다.</p>
             <p className="body-large" style={pStyle}>이러한 철학을 바탕으로 H2A는 황정선 박사의 ‘황정선 아카데미’와 남복희 박사의 ‘Soul Speech ACADEMY’를 선보입니다.</p>
-            <p className="body-large" style={pStyle}>황정선 아카데미는 Appearance·Attitude·Appeal을 통해 사람의 전문성과 품격이 어떻게 보이고, 행동으로 드러나며, 어떤 감정으로 기억되는지를 설계합니다. Soul Speech ACADEMY는 목소리와 언어, 생각과 감정을 연결하여 자신의 메시지를 진정성 있게 전달하고 사람의 마음을 움직이는 힘을 길러줍니다.</p>
+            <p className="body-large" style={pStyle}>황정선 아카데미는 Appearance·Attitude·Affect을 통해 사람의 전문성과 품격이 어떻게 보이고, 행동으로 드러나며, 어떤 감정으로 기억되는지를 설계합니다. Soul Speech ACADEMY는 목소리와 언어, 생각과 감정을 연결하여 자신의 메시지를 진정성 있게 전달하고 사람의 마음을 움직이는 힘을 길러줍니다.</p>
             <p className="body-large" style={pStyle}>보이는 태도와 들리는 언어가 하나의 방향으로 정렬될 때, 전문성은 설명하지 않아도 느껴지는 존재감이 되고 존재감은 사람과 조직을 움직이는 영향력이 됩니다.</p>
             <p className="body-large" style={pStyle}>H2A는 앞으로도 현장 경험과 독자적인 철학을 지닌 전문가들과 함께 차별화된 교육 콘텐츠를 개발하고, 개인과 조직의 성장을 이끄는 프로그램으로 발전시켜 나가겠습니다.</p>
             <p className="body-large" style={{ ...pStyle, marginBottom: '2rem' }}>당신이 가진 전문성이 더 넓은 세상에서 발견되고, 신뢰받고, 기억될 수 있도록 H2A가 든든한 파트너가 되겠습니다.</p>
