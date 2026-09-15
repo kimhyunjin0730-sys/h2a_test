@@ -92,7 +92,7 @@ export default function ProgramDetail({ p }: { p: Program }) {
         {p.expert !== 'all' ? (
           <div data-fold-title="프로그램 디렉터" style={{ marginTop: '6rem', borderTop: '1px solid var(--line)', paddingTop: '4rem' }}>
             <span className="label-sm">Program Director</span><h3 className="section-title eng-title">EXPERT</h3>
-            <div className="grid-2" style={{ alignItems: 'center', marginTop: '2rem' }}>
+            <div className="grid-2" style={{ alignItems: 'start', marginTop: '2rem' }}>
               <ExpertPortrait e={expert} sampleTxt="공개 전 당사자 확인 필요" placeholderHeight={300} />
               <div>
                 <h4 className="eng-title" style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{expert.name}</h4>
