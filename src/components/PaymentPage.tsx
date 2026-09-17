@@ -129,7 +129,7 @@ export default function PaymentPage() {
           <div className="list-meta" style={{ margin: 0 }}>
             <span>프로그램</span><span><select id="pay-program" value={program} onChange={(e) => { setProgram(e.target.value); sessionStorage.setItem('h2a_pay_prog', e.target.value); }} style={{ width: '100%', padding: '6px 8px', border: '1px solid var(--line)', fontFamily: 'inherit' }}><option value="">프로그램을 선택하세요</option>{programsData.map((x) => <option key={x.id} value={x.title}>{x.title}</option>)}</select></span>
             <span>일정</span><span>{p ? p.schedule : '-'}</span>
-            <span>결제 예정 금액</span><span style={{ fontWeight: 700, color: 'var(--brand-red-dark)' }}>{p ? p.price : '-'}</span>
+            <span>결제 예정 금액 <small style={{ fontWeight: 400, color: 'var(--text-sub)' }}>(VAT 10% 포함)</small></span><span style={{ fontWeight: 700, color: 'var(--brand-red-dark)' }}>{p ? p.price : '-'}</span>
             {live ? <><span>테스트 결제 금액</span><span style={{ fontWeight: 700 }}>{cfg.testAmount.toLocaleString('ko-KR')}원 <small style={{ fontWeight: 400, color: 'var(--text-sub)' }}>(테스트 채널 · 실제 출금 없음)</small></span></> : null}
           </div>
         </div>
@@ -137,6 +137,11 @@ export default function PaymentPage() {
         <div className="pay-method-grid">
           {METHODS.filter((m) => !m.vbank || (portoneConfig as { vbank?: boolean }).vbank).filter((m) => !m.domesticEasy || process.env.NEXT_PUBLIC_PORTONE_EASYPAY === '1' || (portoneConfig as { easyPay?: boolean }).easyPay).map((m) => <button type="button" key={m.label} className={`pay-tile${method?.label === m.label ? ' active' : ''}`} onClick={() => setMethod(m)}>{m.icon}{m.label}</button>)}
         </div>
+        <ul className="pay-terms" style={{ marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--text-sub)', lineHeight: 1.7, listStyle: 'disc', paddingLeft: '1.2rem' }}>
+          <li>한 번 결제하는 <strong>일회성 결제</strong>이며 정기·자동결제가 아닙니다.</li>
+          <li>카드 할부는 결제창에서 선택하며, 할부 조건은 카드사 정책을 따릅니다.</li>
+          <li>표시된 금액은 VAT 10% 를 포함한 최종 결제 금액입니다.</li>
+        </ul>
         <label className="checkbox-label" style={{ marginTop: '2rem', display: 'block' }}><input type="checkbox" id="pay-agree" checked={agree} onChange={(e) => setAgree(e.target.checked)} /> [필수] 유료 서비스 결제 진행 및 결제조건 동의</label>
         <button type="button" id="pay-submit" onClick={pay} className="btn btn-primary btn-full" style={{ marginTop: '1.5rem' }} disabled={busy}>{busy ? '결제창 여는 중…' : '결제하기'}</button>
         <p style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--text-sub)' }}>결제하기를 누르면 포트원 결제창이 열립니다. 승인 뒤 서버에서 결제 상태를 다시 확인한 다음 완료 화면으로 넘어갑니다.</p>

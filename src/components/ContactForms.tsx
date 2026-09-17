@@ -7,6 +7,9 @@ import { ADDRESS, MAP_EMBED, MAP_URL } from '@/lib/links';
 import { showToast } from '@/lib/toast';
 import { postJson } from '@/lib/api';
 
+// 상담 접수 안내 — 워드프레스 CF7 폼과 같은 문구·자리(이메일 다음).
+const consultNoticeStyle = { fontSize: '0.85rem', color: 'var(--text-sub)', lineHeight: 1.6, marginBottom: '1rem' };
+
 /* 시안 views.contactForms + renderFormToggle. 전송은 /api/contact (메일). */
 export default function ContactForms({ isBusiness }: { isBusiness: boolean }) {
   const router = useRouter();
@@ -55,6 +58,7 @@ export default function ContactForms({ isBusiness }: { isBusiness: boolean }) {
                   <div className="form-group"><label htmlFor="c-manager">담당자명 / 직함</label><input id="c-manager" name="manager" type="text" required /></div>
                   <div className="form-group"><label htmlFor="c-phone">연락처</label><input id="c-phone" name="phone" type="tel" required /></div>
                   <div className="form-group"><label htmlFor="c-email">이메일</label><input id="c-email" name="email" type="email" required /></div>
+                  <p style={consultNoticeStyle}>본 문의는 상담 접수용입니다. 교육 제안, 견적, 결제 및 환불 조건 등은 담당자 안내를 받으실 수 있습니다.</p>
                   <div className="form-group"><label htmlFor="c-scope">대상 및 인원 / 희망 일정</label><input id="c-scope" name="scope" type="text" /></div>
                   <div className="form-group"><label htmlFor="c-message">교육 목적 및 문의 내용</label><textarea id="c-message" name="message" rows={5} required></textarea></div>
                 </>
@@ -63,6 +67,7 @@ export default function ContactForms({ isBusiness }: { isBusiness: boolean }) {
                   <div className="form-group"><label htmlFor="c-name">성함</label><input id="c-name" name="name" type="text" required /></div>
                   <div className="form-group"><label htmlFor="c-phone">연락처</label><input id="c-phone" name="phone" type="tel" required pattern="[0-9-]+" placeholder="010-0000-0000" /></div>
                   <div className="form-group"><label htmlFor="c-email">이메일</label><input id="c-email" name="email" type="email" required /></div>
+                  <p style={consultNoticeStyle}>본 문의는 상담 접수용입니다. 프로그램 가격, 결제 방법, 환불 조건 등은 담당자 안내를 받으실 수 있습니다.</p>
                   <div className="form-group"><label htmlFor="contact-program">관심 프로그램</label><select id="contact-program" name="program" value={program} onChange={(e) => setProgram(e.target.value)}><option value="">선택 안함</option>{programsData.map((p) => <option key={p.id} value={p.title}>{p.title}</option>)}</select></div>
                   <div className="form-group"><label htmlFor="c-message">문의 내용</label><textarea id="c-message" name="message" rows={5} required></textarea></div>
                 </>
