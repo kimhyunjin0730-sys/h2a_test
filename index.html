@@ -2196,12 +2196,14 @@
                     <div class="form-group"><label>담당자명 / 직함</label><input type="text" required></div>
                     <div class="form-group"><label>연락처</label><input type="tel" required></div>
                     <div class="form-group"><label>이메일</label><input type="email" required></div>
+                    <p style="font-size:0.85rem; color:var(--text-sub); line-height:1.6; margin-bottom:1rem;">본 문의는 상담 접수용입니다. 교육 제안, 견적, 결제 및 환불 조건 등은 담당자 안내를 받으실 수 있습니다.</p>
                     <div class="form-group"><label>대상 및 인원 / 희망 일정</label><input type="text"></div>
                     <div class="form-group"><label>교육 목적 및 문의 내용</label><textarea rows="5" required></textarea></div>
                 ` : `
                     <div class="form-group"><label>성함</label><input type="text" required></div>
                     <div class="form-group"><label>연락처</label><input type="tel" required pattern="[0-9-]+" placeholder="010-0000-0000"></div>
                     <div class="form-group"><label>이메일</label><input type="email" required></div>
+                    <p style="font-size:0.85rem; color:var(--text-sub); line-height:1.6; margin-bottom:1rem;">본 문의는 상담 접수용입니다. 프로그램 가격, 결제 방법, 환불 조건 등은 담당자 안내를 받으실 수 있습니다.</p>
                     <div class="form-group"><label>관심 프로그램</label><select id="contact-program"><option value="">선택 안함</option>${programsData.map(p=>`<option value="${p.title}">${p.title}</option>`).join('')}</select></div>
                     <div class="form-group"><label>문의 내용</label><textarea rows="5" required></textarea></div>
                 `;
@@ -2274,7 +2276,7 @@
                             + (err ? `<div role="alert" style="border:1px solid var(--brand-red); color:var(--brand-red-dark); padding:1rem; margin-bottom:2rem; font-size:0.9rem;">결제가 완료되지 않았습니다: ${escapeHTML(err)}</div>` : ''); })()}
                     <div style="border:1px solid var(--line); background:var(--surface); padding:2rem; margin-bottom:2.5rem;">
                         <h4 style="font-size:1.05rem; margin-bottom:1.2rem;">주문 정보</h4>
-                        <div class="list-meta" style="margin:0;"><span>프로그램</span><span><select id="pay-program" onchange="sessionStorage.setItem('h2a_pay_prog', this.value); router();" style="width:100%; padding:6px 8px; border:1px solid var(--line); font-family:inherit;"><option value="">프로그램을 선택하세요</option>${programsData.map(x => `<option value="${x.title}" ${p && p.title === x.title ? 'selected' : ''}>${x.title}</option>`).join('')}</select></span><span>일정</span><span>${p ? escapeHTML(p.schedule) : '-'}</span><span>결제 예정 금액</span><span style="font-weight:700; color:var(--brand-red-dark);">${p ? escapeHTML(p.price) : '-'}</span>${(window.portoneReady && portoneReady()) ? `<span>테스트 결제 금액</span><span style="font-weight:700;">${Number(portoneSettings().testAmount).toLocaleString('ko-KR')}원 <small style="font-weight:400; color:var(--text-sub);">(테스트 채널 · 실제 출금 없음)</small></span>` : ''}</div>
+                        <div class="list-meta" style="margin:0;"><span>프로그램</span><span><select id="pay-program" onchange="sessionStorage.setItem('h2a_pay_prog', this.value); router();" style="width:100%; padding:6px 8px; border:1px solid var(--line); font-family:inherit;"><option value="">프로그램을 선택하세요</option>${programsData.map(x => `<option value="${x.title}" ${p && p.title === x.title ? 'selected' : ''}>${x.title}</option>`).join('')}</select></span><span>일정</span><span>${p ? escapeHTML(p.schedule) : '-'}</span><span>결제 예정 금액 <small style="font-weight:400; color:var(--text-sub);">(VAT 10% 포함)</small></span><span style="font-weight:700; color:var(--brand-red-dark);">${p ? escapeHTML(p.price) : '-'}</span>${(window.portoneReady && portoneReady()) ? `<span>테스트 결제 금액</span><span style="font-weight:700;">${Number(portoneSettings().testAmount).toLocaleString('ko-KR')}원 <small style="font-weight:400; color:var(--text-sub);">(테스트 채널 · 실제 출금 없음)</small></span>` : ''}</div>
                     </div>
                     <h4 style="font-size:1.05rem; margin-bottom:1.2rem;">결제 수단 선택</h4>
                     <div class="pay-method-grid">
@@ -2284,6 +2286,11 @@
                         <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#1677FF;"></span>알리페이 (Alipay)</button>
                         <button type="button" class="pay-tile" onclick="selectPayMethod(this)"><span class="pay-brand-dot" style="background:#07C160;"></span>위챗페이 (WeChat Pay)</button>
                     </div>
+                    <ul class="pay-terms" style="margin-top:1.5rem; font-size:0.85rem; color:var(--text-sub); line-height:1.7; list-style:disc; padding-left:1.2rem;">
+                        <li>한 번 결제하는 <strong>일회성 결제</strong>이며 정기·자동결제가 아닙니다.</li>
+                        <li>카드 할부는 결제창에서 선택하며, 할부 조건은 카드사 정책을 따릅니다.</li>
+                        <li>표시된 금액은 VAT 10% 를 포함한 최종 결제 금액입니다.</li>
+                    </ul>
                     <label class="checkbox-label" style="margin-top:2rem; display:block;"><input type="checkbox" id="pay-agree"> [필수] 유료 서비스 결제 진행 및 결제조건 동의</label>
                     <button type="button" id="pay-submit" onclick="processPayment()" class="btn btn-primary btn-full" style="margin-top:1.5rem;">결제하기</button>
                     ${(window.portoneReady && portoneReady())
