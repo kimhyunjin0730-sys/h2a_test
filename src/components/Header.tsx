@@ -37,7 +37,7 @@ export default function Header() {
   return (
     <header ref={headerRef} onMouseLeave={() => setMega(null)}>
       <div className="container header-inner">
-        <Link href="/" className="logo-link"><span className="h2a-logo">H<sup>2</sup> Associates Ltd.</span></Link>
+        <Link href="/" className="logo-link logo-stack"><span className="h2a-logo">H<sup>2</sup>A</span><span className="logo-ko">에이치스퀘어어쏘시에이츠</span></Link>
         <nav className="pc-nav" role="navigation" aria-label="메인 메뉴">
           {MENUS.map((m) => (
             <button key={m.id} className={`pc-nav-btn${mega === m.id ? ' active' : ''}`} aria-expanded={mega === m.id} data-target={m.id}
