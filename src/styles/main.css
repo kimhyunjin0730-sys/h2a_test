@@ -793,6 +793,16 @@ input,textarea,select { border-radius:4px; background:#fff; }
 .ceo-message-sign { margin-top:3rem; border-top:1px solid var(--line); padding-top:2rem; }
 .ceo-message-sign p { color:var(--text-sub); margin-bottom:0.4rem; }
 .ceo-message-sign strong { display:block; font-size:1.35rem; font-weight:700; color:var(--ink); }
+/* 미디어 — SNS·영상 채널 모음 */
+.media-intro { max-width:760px; margin-bottom:3rem; }
+.media-group { margin-bottom:4rem; scroll-margin-top:calc(var(--header-height) + 1rem); }
+.media-group .section-title { margin-bottom:1.5rem; }
+.media-card { display:flex; flex-direction:column; gap:0.6rem; color:inherit; transition:border-color .2s; }
+.media-card:hover, .media-card:focus-visible { border-color:var(--brand-red); }
+.media-card-title { font-size:1.2rem; color:var(--ink); }
+.media-card-desc { color:var(--text-sub); font-size:0.95rem; line-height:1.7; }
+.media-card-go { margin-top:auto; padding-top:0.8rem; font-weight:700; color:var(--brand-red-dark); font-size:0.9rem; }
+#media-videos { scroll-margin-top:var(--header-height); }
 summary:focus-visible { outline:2px solid var(--brand-red); outline-offset:4px; }
 .curriculum-list > li:has(details) { display:block; padding:0; }
 .curriculum-step > summary { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 0; cursor:pointer; list-style:none; }
