@@ -19,7 +19,7 @@ export default function FeaturedVideo({ director = 'hwang' }: { director?: 'hwan
   const speech = director === 'nam';
   const nam = expertsData.nam;
   const v = speech
-    ? { url: nam.videoUrl || '', title: '남복희의 소울스피치', description: '말은 기술보다 먼저 존재입니다. 목소리와 언어로 진정성 있게 소통하는 남복희 디렉터의 이야기를 영상으로 만나보세요.', poster: `https://i.ytimg.com/vi/${youTubeId(nam.videoUrl || '')}/hqdefault.jpg`, channel: undefined as string | undefined }
+    ? { url: nam.videoUrl || '', title: '남복희 아카데미', description: '말은 기술보다 먼저 존재입니다. 목소리와 언어로 진정성 있게 소통하는 남복희 디렉터의 이야기를 영상으로 만나보세요.', poster: `https://i.ytimg.com/vi/${youTubeId(nam.videoUrl || '')}/hqdefault.jpg`, channel: undefined as string | undefined }
     : featuredVideoData;
   const uid = useId();
   const [playing, setPlaying] = useState(false);
@@ -47,7 +47,7 @@ export default function FeaturedVideo({ director = 'hwang' }: { director?: 'hwan
         <a className="video-original" href={v.url} target="_blank" rel="noopener noreferrer">유튜브에서 영상 보기 ↗</a>
       </div>
       <div className="video-copy">
-        <span className="kicker">영상으로 만나는 {speech ? '소울스피치' : '황정선 아카데미'}</span>
+        <span className="kicker">영상으로 만나는 {speech ? '남복희 아카데미' : '황정선 아카데미'}</span>
         <h2>{v.title}</h2>
         <p>{v.description}</p>
         <div className="video-actions">

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
 import ProgramsHub from '@/components/ProgramsHub';
-export const metadata: Metadata = { title: 'HWANG JUNGSUN Academy' };
-export default function Page() { return <ProgramsHub cat="appearance" title="HWANG JUNGSUN Academy" />; }
+import { ACADEMY } from '@/lib/academies';
+export const metadata: Metadata = { title: ACADEMY.appearance };
+export default function Page() { return <ProgramsHub cat="appearance" title={ACADEMY.appearance} />; }

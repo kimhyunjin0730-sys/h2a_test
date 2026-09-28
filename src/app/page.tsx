@@ -5,6 +5,7 @@ import GalleryButton from '@/components/GalleryButton';
 import { SampleLabel } from '@/components/bits';
 import { expertsData, galleryData, noticesData, programsData } from '@/lib/content';
 import { asset, programPath } from '@/lib/links';
+import { ACADEMY } from '@/lib/academies';
 
 /* 시안 views.home 을 그대로 옮긴 홈. */
 export default function HomePage() {
@@ -38,12 +39,12 @@ export default function HomePage() {
             <button id="academy-tab-business" role="tab" aria-selected="false" aria-controls="academy-panel-business" data-academy-tab="business" tabIndex={-1}>기업·조직교육</button>
           </div>
           <div className="academy-panel panel-presence" id="academy-panel-presence" role="tabpanel" aria-labelledby="academy-tab-presence" data-academy-panel="presence" tabIndex={0}>
-            <div className="explorer-copy"><span className="panel-label">HWANG JUNGSUN Academy</span><h3>실력에 어울리는<br />첫인상과 태도.</h3><p>어떻게 보이고, 행동하고, 기억되는지.<br />나의 전문성과 역할에 맞는 이미지를 설계합니다.</p><div className="topic-tags"><span>리더 프레즌스</span><span>비즈니스 매너</span><span>이미지 전략</span></div><Link className="btn btn-primary" href="/appearance">프로그램 자세히 보기 <span aria-hidden="true">→</span></Link><Link className="explorer-director" href="/leaders">황정선 디렉터 소개 <span aria-hidden="true">↗</span></Link></div>
+            <div className="explorer-copy"><span className="panel-label">{ACADEMY.appearance}</span><h3>실력에 어울리는<br />첫인상과 태도.</h3><p>어떻게 보이고, 행동하고, 기억되는지.<br />나의 전문성과 역할에 맞는 이미지를 설계합니다.</p><div className="topic-tags"><span>리더 프레즌스</span><span>비즈니스 매너</span><span>이미지 전략</span></div><Link className="btn btn-primary" href="/appearance">프로그램 자세히 보기 <span aria-hidden="true">→</span></Link><Link className="explorer-director" href="/leaders">황정선 디렉터 소개 <span aria-hidden="true">↗</span></Link></div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <div className="explorer-visual"><div className="explorer-portrait"><img src={asset('assets/directors/hwang.jpg')} alt="이미지 전략가 황정선" width={280} height={350} loading="lazy" /></div><div className="explorer-caption"><strong>말하기 전부터 전해지는<br />나의 이미지와 태도</strong><span>황정선 · 이미지공작소 대표</span></div></div>
           </div>
           <div className="academy-panel panel-speech" id="academy-panel-speech" role="tabpanel" aria-labelledby="academy-tab-speech" data-academy-panel="speech" tabIndex={0} hidden>
-            <div className="explorer-copy"><span className="panel-label">Soul Speech ACADEMY</span><h3>말하는 기술보다,<br />나를 전하는 힘.</h3><p>목소리와 언어, 생각과 감정을 연결합니다.<br />나의 이야기를 진정성 있게 전하는 법을 배웁니다.</p><div className="topic-tags"><span>소울 보이스</span><span>언어 설계</span><span>12주 마스터 과정</span></div><Link className="btn btn-primary" href="/soul-speech">프로그램 자세히 보기 <span aria-hidden="true">→</span></Link><a className="explorer-director" href={nam.videoUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-red-dark)', fontWeight: 600 }}>{nam.videoLabel} <span aria-hidden="true">↗</span></a><Link className="explorer-director" href="/leaders">남복희 디렉터 소개 <span aria-hidden="true">↗</span></Link></div>
+            <div className="explorer-copy"><span className="panel-label">{ACADEMY.soulSpeech}</span><h3>말하는 기술보다,<br />나를 전하는 힘.</h3><p>목소리와 언어, 생각과 감정을 연결합니다.<br />나의 이야기를 진정성 있게 전하는 법을 배웁니다.</p><div className="topic-tags"><span>소울 보이스</span><span>언어 설계</span><span>12주 마스터 과정</span></div><Link className="btn btn-primary" href="/soul-speech">프로그램 자세히 보기 <span aria-hidden="true">→</span></Link><a className="explorer-director" href={nam.videoUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brand-red-dark)', fontWeight: 600 }}>{nam.videoLabel} <span aria-hidden="true">↗</span></a><Link className="explorer-director" href="/leaders">남복희 디렉터 소개 <span aria-hidden="true">↗</span></Link></div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <div className="explorer-visual"><div className="explorer-portrait"><img src={asset('assets/soul-speech/director.jpg')} alt="소울스피치랩 대표 남복희" width={280} height={350} loading="lazy" /></div><div className="explorer-caption"><strong>“말은 기술보다<br />먼저 존재입니다.”</strong><span>남복희 · 소울스피치랩 대표</span></div></div>
           </div>

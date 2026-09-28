@@ -83,7 +83,7 @@ export default function ContactForms({ isBusiness }: { isBusiness: boolean }) {
         <h2 className="section-title eng-title">오시는 길</h2>
         <div className="grid-2 items-center" style={{ marginTop: '2.5rem', gap: '2.5rem' }}>
           <div>
-            <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '1rem' }}>에이치스퀘어 어쏘시에이츠 주식회사</h3>
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 700, marginBottom: '1rem' }}>에이치스퀘어어쏘시에이츠 주식회사</h3>
             <p className="body-large" style={{ marginBottom: '0.75rem' }}>{ADDRESS}</p>
             <p style={{ color: 'var(--text-sub)', marginBottom: '2rem' }}>Tel. 010-9005-6009 / E. biz.h2a@gmail.com</p>
             <a href={MAP_URL} className="btn btn-outline" target="_blank" rel="noopener noreferrer">지도에서 열기</a>

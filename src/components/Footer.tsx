@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="footer-grid">
             <div>
               <div className="logo eng-title" style={{ color: 'var(--ink)', marginBottom: '1.5rem' }}><span className="h2a-logo">H<sup>2</sup> Associates Ltd.</span></div>
-              <p style={{ marginBottom: '0.5rem', fontWeight: 700 }}>에이치스퀘어 어쏘시에이츠 주식회사</p>
+              <p style={{ marginBottom: '0.5rem', fontWeight: 700 }}>에이치스퀘어어쏘시에이츠 주식회사</p>
               <p style={{ marginBottom: '0.5rem' }}>대표이사 한석용 | 사업자등록번호 303-88-03622</p>
               <p style={{ marginBottom: '0.5rem' }}>통신판매업 신고: 제2026-서울강남-02188호 | <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=3038803622" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: 'var(--text-sub)' }}>사업자정보 확인</a></p>
               <p style={{ marginBottom: '1.5rem' }}>{ADDRESS}</p>

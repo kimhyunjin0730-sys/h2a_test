@@ -4,6 +4,7 @@ import { InquiryLink } from '@/components/ProgramActions';
 import { Badge, PageTitle, SampleLabel } from '@/components/bits';
 import { imgUrls, programsData } from '@/lib/content';
 import { asset, programPath } from '@/lib/links';
+import { ACADEMY } from '@/lib/academies';
 
 type Cat = 'all' | 'appearance' | 'experience' | 'soulspeech';
 const quote = { background: 'var(--surface-light)', padding: '2.5rem', borderLeft: '3px solid var(--brand-red)' } as const;
@@ -26,7 +27,7 @@ export default function ProgramsHub({ cat, title }: { cat: Cat; title: string })
         <section className="soul-hero">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={asset(imgUrls.ssLectureHero)} alt="Soul Speech 실제 강의 현장" fetchPriority="high" />
-          <div className="container"><span className="kicker">Soul Speech ACADEMY</span><h1>말은 사람의 생각과<br />마음을 세상과 연결합니다.</h1><p>말하는 기술보다 먼저, 나를 전하는 힘.</p><InquiryLink program="12 WEEKS 변화의 12단계" href="/payment" className="btn btn-paper">프로그램 신청 →</InquiryLink></div>
+          <div className="container"><span className="kicker">{ACADEMY.soulSpeech}</span><h1>말은 사람의 생각과<br />마음을 세상과 연결합니다.</h1><p>말하는 기술보다 먼저, 나를 전하는 힘.</p><InquiryLink program="12 WEEKS 변화의 12단계" href="/payment" className="btn btn-paper">프로그램 신청 →</InquiryLink></div>
         </section>
       ) : <PageTitle eng={cat.toUpperCase()} kor={title} />}
 

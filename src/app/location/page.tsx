@@ -20,7 +20,7 @@ export default function LocationPage() {
               <p style={{ color: '#A09C98', fontSize: '0.85rem' }}>화면 검수용 샘플 · 실제 사옥/강의장 사진으로 교체 예정</p>
             </div>
             <div>
-              <h3 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: 8 }}>에이치스퀘어 어쏘시에이츠 주식회사 <a href={MAP_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#FFFFFF' }} aria-label="구글 지도에서 열기">↗</a></h3>
+              <h3 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: 8 }}>에이치스퀘어어쏘시에이츠 주식회사 <a href={MAP_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#FFFFFF' }} aria-label="구글 지도에서 열기">↗</a></h3>
               <p style={{ fontSize: '1.15rem', marginBottom: '1rem', fontWeight: 300 }}>{ADDRESS}</p>
               <p style={{ fontSize: '1.15rem', marginBottom: '2.5rem', fontWeight: 300, opacity: 0.8 }}>Tel. 010-9005-6009 / E. biz.h2a@gmail.com</p>
               <CopyAddressButton />
