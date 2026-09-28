@@ -829,6 +829,15 @@
         .media-card-desc { color:var(--text-sub); font-size:0.95rem; line-height:1.7; }
         .media-card-go { margin-top:auto; padding-top:0.8rem; font-weight:700; color:var(--brand-red-dark); font-size:0.9rem; }
         #media-videos { scroll-margin-top:var(--header-height); }
+        /* 프로그램 상세 — 회차별 신청(월별 결제) */
+        .session-list { margin-top:1.5rem; border-top:1px solid var(--line); padding-top:1.25rem; }
+        .session-list ul { margin-top:0.75rem; display:flex; flex-direction:column; gap:0.6rem; }
+        .session-list li { display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; }
+        .session-list .session-name { font-weight:700; color:var(--ink); display:flex; flex-direction:column; }
+        .session-list .session-name small { font-weight:400; color:var(--text-sub); font-size:0.82rem; }
+        .session-list .btn { padding:10px 16px; font-size:0.85rem; min-height:44px; }
+        .session-list .is-closed .session-name { color:var(--text-sub); }
+        .session-list .session-closed { font-size:0.85rem; color:var(--text-sub); }
         summary:focus-visible { outline:2px solid var(--brand-red); outline-offset:4px; }
         .curriculum-list > li:has(details) { display:block; padding:0; }
         .curriculum-step > summary { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 0; cursor:pointer; list-style:none; }
