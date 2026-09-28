@@ -812,6 +812,16 @@
         .ceo-message-sign { margin-top:3rem; border-top:1px solid var(--line); padding-top:2rem; }
         .ceo-message-sign p { color:var(--text-sub); margin-bottom:0.4rem; }
         .ceo-message-sign strong { display:block; font-size:1.35rem; font-weight:700; color:var(--ink); }
+        /* 미디어 — SNS·영상 채널 모음 */
+        .media-intro { max-width:760px; margin-bottom:3rem; }
+        .media-group { margin-bottom:4rem; scroll-margin-top:calc(var(--header-height) + 1rem); }
+        .media-group .section-title { margin-bottom:1.5rem; }
+        .media-card { display:flex; flex-direction:column; gap:0.6rem; color:inherit; transition:border-color .2s; }
+        .media-card:hover, .media-card:focus-visible { border-color:var(--brand-red); }
+        .media-card-title { font-size:1.2rem; color:var(--ink); }
+        .media-card-desc { color:var(--text-sub); font-size:0.95rem; line-height:1.7; }
+        .media-card-go { margin-top:auto; padding-top:0.8rem; font-weight:700; color:var(--brand-red-dark); font-size:0.9rem; }
+        #media-videos { scroll-margin-top:var(--header-height); }
         summary:focus-visible { outline:2px solid var(--brand-red); outline-offset:4px; }
         .curriculum-list > li:has(details) { display:block; padding:0; }
         .curriculum-step > summary { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 0; cursor:pointer; list-style:none; }
@@ -997,6 +1007,7 @@
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-about">H2A 소개</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-programs">프로그램</button>
                                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-news">소식</button>
+                <button class="pc-nav-btn" aria-expanded="false" data-target="mega-media">미디어</button>
                 <button class="pc-nav-btn" aria-expanded="false" data-target="mega-contact">문의</button>
             </nav>
             <a href="#payment" class="btn btn-primary header-cta">프로그램 신청</a>
@@ -1022,6 +1033,11 @@
                 <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#gallery" class="mega-link">교육 현장</a></li><li><a href="#notices" class="mega-link">공지사항</a></li></ul></div>
             </div>
         </div>
+        <div class="mega-menu" id="mega-media">
+            <div class="mega-grid-compact">
+                <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#media" class="mega-link">YouTube</a></li><li><a href="#media" class="mega-link">대표 영상</a></li></ul></div>
+            </div>
+        </div>
         <div class="mega-menu" id="mega-contact">
             <div class="mega-grid-compact">
                 <div class="mega-links" style="grid-template-columns: 1fr; text-align: center;"><ul><li><a href="#contact" class="mega-link">문의하기</a></li><li><a href="#faq" class="mega-link">FAQ</a></li></ul></div>
@@ -1033,6 +1049,7 @@
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">H2A 소개 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#about" class="m-link">회사 소개</a><a href="#leaders" class="m-link">프로그램 디렉터</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">프로그램 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><span class="m-heading">개인 프로그램</span><a href="#appearance" class="m-link">HWANG JUNGSUN Academy</a><a href="#soul-speech" class="m-link">NAM BOKHEE Academy</a><span class="m-heading">기업교육</span><a href="#business" class="m-link">기업교육 소개</a><a href="#business/solution" class="m-link">H<sup>2</sup>A</a><a href="#business/quantum" class="m-link">Quantum 품격</a><a href="#business/proposal" class="m-link">기업교육 제안 요청</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">소식 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#gallery" class="m-link">교육 현장</a><a href="#notices" class="m-link">공지사항</a></div></div>
+            <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">미디어 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#media" class="m-link">YouTube</a><a href="#media" class="m-link">대표 영상</a></div></div>
             <div class="m-nav-item"><button class="m-nav-header acc-btn" aria-expanded="false">문의 <span class="icon">▼</span></button><div class="m-nav-body acc-content"><a href="#contact" class="m-link">문의하기</a><a href="#faq" class="m-link">FAQ</a></div></div>
             <div class="m-nav-item m-nav-cta"><a href="#payment" class="btn btn-primary">프로그램 신청</a></div>
         </nav>
@@ -1244,6 +1261,11 @@
             // 디렉터 실사진 (본인 제공)
             dirHwang: 'assets/directors/hwang.jpg'
         };
+
+        // 미디어 채널 — 테마는 [홈 화면 설정 > SNS·미디어 채널] 에서 관리(inc/media.php). 비어 있을 때의 기본값과 같다.
+        const mediaLinks = [
+            { platform: 'youtube', label: 'YouTube', title: '황정선의 소셜매력', owner: '황정선 디렉터', url: 'https://www.youtube.com/channel/UCaKQcTss_FOJRk7QvxaBcdQ', desc: '이미지와 태도, 관계를 바라보는 황정선 디렉터의 영상' }
+        ];
 
         const featuredVideoData = {
             url: 'https://www.youtube.com/watch?v=nXaweTyKkxk',
@@ -2322,6 +2344,17 @@
                 </div></div>`;
             },
 
+            'media': () => {
+                const groups = [...new Set(mediaLinks.map(l => l.platform))].map(p => ({ p, label: mediaLinks.find(l => l.platform === p).label, links: mediaLinks.filter(l => l.platform === p) }));
+                return `<div class="page-view active">${rTitle('MEDIA', '미디어')}
+                <div class="container section-wrap">
+                    <p class="body-large media-intro">H2A 와 디렉터들이 운영하는 채널을 한곳에 모았습니다. 새 영상과 소식은 각 채널에서 먼저 만나보실 수 있습니다.</p>
+                    ${groups.map(g => `<section class="media-group" id="media-${g.p}" aria-labelledby="media-${g.p}-title" data-reveal><h2 class="section-title eng-title" id="media-${g.p}-title">${escapeHTML(g.label)}</h2><div class="grid-3 media-links">${g.links.map(l => `<a class="card-basic media-card" href="${escapeHTML(l.url)}" target="_blank" rel="noopener noreferrer">${l.owner ? `<span class="label-sm">${escapeHTML(l.owner)}</span>` : ''}<strong class="media-card-title">${escapeHTML(l.title || g.label)}</strong>${l.desc ? `<span class="media-card-desc">${escapeHTML(l.desc)}</span>` : ''}<span class="media-card-go">채널 바로가기 ↗</span></a>`).join('')}</div></section>`).join('')}
+                </div>
+                <div id="media-videos"><div class="container"><h2 class="section-title eng-title">대표 영상</h2></div>${renderFeaturedVideo('hwang')}${renderFeaturedVideo('nam')}</div>
+                </div>`;
+            },
+
             'company': () => `
                 <div class="page-view active">${rTitle('Company Info','사업자정보')}
                 <div class="container section-wrap" style="max-width:800px;">
@@ -2530,7 +2563,7 @@
 
         const exactRoutes = {
             '#home': views['home'], '#about': views['about'], '#leaders': views['leaders'], '#location': views['location'],
-            '#business': views['business'], '#business/quantum': views['quantum'],
+            '#business': views['business'], '#media': views['media'], '#business/quantum': views['quantum'],
             '#business/solution': views['business-solution'], '#company': views['company'],
             '#contact': () => views['contactForms'](false), '#business-contact': () => views['contactForms'](true), '#business/proposal': () => views['contactForms'](true),
             '#application': views['application'], '#payment-lookup': views['payment-lookup'],
