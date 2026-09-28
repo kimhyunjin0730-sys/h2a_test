@@ -919,18 +919,23 @@
          .curriculum-step > summary { padding:20px 0; }
         }
 
-        /* 모바일 최적화(9/7) — 탭 대상 44px, 최소 글자 12px. 데스크톱 디자인은 건드리지 않는다. */
-        @media(max-width:760px) {
+        /* 탭 대상 44px — 햄버거 메뉴가 나오는 폭(1024 이하)이 터치 기기 구간이다. 태블릿(761~1024)이 빠져 있던 것을 넓혔다(2026-10). */
+        @media(max-width:1024px) {
          .footer-grid p a { display:inline-flex; align-items:center; min-height:44px; }
          .footer-links a { min-width:44px; justify-content:center; }
          .checkbox-label { align-items:center; min-height:44px; margin-bottom:0; }
          .checkbox-label input[type="checkbox"] { width:22px; height:22px; min-width:22px; margin-top:0; accent-color:var(--brand-red-dark); }
          .checkbox-label a { display:inline-flex; align-items:center; min-height:44px; padding:0 4px; }
+         .consent-links .consent-toggle, .consent-links a { display:inline-flex; align-items:center; min-height:44px; padding:0 6px; }
          .slider-dot { min-width:44px; }
          .video-original { display:inline-flex; align-items:center; min-height:44px; }
          select { min-height:44px; }
          .info-row .val a { display:inline-flex; align-items:center; min-height:44px; }
          a[aria-label="구글 지도에서 열기"] { display:inline-flex; align-items:center; justify-content:center; min-width:44px; min-height:44px; }
+        }
+
+        /* 모바일 최적화(9/7) — 최소 글자 12px. 데스크톱 디자인은 건드리지 않는다. */
+        @media(max-width:760px) {
          .kicker, .label-sm, .news-category, .topic-tags span, .explorer-caption span, time, .floating-contact { font-size:12px; }
          .program-card-meta, .field-caption > span, .program-summary-grid .info-row .label-sm, .theatre-label, .hero-photo-source, .cal-header, .cal-event { font-size:12px !important; }
         }
