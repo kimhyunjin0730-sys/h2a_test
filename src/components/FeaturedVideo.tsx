@@ -19,7 +19,7 @@ export default function FeaturedVideo({ director = 'hwang' }: { director?: 'hwan
   const speech = director === 'nam';
   const nam = expertsData.nam;
   const v = speech
-    ? { url: nam.videoUrl || '', title: '남복희 아카데미', description: '말은 기술보다 먼저 존재입니다. 목소리와 언어로 진정성 있게 소통하는 남복희 디렉터의 이야기를 영상으로 만나보세요.', poster: `https://i.ytimg.com/vi/${youTubeId(nam.videoUrl || '')}/hqdefault.jpg`, channel: undefined as string | undefined }
+    ? { url: nam.videoUrl || '', title: '남복희 아카데미', description: '말은 기술보다 먼저 존재입니다. 목소리와 언어로 진정성 있게 소통하는 남복희 디렉터의 이야기를 영상으로 만나보세요.', poster: `https://i.ytimg.com/vi/${youTubeId(nam.videoUrl || '')}/hqdefault.jpg`, channel: nam.videoChannel }
     : featuredVideoData;
   const uid = useId();
   const [playing, setPlaying] = useState(false);
