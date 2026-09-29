@@ -18,6 +18,7 @@ const METHODS: Method[] = [
   { label: '네이버페이', payMethod: 'EASY_PAY', easyPay: 'NAVERPAY', domesticEasy: true, icon: <span className="pay-brand-dot" style={{ background: '#03C75A' }}></span> },
   { label: '토스페이', payMethod: 'EASY_PAY', easyPay: 'TOSSPAY', domesticEasy: true, icon: <span className="pay-brand-dot" style={{ background: '#0064FF' }}></span> },
   // 엑심베이 공용 테스트 MID 는 해외 간편결제를 USD 로만 받는다(KRW 는 PC36). 100 = $1. 위챗 코드는 WECHAT.
+  { label: '해외 카드 (Visa·Mastercard·JCB 등)', payMethod: 'CARD', channel: 'eximbay', currency: 'CURRENCY_USD', testAmount: 100, icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg> },
   { label: '알리페이 (Alipay)', payMethod: 'EASY_PAY', easyPay: 'ALIPAY', channel: 'eximbay', currency: 'CURRENCY_USD', testAmount: 100, icon: <span className="pay-brand-dot" style={{ background: '#1677FF' }}></span> },
   { label: '위챗페이 (WeChat Pay)', payMethod: 'EASY_PAY', easyPay: 'WECHAT', channel: 'eximbay', currency: 'CURRENCY_USD', testAmount: 100, icon: <span className="pay-brand-dot" style={{ background: '#07C160' }}></span> },
 ];
@@ -84,7 +85,7 @@ export default function PaymentPage() {
     const isEx = method.channel === 'eximbay';
     if (isEx && !cfg.channelKeyEximbay) return showToast('엑심베이 채널 키가 없습니다. 콘솔에서 엑심베이(신모듈 V2) 채널을 만든 뒤 테스트 설정에 넣어주세요.');
     const realPrice = priceOf(program);
-    if (isEx && !isTest) return showToast('해외 결제(알리페이·위챗페이)는 USD 가격 확정 뒤 열립니다.');
+    if (isEx && !isTest) return showToast('해외 결제(해외 카드·알리페이·위챗페이)는 USD 가격 확정 뒤 열립니다.');
     const amount = isTest ? (method.testAmount || cfg.testAmount) : realPrice;
     const paymentId = 'h2a-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -149,7 +150,7 @@ export default function PaymentPage() {
           <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
             <label>상점 아이디 <input value={form.storeId} onChange={(e) => setForm({ ...form, storeId: e.target.value })} placeholder="store-…" autoComplete="off" style={{ padding: 8 }} /></label>
             <label>채널 키 <input value={form.channelKey} onChange={(e) => setForm({ ...form, channelKey: e.target.value })} placeholder="channel-key-…" autoComplete="off" style={{ padding: 8 }} /></label>
-            <label>엑심베이 채널 키 <small>(해외결제: 알리페이·위챗페이)</small> <input value={form.channelKeyEximbay} onChange={(e) => setForm({ ...form, channelKeyEximbay: e.target.value })} placeholder="channel-key-… (없으면 비워 둠)" autoComplete="off" style={{ padding: 8 }} /></label>
+            <label>엑심베이 채널 키 <small>(해외결제: 해외 카드·알리페이·위챗페이)</small> <input value={form.channelKeyEximbay} onChange={(e) => setForm({ ...form, channelKeyEximbay: e.target.value })} placeholder="channel-key-… (없으면 비워 둠)" autoComplete="off" style={{ padding: 8 }} /></label>
             <label>테스트 금액(원) <input type="number" min={100} step={100} value={form.testAmount} onChange={(e) => setForm({ ...form, testAmount: e.target.value })} style={{ padding: 8 }} /></label>
             <div style={{ display: 'flex', gap: 8 }}><button type="button" className="btn btn-outline" onClick={saveKeys}>저장</button><button type="button" className="btn btn-outline" onClick={clearKeys}>지우기</button></div>
             <p style={{ margin: 0 }}>API Secret 은 넣지 않습니다(서버 환경변수 전용). 콘솔 &gt; 결제 연동 &gt; 연동 정보에서 채널 키와 상점 아이디를 복사하세요.</p>
